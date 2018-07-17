@@ -14,7 +14,7 @@ Create Marksheet
 .dataTable{
 	width: 969px!important;
 }
- 
+
 </style>
 
 @endpush
@@ -26,8 +26,8 @@ Create Marksheet
 			<form>
 				<div class="row">
 						<div class="col-sm-12">
-						<div class="col-sm-3">	
-								
+						<div class="col-sm-3">
+
 							<div class="form-group">
 								<label class="form-label">Test<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -35,21 +35,21 @@ Create Marksheet
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Test::get() as $b)
 										<option value = "{{ $b->id }}">{{ $b->test_no }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">	
+						<div class="col-sm-3">
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="date"  name="date" required>
+									<input type="text"  class="datepicker" placeholder="dd-mm-yy"  name="date" required>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">	
+						<div class="col-sm-3">
 							<div class="form-group">
 								<label class="form-label">Out Of Mark<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -67,7 +67,7 @@ Create Marksheet
 										<option value="">--Select--</option>
 										@forelse (App\Models\Batch::get() as $b)
 										<option value = "{{ $b->batch_id }}">{{ $b->batch_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
@@ -82,7 +82,7 @@ Create Marksheet
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Medium::get() as $m)
 										<option value = "{{ $m->med_id }}">{{ $m->med_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
@@ -92,7 +92,7 @@ Create Marksheet
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-6">	
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -100,13 +100,13 @@ Create Marksheet
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Standard::get() as $st)
 										<option value = "{{ $st->std_id }}">{{ $st->std_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">	
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Subjects Offered<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -116,32 +116,32 @@ Create Marksheet
 								</div>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 
-				<header class="panel_header" style="background-color:#9ddac0;">					
+				<header class="panel_header" style="background-color:#9ddac0;">
 					<h2 class="col-sm-4 title pull-left" style="padding-left: 0px;">Create Marksheet Sheet</h2>
-					<div class="col-sm-6 save" id = "msg"></div>					
-				</header>				
+					<div class="col-sm-6 save" id = "msg"></div>
+				</header>
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">
 						<div class="table-responsive">
 							<table id="marksheet-table" class="table table-striped display">
 								<thead style="background-color:#fff;">
-									
-									<tr >										
+
+									<tr >
 										<th>Student Name</th>
 										<th>Obt_mark</th>
 									</tr>
 								</thead>
-								<tbody>	
+								<tbody>
 								</tbody>
 							</table>
 						</div>
 						<div class="clearfix"></div><br>
 
-						 	
+
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -163,8 +163,8 @@ Create Marksheet
 				data();
 			}
 		}
-	});	
-	function data() {		
+	});
+	function data() {
 		$('#marksheet-table').removeAttr('width').DataTable({
 			scrollY:"969px",
 			scrollX:true,
@@ -176,25 +176,25 @@ Create Marksheet
 				url : '{!! route('marksheet.data') !!}',
 				type : 'get',
 				data : function(d){
-					d.batch = $('#batch').val();					
-					d.subject = $('#subject').val();					
-					d.standard = $('#standard').val();					
-					d.medium = $('#medium').val();					
+					d.batch = $('#batch').val();
+					d.subject = $('#subject').val();
+					d.standard = $('#standard').val();
+					d.medium = $('#medium').val();
 				}
-			},			
+			},
 			columns: [
 			{width: '12px', data: 'stu_name', name: 'stu_name'},
 			{}
 			],
 			columnDefs: [{
-				
+
 				'targets': 1,
 				'searchable': false,
 				'orderable': false,
 				'render': function (data, type, full, meta){
 					// var t = c(full.mark_test_1);
 					return '  <input  type="text" class="form-control" onkeyup = "updateAttendance('+full.stu_id+',this.value, 1);" value = "'+c(full.mark_test_1)+'">';
-					
+
 				}
 			}
 			],fixedColumns: true
@@ -203,13 +203,13 @@ Create Marksheet
 
 	function updateAttendance(id, val, test){
 
-		var fd = new FormData();			
+		var fd = new FormData();
 		fd.append('subject',$('#subject').val());
-		fd.append('student',id);		
+		fd.append('student',id);
 		fd.append('result',val);
 		fd.append('test',$('#test').val());
 		fd.append('outtmark',$('#outtmark').val());
-		
+
 		$.ajax({
 			url : '{{ route('marksheet.store') }}',
 			data : fd,
@@ -217,6 +217,10 @@ Create Marksheet
 			processData : false,
 			contentType : false,
 			success : function(data){
+				if(data=='outbound'){
+					alert('Obtain marks should be less than out of marks');
+					return false;
+				}
 				// console.log(data);
 				$('#total-'+id).val(data);
 				$('#msg').html('Saving data Automatically...');
@@ -251,10 +255,10 @@ Create Marksheet
 				var val = [];
 				if(d.length > 0){
 					val.push('<option value="-1">--Select--</option>');
-					$.each(d, function(k,v){				
-						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');	
-					});										
-					$('#subject').html(val);				
+					$.each(d, function(k,v){
+						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
+					});
+					$('#subject').html(val);
 				}
 			}
 		});

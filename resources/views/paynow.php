@@ -122,7 +122,7 @@ $ID = 'invoice';
 							<div class="form-group">
 								<label class="form-label">Amount<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="number" class="form-control" id = "paid" name="paid_amount" placeholder ="Amount" value = "{{ ($install)?$install->install_amount : ''}}" max="{{ $stu->admission->ad_fees }}" required>
+									<input type="number" readonly="" class="form-control" id = "paid" name="paid_amount" placeholder ="Amount" value = "{{ ($install)?$install->install_amount : ''}}" max="{{ $stu->admission->ad_fees }}" required>
 								</div>
 							</div>
 						</div>

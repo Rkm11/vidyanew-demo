@@ -106,9 +106,9 @@ class AdmissionController extends Controller {
 			$n = $this->changeKeys('stu_', $s);
 
 			$n['stu_parent'] = $parent;
-			$n['stu_dob'] = '';
+			// $n['stu_dob'] = '';
 			$n['stu_uid'] = $this->autoId($ad['batch'], $ad['medium'], $ad['standard']);
-			// dd(date('d-m-Y'));
+			// dd($n['stu_dob']);
 			$student = Student::create($n)->stu_id;
 
 			if ($student) {

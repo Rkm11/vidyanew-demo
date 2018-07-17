@@ -68,7 +68,7 @@ $ID2 = 'previous';
 								<label class="form-label">Email:</label>
 
 								<div class="controls">
-									<input type="email" title="Enter Valid Mail" id = "email" class="form-control" name="stu[email]" placeholder="Email Id">
+									<input type="email"  title="Enter Valid Mail" id = "email" class="form-control" name="stu[email]" placeholder="Email Id">
 								</div>
 							</div>
 						</div>
@@ -173,7 +173,7 @@ $ID2 = 'previous';
 									<!-- <span style="color:red;">*</span>: -->
 								</label>
 								<div class="controls">
-									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]" onclick="prev_year_per();" placeholder="Previous Year" id = "previousYear">
+									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]" placeholder="Previous Year" id = "previousYear">
 								</div>
 							</div>
 						</div>

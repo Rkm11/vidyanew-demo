@@ -52,7 +52,11 @@ class MarksheetController extends Controller {
 	 */
 	public function store(Request $r) {
 		// return $r->all();
-		$cur = Carbon::now()->format('Y-m-d');
+		// dd($r->all());
+		if ($r->result > $r->outtmark) {
+			return 'outbound';
+		}
+		$cur = Carbon::now()->format('d-m-Y');
 		echo $cur;
 		$preAt = Marksheet::where('mark_added', '=', $cur)->where('mark_student', $r->student)->where('mark_subject', $r->subject)->first();
 		$tests = [];
@@ -60,7 +64,7 @@ class MarksheetController extends Controller {
 		if (!$preAt) {
 			$d = $this->changeKeys($this->pre, $r->all());
 			$d['mark_test_' . $d['mark_test']] = $d['mark_result'];
-			$d['mark_added'] = $cur;
+			$d['mark_added'] = $d->date;
 			$total = $r->result;
 			$d['mark_total'] = $total;
 

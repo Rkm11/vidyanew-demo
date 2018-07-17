@@ -17,7 +17,7 @@ $ID3 = 'relative';
 @endpush
 
 @section('page-title')
-<div class="pull-left">	
+<div class="pull-left">
 	Complete {{ ucfirst($ID) }} of {{ $a->stu_first_name. ' '. $a->stu_last_name }}
 </div>
 <div class="pull-right">
@@ -25,22 +25,22 @@ $ID3 = 'relative';
 </div>
 @endsection
 @section('content')
-<div class="col-lg-12">	
+<div class="col-lg-12">
 	<section class="box ">
 		<br>
 		<div class="content-body" style="background-color:#9ddac0;">
-			<form id = "{{ $ID }}EForm">	
-				<input type="hidden" name="sid" value="{{ $a->ad_id }}">			
+			<form id = "{{ $ID }}EForm">
+				<input type="hidden" name="sid" value="{{ $a->ad_id }}">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-6">							
-							<div class="form-group">								
+						<div class="col-sm-6">
+							<div class="form-group">
 								<label class="form-label">Batch No
 									<span style="color:red;">*</span>:
 								</label>
 								<span class="desc">&nbsp;</span>
 								<div class="controls">
-								
+
 									<select class="form-control" name="ad[batch_year]" required>
 										<option value="">--Select--</option>
 										@for ($i = 14; $i < 24; $i++)
@@ -52,7 +52,7 @@ $ID3 = 'relative';
 										@php
 										--$i;
 										@endphp
-										@endfor										
+										@endfor
 									</select>
 								</div>
 							</div>
@@ -145,7 +145,7 @@ $ID3 = 'relative';
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
-									<input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" value="2017-10-6" name="stu[dob]" placeholder="Date of Birth" required>
+									<input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ $a->stu_dob }}" name="stu[dob]" placeholder="Date of Birth" required>
 								</div>
 							</div>
 						</div>
@@ -182,20 +182,20 @@ $ID3 = 'relative';
 								</label>
 								<div class="controls">
 									<input type="text" title="Enter Parent Number" class="form-control" name="stu[alt_mobile]" placeholder="Phone Number 1" value = "{{ chkN($a->stu_alt_mobile) }}" maxlength="10" pattern="[0-9]{10}">
-								</div> 
+								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">	
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard
 									<span style="color:red;">*</span>:
 								</label>
-								<div class="controls">									
+								<div class="controls">
 									<select class="form-control" id = "standard" name="ad[standard]">
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Standard::get() as $s)
 										<option value = "{{ $s->std_id }}" {{ ($a->ad_standard == $s->std_id) ? 'selected' : ''}}>{{ $s->std_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
@@ -222,9 +222,9 @@ $ID3 = 'relative';
 								<div class="controls">
 									<select class="form-control" name="ad[medium]">
 										<option value="-1">--Select--</option>
-										@forelse (App\Models\Medium::get() as $med)										
+										@forelse (App\Models\Medium::get() as $med)
 										<option value = "{{ $med->med_id }}" {{ ($a->ad_medium != '')?(($a->ad_medium == $med->med_id) ? 'selected' : '') : '' }}>{{ $med->med_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
@@ -240,7 +240,7 @@ $ID3 = 'relative';
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Batch::get() as $b)
 										<option value = "{{ $b->batch_id }}" {{ ($a->ad_batch != '') ? (($a->ad_batch == $b->batch_id) ? 'selected' : '') : '' }}>{{ $b->batch_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
@@ -256,11 +256,11 @@ $ID3 = 'relative';
 								<label class="form-label" style="float:left;">School Name<span style="color:red;">*</span>:</label>
 								<div class="controls">
 									<input type="text" class="form-control" name="ad[school]" id = "school-name"  value = "{{ chkN($a->ad_school) }}" required>
-								</div>								
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>	
+				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
@@ -287,7 +287,7 @@ $ID3 = 'relative';
 							</div>
 						</div>
 					</div>
-				</div>	
+				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 					<div class="col-sm-6">
@@ -309,11 +309,11 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 				<div class="clearfix"></div>
-				<div class="row">	
+				<div class="row">
 					<div class="col-xs-12">
 						<div class="" align="center">
 							<button type="submit" id = "saveBtn" class="btn btn-warning">Save</button>
@@ -324,8 +324,8 @@ $ID3 = 'relative';
 				</div>
 			</form>
 		</div>
-		
-		</div>				
+
+		</div>
 	</section>
 </div>
 <!--code-->
@@ -348,54 +348,54 @@ $ID3 = 'relative';
 							</div>
 						</div>
 						<div class="col-sm-6">
-							<div class="form-group">								
+							<div class="form-group">
 								<label for="modalname1" class="form-label">Full Name</label>
 								<input type="text" class="form-control" id="modalname1" name="full_name" placeholder="Enter name" pattern="[a-zA-z]=" required>
 							</div>
 						</div>
 					</div>
-				</div>				
-				<div class="row">					
-					<div class="col-xs-12 col-sm-12">					
-						<div class="col-sm-6">							
-							<div class="form-group">								
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12">
+						<div class="col-sm-6">
+							<div class="form-group">
 								<label for="modalpw1" class="form-label">Education</label>
 								<input type="text" class="form-control" id="modalpw1" name="education" placeholder="Education" required>
 							</div>
-						</div>						
+						</div>
 						<div class="col-sm-6">
-							<div class="form-group">								
-								<label for="modalemail1" class="form-label">Age</label>					
+							<div class="form-group">
+								<label for="modalemail1" class="form-label">Age</label>
 								<input type="text" name="age" class="form-control" id="modalemail1" placeholder="e.g. 7" maxlenght="100" patern="[0-9]{100}" required>
 							</div>
 						</div>
 					</div>
-				</div>			
+				</div>
 				<div class="clearfix"></div>
-				<div class="row">					
-					<div class="col-xs-12">						
-						<div class="text-center">							
-							<button type="submit" class="btn btn-primary">Save</button> | 
-							<a href = "{{ route('admission.index') }}" class="btn btn-success">Finish</a>						
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">Save</button> |
+							<a href = "{{ route('admission.index') }}" class="btn btn-success">Finish</a>
 						</div>
 					</div>
 				</div>
-				<div id = "{{ $ID3 }}Msg" class="text-center"></div>				
+				<div id = "{{ $ID3 }}Msg" class="text-center"></div>
 			</form>
 
-			<div id = "relative-table-box" class="content-body" style="display: none;">    
+			<div id = "relative-table-box" class="content-body" style="display: none;">
 				<div class="row">
-					<div class="col-lg-12">							
-						<div class="table-responsive">			
+					<div class="col-lg-12">
+						<div class="table-responsive">
 							<h2>Relative Details</h2>
 							<table id = "relative-table" class="table table-bordered table-striped">
-								<thead>										
+								<thead>
 									<tr>
-										<th>Full Name</th>										
-										<th>Education</th>											
+										<th>Full Name</th>
+										<th>Education</th>
 										<th>Age</th>
 									</tr>
-								</thead>								
+								</thead>
 								<tbody>
 								</tbody>
 							</table>
@@ -412,21 +412,21 @@ $ID3 = 'relative';
 
 <!-- General section box modal start -->
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog animated bounceInDown">	
-		<div class="modal-content">		
-			<div class="modal-header">			
+	<div class="modal-dialog animated bounceInDown">
+		<div class="modal-content">
+			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
 				</button>
 				<h4 class="modal-title">Section Settings
 				</h4>
-			</div>		
-			<form id="{{ $ID2 }}Form">			
+			</div>
+			<form id="{{ $ID2 }}Form">
 
-				<div class="modal-body">				
-					<div class="row">						
-						<div class="col-xs-12 col-sm-12">							
-							<div class="col-sm-6">							
-								<div class="form-group">									
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<div class="col-sm-6">
+								<div class="form-group">
 									<label class="form-label">STD
 										<span style="color:red;">*
 										</span>:
@@ -436,7 +436,7 @@ $ID3 = 'relative';
 											<option value = "-1">-Select-</option>
 											@forelse (App\Models\Standard::get() as $s)
 											<option value="{{ $s->std_id }}">{{ $s->std_name }}</option>
-											@empty												
+											@empty
 											@endforelse
 										</select>
 									</div>
@@ -453,7 +453,7 @@ $ID3 = 'relative';
 											<option>-Select-</option>
 											@forelse (App\Models\Medium::get() as $m)
 											<option value="{{ $m->med_id }}">{{ $m->med_name }}</option>
-											@empty												
+											@empty
 											@endforelse
 										</select>
 									</div>
@@ -468,7 +468,7 @@ $ID3 = 'relative';
 					<button class="btn btn-success" type="submit">Save changes</button>
 				</div>
 				<div id = "{{ $ID2 }}Msg" class="text-center">
-				</div>				
+				</div>
 			</form>
 		</div>
 	</div>
@@ -478,16 +478,16 @@ $ID3 = 'relative';
 
 @endsection
 
-@push('footer')		
+@push('footer')
 
 <script>
-	
+
 
 	$("#addmission_form").addClass("open");
 
 
 
-	CRUD.formSubmission("{{ route($ID2.'.store') }}", 0,{}, 'previous');	
+	CRUD.formSubmission("{{ route($ID2.'.store') }}", 0,{}, 'previous');
 
 	CRUD.formSubmission("{{ route($ID3.'.store') }}", 0,{}, 'relative');
 
@@ -507,7 +507,7 @@ $ID3 = 'relative';
 	var find = "{{ route('find-school') }}",
 	schoolUrl = "{{ route('school.store') }}";
 
-	CRUD.formSubmission("{{ route($ID.'.index') }}", 2, {});	
+	CRUD.formSubmission("{{ route($ID.'.index') }}", 2, {});
 
 	$('#standard, #standardPre').on({
 		'change' : function(){
@@ -552,7 +552,7 @@ $ID3 = 'relative';
 								+'</div>');
 						}else{
 							chk = '';
-							@if ($a->ad_standard)							
+							@if ($a->ad_standard)
 							var subs = '{{ $a->ad_subjects }}'.split(',');
 							for(var i=0; i<subs.length;i++) {
 								subs[i] = +subs[i];
@@ -568,13 +568,13 @@ $ID3 = 'relative';
 				}
 				if(di == 'standardPre'){
 					$('#subjectPre').html(val);
-				}else{				
+				}else{
 					$('#subject-box').show();
 					$('#subjectsBox').html(val);
 				}
 				iCheck();
 			}
-		});		
+		});
 	}
 
 	@if ($a->ad_standard)

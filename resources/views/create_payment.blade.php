@@ -116,7 +116,7 @@ $ID = 'payment';
 							<div class="form-group">
 								<label class="form-label">Dated<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" name="cheque_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" >
+									<input type="text" name="cheque_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" >
 								</div>
 							</div>
 						</div>

@@ -4,6 +4,66 @@ View Enquiries
 @endsection
 
 @section('content')
+<div class="modal" id="testModal" tabindex="-1" role="dialog" aria-hidden="true" >
+        <div class="modal-dialog modal-lg animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">follow up</h4>
+                </div>
+                <div class="modal-body" style="background-color:#9ddac0;" >
+                	<!--<form method="get" action="follow1" >-->
+                		<!--new change is here-->
+                		<form class="form-horizontal" method="POST" action="{{ route('telecalling.update',['id' =>1]) }}" >
+							<input type="hidden" name="_method" value="PATCH">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                		<!--end change -->
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="mrt">
+
+                              <thead>
+                                <tr>
+       <th>
+       	<label>follow1</label>
+          <textarea id="follow1" name="follow1" class="form-control"></textarea><br></th>
+         <th>
+        <label>follow2</label>
+          <textarea id="follow2" name="follow2" class="form-control"></textarea><br></th>
+          <th>
+        <label>follow3</label>
+            <textarea id="follow3" name="follow3" class="form-control"></textarea><br></th>
+        <th><label>follow4</label>
+             <textarea id="follow4" name="follow4" class="form-control"></textarea>
+                   <br></th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+                <!--<input type='button' value='Submit form' onClick='submitDetailsForm()' />-->
+                 <input type="hidden" id="custId" name="custId" value="3487">
+
+                <center><input type="button" class="btn btn-success" onclick="submitFollowp()" value="Submit"></center>
+            </form>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="follow-id" id="follow-id" value="">
 <div class="col-lg-12">
 	<section class="box ">
 		<br>
@@ -24,6 +84,7 @@ View Enquiries
 									<th>Admission</th>
 									<th>Date</th>
 									<th>Action</th>
+									<th>follow up</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -85,6 +146,14 @@ View Enquiries
 				'render': function (data, type, full, meta){
 					return '<a class="btn btn-warning" href = "'+edit(full.enq_id)+'">Edit</a>';
 				}
+			},
+			{
+				'targets': 9,
+				'searchable': false,
+				'orderable': false,
+				'render': function (data, type, full, meta){
+					return '<a href = "javascript:void(0);" class="btn btn-success" onclick="follow('+full.enq_id+');" onclick = "l();">follow</a>';
+				}
 			}
 // &nbsp;&nbsp;<a class="btn btn-warning" href = "'+edit1(full.enq_id)+'">folloup</a>
 			],"order": [[ 7, "desc" ]]
@@ -98,6 +167,25 @@ View Enquiries
 		function edit(id){
 		return e+'/'+id+'/edit';
 	}
+	//model
+	function follow(id){
+		var base_url=$('#base_url').val();
+		$('#follow-id').val('');
+		$('#testModal').modal('show');
+		$('#follow-id').val(id);
+            $.ajax({
+                type : 'get',
+                url:base_url+'/get-enquiry',
+                data : {'id' : id},
+                dataType: 'json',
+                success : function(d){
+                	var obj = JSON.parse(d);
+                	console.log(obj.follow1);
+
+                }
+            });
+        }
+
 	// function edit1(id){
 	// 		return e+'/'+id+'/';
 	// }

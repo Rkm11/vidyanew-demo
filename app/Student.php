@@ -39,9 +39,9 @@ class Student extends Eloquent {
 		'stu_gender' => 'bool',
 	];
 
-	protected $dates = [
-		'stu_dob',
-	];
+	// protected $dates = [
+	// 	'stu_dob',
+	// ];
 
 	protected $fillable = [
 		'stu_uid',
