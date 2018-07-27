@@ -64,10 +64,10 @@ $ID = 'enquiry';
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Email<span style="color:red;">*</span>:</label>
+								<label class="form-label">Email:</label>
 
 								<div class="controls">
-									<input type="email" id = "email" value = "{{ $en->stu_email }}" class="form-control" name="stu[email]" placeholder="Email Id" required="">
+									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"  id = "email" value = "{{ $en->stu_email }}" class="form-control" name="stu[email]" placeholder="Email Id" >
 								</div>
 							</div>
 						</div>
@@ -131,6 +131,54 @@ $ID = 'enquiry';
 						</div>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 ">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Batch
+									<span style="color:red;">*</span>:
+								</label>
+								<div class="controls">
+									<select class="form-control" id = "batch" name="ad[batch]" required>
+										<option value="-1">--Select--</option>
+										@forelse (App\Models\Batch::get() as $b)
+										<option value = "{{ $b->batch_id }}" {{ ($en->ad_batch != '') ? (($en->ad_batch == $b->batch_id) ? 'selected' : '') : '' }}>{{ $b->batch_name }}</option>
+										@empty
+										@endforelse
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Medium
+									<span style="color:red;">*</span>:
+								</label>
+								<div class="controls">
+									<select class="form-control" name="ad[medium]">
+										<option value="-1">--Select--</option>
+										@forelse (App\Models\Medium::get() as $med)
+										<option value = "{{ $med->med_id }}" {{ ($en->ad_medium != '')?(($en->ad_medium == $med->med_id) ? 'selected' : '') : '' }}>{{ $med->med_name }}</option>
+										@empty
+										@endforelse
+									
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Previous Year %
+									<!-- <span style="color:red;">*</span>: -->
+								</label>
+								<div class="controls">
+									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]" placeholder="Previous Year" id = "previousYear" value = "{{($en->ad_pre_percent) }}">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="row" id = "subject-box" style = "display:none;">
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-12">
@@ -162,6 +210,7 @@ $ID = 'enquiry';
 								</div>
 							</div>
 						</div>
+					</div>
 						<div class="col-xs-6 col-sm-6 ">
 					<div class="form-group">
 						<label class="form-label">Who refer you?:

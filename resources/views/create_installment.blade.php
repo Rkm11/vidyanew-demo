@@ -34,8 +34,8 @@ $ID = 'installment';
 							<div class="form-group">
 								<label class="form-label">Instalment Type<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<select class="form-control" name="type" >
-										<option>--Select--</option>
+									<select class="form-control" required="" id="type" name="type" >
+										<option value="">--Select--</option>
 										<?php
 $a = $stud;
 if (empty($a)) {?>
@@ -57,7 +57,7 @@ if (empty($a)) {?>
 							<div class="form-group">
 								<label class="form-label">Due Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" name = "due_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" >
+									<input type="text" required="" name = "due_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" >
 								</div>
 							</div>
 						</div>
@@ -69,7 +69,7 @@ if (empty($a)) {?>
 							<div class="form-group">
 								<label class="form-label">Amount<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="amount" placeholder ="Amount">
+									<input type="number" class="form-control" min="1" required="" name="amount" placeholder ="Amount">
 								</div>
 							</div>
 						</div>
@@ -90,7 +90,7 @@ if (empty($a)) {?>
 								<label class="form-label">PDC Date:</label>
 
 								<div class="controls">
-									<input type="text" name = "pdc_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" >
+									<input type="text" name = "pdc_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="" >
 								</div>
 							</div>
 						</div>

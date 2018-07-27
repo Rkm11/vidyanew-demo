@@ -32,9 +32,9 @@ $ID3 = 'relative';
 {{ session('success') }}
 </div>
 @endif
-<section class="box "  style="background-color:rgb(84, 173, 197);">
+<section class="box "  style="background-color:#9ddac0;">
 		<br>
-		<div class="content-body" style="background-color:rgb(84, 173, 197);">
+		<div class="content-body" style="background-color:#9ddac0;">
 <form id="changep" class="form-horizontal" method="POST" action="{{ route('changepassword') }}">
 {{ csrf_field() }}
 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">

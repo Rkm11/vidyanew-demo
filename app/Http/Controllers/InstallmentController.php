@@ -41,23 +41,27 @@ class InstallmentController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $r) {
-		// dd($r);
 		date_default_timezone_set("Asia/Calcutta"); //India time (GMT+5:30)
 		$data = [];
 		$n = $this->changeKeys($this->pre, $r->all());
-		$ins = Installment::where('install_student', $n['install_student'])->get();
-		// dd($n);
-		$count = (count($ins) + 1);
-		// return $n;
-		$n['install_sequence'] = $count;
-		if (Installment::create($n)) {
-			$in = Installment::where('install_student', $n['install_student'])->get();
-
-			$data['s'] = $in;
+		if (isset($n['install_installment_id'])) {
+			Installment::where('install_id', $n['install_installment_id'])->update(['install_amount' => $n['install_amount'], 'install_due_date' => $n['install_due_date'], 'install_pdc_no' => $n['install_pdc_no'], 'install_pdc_date' => $n['install_pdc_date'], 'install_bank_name' => $n['install_bank_name']]);
 			$data['msg'] = 'success';
 			return $data;
 		} else {
-			return 'error';
+			$ins = Installment::where('install_student', $n['install_student'])->orderBy('install_id', 'DESC')->get();
+			$count = (count($ins) + 1);
+			$n['install_sequence'] = $count;
+			if (Installment::create($n)) {
+				$in = Installment::where('install_student', $n['install_student'])->get();
+
+				$data['installment_count'] = $n['install_sequence'] + 1;
+				$data['s'] = $in;
+				$data['msg'] = 'success';
+				return $data;
+			} else {
+				return 'error';
+			}
 		}
 	}
 
@@ -83,14 +87,24 @@ class InstallmentController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-		$users = DB::table('installments')
-			->join('students', 'installments.install_student', '=', 'students.stu_id')
-			->where('installments.install_student', '=', $id)
-			->orderBy('installments.install_created_at', 'desc')
-			->first();
-		// return $users;
-		return view('create_installment')->with(['stu' => Student::find($id)])->with('stud', $users);
-		//return view('create_installment')->with(['stu' => Student::find($id)]);
+		if (isset($_GET['install'])) {
+			//edit Installment
+			$users = DB::table('installments')
+				->join('students', 'installments.install_student', '=', 'students.stu_id')
+				->where('installments.install_student', '=', $id)
+				->where('installments.install_id', '=', $_GET['install'])
+				->orderBy('installments.install_id', 'desc')
+				->first();
+			return view('edit_installment')->with(['stu' => Student::find($id)])->with('stud', $users);
+		} else {
+			//create Installment
+			$users = DB::table('installments')
+				->join('students', 'installments.install_student', '=', 'students.stu_id')
+				->where('installments.install_student', '=', $id)
+				->orderBy('installments.install_id', 'desc')
+				->first();
+			return view('create_installment')->with(['stu' => Student::find($id)])->with('stud', $users);
+		}
 	}
 
 	/**

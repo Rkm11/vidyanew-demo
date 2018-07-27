@@ -161,7 +161,7 @@ View Invocies
 	var v = '{{ url('invoice/') }}';
 	var ins = '{{ url('installment/') }}';
 	function redA(id){
-		return v+'/'+id+'/edit';
+		return v+'/'+id+'/edit?type=3';
 	}
 	function pr(id){
 		return "download-invoice/"+id;
@@ -173,7 +173,7 @@ View Invocies
 		return ins+'/'+id+'/edit';
 	}
 	function u3(id,i){
-		return v+'/'+id+'/edit?install='+i;
+		return ins+'/'+id+'/edit?install='+i;
 	}
 	function u1(id,i,type){
 		if(type){

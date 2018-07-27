@@ -106,11 +106,11 @@ class AdmissionController extends Controller {
 			$n = $this->changeKeys('stu_', $s);
 
 			$n['stu_parent'] = $parent;
-			// $n['stu_dob'] = '';
-			$n['stu_uid'] = $this->autoId($ad['batch'], $ad['medium'], $ad['standard']);
-			// dd($n['stu_dob']);
+			if (isset($ad['batch'])) {
+				$bat = $ad['batch'];
+			}
+			$n['stu_uid'] = $this->autoId($bat, $ad['medium'], $ad['standard']);
 			$student = Student::create($n)->stu_id;
-
 			if ($student) {
 				$d = $this->changeKeys('ad_', $ad);
 				$d['ad_student'] = $student;
@@ -198,7 +198,7 @@ class AdmissionController extends Controller {
 
 		$student = AdmissionDetail::find($id)->ad_student;
 		// return $r->all();
-
+		dd($adm);
 		if (AdmissionDetail::where('ad_id', $id)->update($adm)) {
 			ParentDetail::where('parent_id', Student::find($student)->stu_parent)->update([
 				'parent_first_name' => $st['stu_middle_name'],
@@ -235,11 +235,11 @@ class AdmissionController extends Controller {
 	public function downloadPDF($id) {
 
 		$i = AdmissionDetail::with('student')->where('ad_student', $id)->first();
-		//echo "hello"; exit();
-		//return $i;//->student->stu_alt_mobile;
-		//return view('reports.admission', compact('i'));
+
+		// return view('reports.admission', compact('i'));
 		$pdf = PDF::loadView('reports.admission', compact('i'))->setPaper('a4')->setWarnings(false);
-		return $pdf->download('admission.pdf');
+		$pdf_name = 'admission-' . date('Y-m-d h:i:s') . '.pdf';
+		return $pdf->download($pdf_name);
 
 		// return $pdf->download('admission.pdf');
 		// return view('view_admissions');

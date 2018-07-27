@@ -121,7 +121,7 @@ $ID3 = 'relative';
 								<label class="form-label">Email
 								</label>
 								<div class="controls">
-									<input type="email" class="form-control" name="stu[email]" placeholder="Email Id"  value = "{{ chkN($a->stu_email) }}">
+									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"  class="form-control" name="stu[email]" placeholder="Email Id"  value = "{{ chkN($a->stu_email) }}">
 								</div>
 							</div>
 						</div>
@@ -276,11 +276,11 @@ $ID3 = 'relative';
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label" style="float:left;">Upload Image
-									<small>&nbsp;(1.Student<span style="color:red;">*</span>)(2.Father,3.Mother - optional)</small>
+									<small>&nbsp;(1.Student)(2.Father,3.Mother - optional)</small>
 									:
 								</label>
 								<div class="controls">
-									<input type="file" class="form-control" name="student_img" style="margin-bottom: 1px;" required="">
+									<input type="file" class="form-control" name="student_img" style="margin-bottom: 1px;" >
 									<input type="file" class="form-control" name="father_img" style="margin-bottom: 1px;">
 									<input type="file" class="form-control" name="mother_img">
 								</div>
@@ -295,7 +295,7 @@ $ID3 = 'relative';
 								<label class="form-label" style="float:left;">Previous Year %
 								</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="ad[pre_percent]" onclick="prev_year_per();" placeholder="Previous Year" id = "previousYear" value = "{{ chkN($a->ad_pre_percent) }}">
+									<input type="text" class="form-control" name="ad[pre_percent]" placeholder="Previous Year" id = "previousYear" value = "{{ chkN($a->ad_pre_percent) }}">
 								</div>
 							</div>
 						</div>

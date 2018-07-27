@@ -10,13 +10,21 @@ trait GetData{
 
 	public function autoId($b,$m,$s)
 	{
+		if(!empty($b)&&$b!=0){
 		$batch = substr(Batch::find($b)->batch_name,0,1);
-		$std = substr((preg_replace("/[^0-9,.]/", "", Standard::find($s)->std_name) + 100),1,2);
+		}else{
+			$batch ='';
+		}
+		$std=Standard::find($s)->std_name;
+		if(is_numeric($std)){
+			$std = substr((preg_replace("/[^0-9,.]/", "", Standard::find($s)->std_name) + 100),1,2);
+		}else{
+			$std='';
+		}
+		
 		$med = strtoupper(substr(Medium::find($m)->med_name,0,3));
 		// $stu = substr((Student::max('stu_id') + 1001),1,3);
 		$stu = substr((Student::join('admission_details','admission_details.ad_student','=','students.stu_id')->where('admission_details.ad_standard',$s)->count() + 1001),1,3);
-
-		// return ;
 		return $med.$std.$stu.$batch;		
 	}
 

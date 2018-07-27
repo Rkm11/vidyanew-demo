@@ -38,7 +38,7 @@ $ID = 'invoice';
 									<select class="form-control" name="type" required>
 										<option value="">--Select--</option>
 										<option value="Tution Fees">Tution Fees</option>
-										<option value="Publlication">Publlication</option>
+										<option value="Publication">Publication</option>
 									</select>
 								</div>
 							</div>
@@ -47,7 +47,7 @@ $ID = 'invoice';
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" name="add_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" >
+									<input type="text" name="add_date" class="form-control datepicker" data-format="dd-mm-yyyy"  value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" >
 								</div>
 							</div>
 						</div>
@@ -93,9 +93,9 @@ $ID = 'invoice';
 						</div>
 					</div>
 				</div>
+						<?php if (!empty($_GET['type']) && ($_GET['type'] == 2 || $_GET['type'] == 3)) {?>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
-
 						<div class="col-sm-6" >
 							<div class="form-group">
 								<label class="form-label">Addmission Incharge<span style="color:red;">*</span>:</label>
@@ -115,28 +115,30 @@ $ID = 'invoice';
 						</div>
 					</div>
 				</div>
+				<?php }?>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Amount<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="number" class="form-control" id = "paid" name="paid_amount" placeholder ="Amount" value = "{{ ($install)?$install->install_amount : ''}}" max="{{ $stu->admission->ad_fees }}" required>
+									<input type="number" <?php echo (isset($_GET['type']) && $_GET['type'] == '2') ? 'readonly' : ''; ?> class="form-control" id = "paid" name="paid_amount" placeholder ="Amount" min="1" value = "{{ ($install)?$install->install_amount : ''}}" max="{{ $stu->admission->ad_fees }}" required>
 								</div>
 							</div>
 						</div>
-						<!-- <div class="col-sm-6">
+						@if(!isset($_GET['type']))
+						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Remaining Fees<span style="color:red;">*</span>:</label>
-
+								<label class="form-label">Due Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" id = "remaining" name="remaining_fees" placeholder="Remaining" readonly value = "{{ ($install)?($stu->admission->ad_remaining_fees - $install->install_amount)  : ''}}">
+									<input type="text" name = "due_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ $install->install_due_date }}" >
 								</div>
 							</div>
-						</div> -->
+						</div>
+						@endif
 					</div>
 				</div>
-				<?php if (!empty($_GET['type'])) {?>
+				<?php if (!empty($_GET['type']) && ($_GET['type'] == 2 || $_GET['type'] == 3)) {?>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
@@ -175,7 +177,7 @@ $ID = 'invoice';
 							<div class="form-group">
 								<label class="form-label">PDC No.<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="number" class="form-control" name="cheque_number" placeholder="Check Number">
+									<input type="number" class="form-control" name="cheque_number" id="cheque_number" placeholder="Check Number">
 								</div>
 							</div>
 						</div>
@@ -183,8 +185,8 @@ $ID = 'invoice';
 							<div class="form-group">
 								<label class="form-label">Account Type<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<select class="form-control" name="account_type">
-										<option value="-1">--Select--</option>
+									<select class="form-control"  id="account_type" name="account_type">
+										<option value="">--Select--</option>
 										<option value="current">Current</option>
 										<option value="saving">Saving</option>
 									</select>
@@ -200,7 +202,7 @@ $ID = 'invoice';
 							<div class="form-group">
 								<label class="form-label">PDC Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" >
+									<input type="text" class="form-control datepicker" name="cheque_date" data-format="d-mm-Y" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" >
 								</div>
 							</div>
 						</div>
@@ -208,7 +210,7 @@ $ID = 'invoice';
 							<div class="form-group">
 								<label class="form-label">Bank Name<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="cheque_bank" placeholder="Bank Name">
+									<input type="text" class="form-control" name="cheque_bank" id="cheque_bank" placeholder="Bank Name">
 								</div>
 							</div>
 						</div>
@@ -221,7 +223,7 @@ $ID = 'invoice';
 							<div class="form-group">
 								<label class="form-label">DD Number<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="dd_number" placeholder="DD Number">
+									<input type="text" class="form-control" id="dd_number" name="dd_number" placeholder="DD Number">
 								</div>
 							</div>
 						</div>
@@ -258,17 +260,32 @@ $ID = 'invoice';
 		}
 	});
 	function change(id){
+		//cheque
 		if(id=="1"){
 			$("#dd").show();
 			$("#chq").show();
+			$("#cheque_number").prop('required',true);
+			$("#account_type").prop('required',true);
+			$("#cheque_bank").prop('required',true);
+			$("#dd_number").prop('required',false);
 		}
+		//dd
 		if (id == "3"){
 			$(".dd").show();
 			$("#chq").hide();
+			$("#cheque_number").prop('required',false);
+			$("#account_type").prop('required',false);
+			$("#cheque_bank").prop('required',true);
+			$("#dd_number").prop('required',true);
 		}
+		//cash
 		if (id == "2"){
 			$(".dd").hide();
 			$("#chq").hide();
+			$("#cheque_number").prop('required',false);
+			$("#account_type").prop('required',false);
+			$("#cheque_bank").prop('required',false);
+			$("#dd_number").prop('required',false);
 		}
 	}
 	CRUD.formSubmission("{{ route($ID.'.store') }}", 0,{});

@@ -51,7 +51,9 @@
     		<th>{{ env('class_name') }} </th>
     		<th colspan="11"></th>
    		</tr>
-
+		<tr>
+			<th colspan="11">Subject:{{$row->sub_name}}</th>
+		</tr>
    		<tr>
 		    <th rowspan="4"></th>
 		    <th>Test #</th>

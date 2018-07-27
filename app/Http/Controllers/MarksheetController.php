@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Traits\GetData;
 use App\Models\Marksheet;
 use App\Models\Student;
-use Carbon\Carbon;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -51,20 +50,18 @@ class MarksheetController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $r) {
-		// return $r->all();
-		// dd($r->all());
+
 		if ($r->result > $r->outtmark) {
 			return 'outbound';
 		}
-		$cur = Carbon::now()->format('d-m-Y');
-		echo $cur;
+		$cur = $r->date;
 		$preAt = Marksheet::where('mark_added', '=', $cur)->where('mark_student', $r->student)->where('mark_subject', $r->subject)->first();
 		$tests = [];
 
 		if (!$preAt) {
 			$d = $this->changeKeys($this->pre, $r->all());
 			$d['mark_test_' . $d['mark_test']] = $d['mark_result'];
-			$d['mark_added'] = $d->date;
+			$d['mark_added'] = $d['mark_date'];
 			$total = $r->result;
 			$d['mark_total'] = $total;
 

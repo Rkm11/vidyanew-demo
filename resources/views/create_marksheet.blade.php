@@ -45,7 +45,7 @@ Create Marksheet
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text"  class="datepicker" placeholder="dd-mm-yy"  name="date" required>
+									<input type="text"  class="datepicker" placeholder="dd-mm-yy" id="exam_date" name="exam_date" required>
 								</div>
 							</div>
 						</div>
@@ -209,7 +209,7 @@ Create Marksheet
 		fd.append('result',val);
 		fd.append('test',$('#test').val());
 		fd.append('outtmark',$('#outtmark').val());
-
+		fd.append('date',$('#exam_date').val());
 		$.ajax({
 			url : '{{ route('marksheet.store') }}',
 			data : fd,

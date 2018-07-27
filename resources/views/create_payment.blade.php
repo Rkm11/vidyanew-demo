@@ -75,7 +75,7 @@ $ID = 'payment';
 								<label class="form-label">Amount<span style="color:red;">*</span>:</label>
 
 								<div class="controls">
-									<input type="number" title="Enter Amount" class="form-control" name="amount" placeholder="Amount" pattern="[0-9]+" required>
+									<input type="number" title="Enter Amount" class="form-control" name="amount" placeholder="Amount" min="1" pattern="[0-9]+" required>
 								</div>
 							</div>
 						</div>
@@ -106,17 +106,17 @@ $ID = 'payment';
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Cheque Number<span style="color:red;">*</span>:</label>
+								<label class="form-label">Cheque Number:</label>
 								<div class="controls">
-									<input type="number" class="form-control" name="cheque_number" placeholder="Cheque Number" required>
+									<input type="number" class="form-control" name="cheque_number" placeholder="Cheque Number">
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Dated<span style="color:red;">*</span>:</label>
+								<label class="form-label">Dated:</label>
 								<div class="controls">
-									<input type="text" name="cheque_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" >
+									<input type="text" name="cheque_date" class="form-control datepicker" data-format="dd-mm-YYYY" value="" >
 								</div>
 							</div>
 						</div>

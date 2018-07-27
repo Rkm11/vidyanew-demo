@@ -1,0 +1,222 @@
+	*{
+		font-size: 16px;
+	}
+	p, h1{
+		margin: 0;
+		font-weight: 600;
+	}
+	.p-line{
+		border-bottom: 1px solid black;
+	}
+	span{
+		font-weight: 200;
+	}
+	.p-title{
+		border-bottom: 3px solid white;
+		font-weight: 600;
+	}
+	.equal{
+		width: 25%;
+	}
+	.equal-2{
+		width: 25%;
+		padding: 0px 5px;
+	}
+	.big-title{
+		font-size: 20px;		
+		font-weight: 600;
+	}
+	.box{
+		border: 2px solid black;
+		padding: 5px;
+	}
+	td{
+		padding: 0;
+	}
+	img{
+		width: 100px;
+		padding: 5px;
+	}
+	.title{
+		width: 100%;
+	}
+	.title td{
+		text-align: right;
+	}
+	.border{
+		width: 100%;
+		border: 3px solid black;
+		border-radius: 30px;
+	}
+	.b-line{
+		border-top: 2px solid black;
+	}
+	.border-bottom{
+		width: 100%;
+		border-bottom: 2px solid black;
+	}
+	.cash-box{
+		width: 100%;	
+		padding-left: 10px;
+	}
+	.cash-box table{
+		width: 100%;
+	}
+	.memo{
+		padding-left: 230px;
+		/*padding-right: 248px;*/
+	}
+	.p-r{
+		padding-right: 10px;
+	}
+	.receipt{
+		background: black;
+		float: right;
+		color: white;
+		padding: 2px;
+		width: 70px;
+	}
+	.title-box{		
+		text-align: right;
+		width: 85px;
+	}	
+	.cash-box .title{
+		margin: 0%;		
+	}
+	.cash-box h1{		
+		font-size: 35px;	
+	}
+	.address{
+		font-size: 15px;		
+	}
+	.details{
+		width: 94%;		
+	}
+	.details table{
+		width: 100%;
+		padding: 0px 15px 0px 15px;
+	}
+	.sub-list-td p{
+		border-bottom: 1px solid black;
+		width: 100%;		
+	}
+	.name{
+		width: 75%; 
+	}
+	.dob{
+		width: 60%;
+	}
+	.sex{
+		width: 40%;
+	}
+	.school{
+		width: 60%;
+	}
+	.medium{
+		width: 20%;
+	}
+	.standard{
+		width: 20%;
+	}
+	.ad-r{
+		width: 26%;
+	}
+	.ad-line{
+		width: 74%;	
+	}	
+	.line{
+		border-bottom: 1px solid black;
+	}
+	.phone{
+		width: 40%;
+	}
+	.cell{
+		width: 60%;
+	}
+	.pre{
+		width: 33%;
+	}
+	.o-ad{
+		width: 25%;
+	}
+	.o-name{
+		width: 30%;
+	}
+	.o-age{
+		width: 5%;
+	}
+	.o-edu{
+		width: 40%;
+	}
+	.total{
+		width: 32%; 
+	}
+	.in-words{
+		width: 80%;
+	}
+	.ins-table{		
+		width: 100%;
+		padding: 0px 30px;
+		border-top: 3px solid black;
+		border-bottom: 1px solid black;
+		padding-bottom: 20px;
+	}
+	.can-name{
+		padding: 15px 0px;
+	}
+	.std{
+		width: 30%;
+	}	
+	.std p{
+		margin-top: 5px;
+	}	
+	.sub-off{
+		margin: 0px;
+	}
+	.passport-pic{
+		width: 20%;
+	}
+	.table-ad{
+		width: 3%;
+	}
+	.table-pay{
+		width: 10%;
+	}
+	.table-box{
+		margin-bottom: 10px;
+		padding: 0px 30px 10px 30px;
+	}
+	.batch{
+		width: 30%;
+		padding: 3%;
+		font-size: 20px;
+	}
+	.table-box table{
+		border-collapse: collapse;
+		width: 100%!important;
+		padding: 0!important;
+	}
+	.set-padding{
+		padding: 0px 30px 10px 30px;
+	}
+	.t-border {
+		border: 2px solid black;
+	}
+	.t-pad{		
+		padding: 0px 0px 0px 10px;
+	}
+	.sub{
+		width: 20%!important;
+	}
+	.sub-list{
+		width: 85%!important;
+	}	
+	.sub-list-td{
+		width: 20%!important;
+	}	
+	.parent{		
+		width: 35%;
+	}
+	.student{
+		width: 33%;		
+	}

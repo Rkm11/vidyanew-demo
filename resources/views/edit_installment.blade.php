@@ -1,3 +1,4 @@
+
 @extends('layouts.master')
 @php
 $ID = 'installment';
@@ -10,7 +11,7 @@ $ID = 'installment';
 
 @section('page-title')
 <div class="pull-left">
-	Create {{ ucfirst($ID) }}
+	Edit {{ ucfirst($ID) }}
 </div>
 <div class="pull-right">
 	<a href = "{{ route('invoice.index') }}" class="btn btn-danger">Back</a>
@@ -34,12 +35,12 @@ $ID = 'installment';
 							<div class="form-group">
 								<label class="form-label">Instalment Type<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<select class="form-control" name="type" >
+									<select disabled="" class="form-control" name="type" >
 										<option value="-1">--Select--</option>
-										<option value="Instalment I">Instalment I</option>
-										<option value="Instalment II">Instalment II</option>
-										<option value="Instalment III">Instalment III</option>
-										<option value="Instalment IV">Instalment IV</option>
+										<option value="Instalment 1" {{$stud->install_type=='Instalment 1'?'selected=""':''}}>Instalment 1</option>
+										<option value="Instalment 2" {{$stud->install_type=='Instalment 2'?'selected=""':''}}>Instalment 2</option>
+										<option value="Instalment 3" {{$stud->install_type=='Instalment 3'?'selected=""':''}}>Instalment 3</option>
+										<option value="Instalment 4"{{$stud->install_type=='Instalment 4'?'selected=""':''}}>Instalment 4</option>
 									</select>
 								</div>
 							</div>
@@ -48,7 +49,7 @@ $ID = 'installment';
 							<div class="form-group">
 								<label class="form-label">Due Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" name = "due_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" >
+									<input type="text" name = "due_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{$stud->install_due_date}}" >
 								</div>
 							</div>
 						</div>
@@ -60,7 +61,7 @@ $ID = 'installment';
 							<div class="form-group">
 								<label class="form-label">Amount<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="amount" placeholder ="Amount">
+									<input type="text" class="form-control" name="amount" value="{{$stud->install_amount}}" placeholder ="Amount">
 								</div>
 							</div>
 						</div>
@@ -68,7 +69,7 @@ $ID = 'installment';
 							<div class="form-group">
 								<label class="form-label">PDC No.:</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="pdc_no" placeholder="PDC No" >
+									<input type="text" class="form-control" value="{{$stud->install_pdc_no}}" name="pdc_no" placeholder="PDC No" >
 								</div>
 							</div>
 						</div>
@@ -81,7 +82,7 @@ $ID = 'installment';
 								<label class="form-label">PDC Date:</label>
 
 								<div class="controls">
-									<input type="text" name = "pdc_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" >
+									<input type="text" name = "pdc_date" class="form-control datepicker" data-format="dd-mm-yyyy" value="{{$stud->install_pdc_date}}" >
 								</div>
 							</div>
 						</div>
@@ -89,7 +90,8 @@ $ID = 'installment';
 							<div class="form-group">
 								<label class="form-label">Bank Name:</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="bank_name" placeholder="Bank Name">
+									<input type="hidden" value="{{$_GET['install']}}" class="form-control" name="installment_id" placeholder="Bank Name">
+									<input type="text" value="{{$stud->install_bank_name}}" class="form-control" name="bank_name" placeholder="Bank Name">
 								</div>
 							</div>
 						</div>
@@ -100,37 +102,13 @@ $ID = 'installment';
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="text-center">
-							<button type="submit" class="btn btn-warning">Create Installment</button>
+							<button type="submit" class="btn btn-warning">Update Installment</button>
 						</div>
 					</div>
 				</div>
 				<div id = "{{ $ID }}Msg" class="text-center"></div>
 
 			</form>
-		</div>
-
-		<div id = "installment-box" class="content-body" style="display: block;">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="table-responsive">
-						<table id = "installment-table" class="table table-striped table-bordered">
-							<thead>
-								<tr>
-									<th>Type</th>
-									<th>Amount</th>
-									<th>Due Date</th>
-									<th>PDC No</th>
-									<th>Date of PDC</th>
-									<th>Bank</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-						<br>
-					</div>
-				</div>
-			</div>
 		</div>
 	</section>
 </div>

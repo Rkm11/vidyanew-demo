@@ -240,7 +240,8 @@
 								<h1>{{ env('class_name') }}</h1>
 							</div>
 							<div class="address">
-								<p>{{ env('address') }}</p>
+								<p class="address"><?php echo (env('address')) ? env('address') : 'Ratnamani Complex, Bhujbal Alai Rd, Londhe Wada, Chaitanya Nagar, Kothrud Dahanukar
+Colony, Pune, India- 411029.'; ?> </p>
 							</div>
 							<div class="address">
 
@@ -264,9 +265,10 @@
 							</table>
 						</td>
 						<td rowspan="3" class="passport-pic">
+							@if(isset($i->student->stu_picture)&& !empty($i->student->stu_picture))
 							<img alt = "Student Image" src="../{{ ($i->student->stu_picture) }}">
 
-
+							@endif
 
 
 						</td>

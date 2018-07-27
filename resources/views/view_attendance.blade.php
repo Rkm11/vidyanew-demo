@@ -22,7 +22,7 @@ All Attendances
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Batch::get() as $b)
 										<option value = "{{ $b->batch_id }}">{{ $b->batch_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
@@ -37,7 +37,7 @@ All Attendances
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Medium::get() as $m)
 										<option value = "{{ $m->med_id }}">{{ $m->med_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
@@ -47,7 +47,7 @@ All Attendances
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-4">	
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -55,13 +55,13 @@ All Attendances
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Standard::get() as $st)
 										<option value = "{{ $st->std_id }}">{{ $st->std_name }}</option>
-										@empty											
+										@empty
 										@endforelse
 									</select>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-4">	
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Subjects<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -71,14 +71,14 @@ All Attendances
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-4">	
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="date" name="searchbydate" id="searchbydate" class="form-control">
+									<input type="text" placeholder="dd-mm-yyyy" name="searchbydate" id="searchbydate" class="form-control datepicker">
 								</div>
 							</div>
-						</div>				
+						</div>
 					</div>
 				</div>
 				<header class="panel_header"  style="background-color:#9ddac0;">
@@ -98,7 +98,7 @@ All Attendances
 										<!--<th>Date</th>-->
 									</tr>
 								</thead>
-								<tbody>	
+								<tbody>
 								</tbody>
 							</table>
 						</div>
@@ -122,13 +122,13 @@ All Attendances
 <script type="text/javascript">
 
 	$('#batch, #standard, #medium, #subject, #searchbydate').on({
-		'change' : function(){			
-			$('#attendance-table').DataTable().destroy()			
-			data();			
+		'change' : function(){
+			$('#attendance-table').DataTable().destroy()
+			data();
 		}
 	});
     data();
-	function data() {		
+	function data() {
 		$('#attendance-table').DataTable({
 			processing: true,
 			//serverSide: true,
@@ -137,24 +137,24 @@ All Attendances
 				url : '{!! route('attendance-view.data') !!}',
 				type : 'get',
 				data : function(d){
-					d.batch = $('#batch').val();					
-					d.subject = $('#subject').val();					
-					d.standard = $('#standard').val();					
+					d.batch = $('#batch').val();
+					d.subject = $('#subject').val();
+					d.standard = $('#standard').val();
 					d.medium = $('#medium').val();
 					d.searchbydate = $('#searchbydate').val();
 					console.log("date"+d.searchbydate);
 				}
-			},			
+			},
 			columns: [
 			{data: 'stu_id', name: 'students.stu_id'},
 			{data: 'stu_name', name: 'stu_name'},
-			{data: 'sub_name', name: 'subjects.sub_name'},			
+			{data: 'sub_name', name: 'subjects.sub_name'},
 			{},
 			//{data : 'att_added', name: 'attendances.att_added'}
 			],
-			columnDefs: [{				
-				'targets': 3,					
-				'render': function (data, type, full, meta){					
+			columnDefs: [{
+				'targets': 3,
+				'render': function (data, type, full, meta){
 					var s = (full.att_result) ? 'Present' : 'Absent';
 					return '<span>'+s+'</span>';
 				}
@@ -169,7 +169,7 @@ All Attendances
 				exportOptions: {
 					columns: ':visible'
 				},
-				title : 'Vidhya Bhusan - Attendances',
+				title : '"{{env('class_name')}}" - Attendances',
 				customize: function (doc) {
 
 					doc.defaultStyle.fontSize = 12;
@@ -180,11 +180,11 @@ All Attendances
 			        doc.content[1].table.widths = [ 15, '*', '*','*'];
 			        // doc.content[1].table.alignment = [ 'center', 'center', 'center','center','center' ];
 			        // doc.styles.table['body'].alignment = 'center';
-			        
+
 			        doc.content[0].text = doc.content[0].text.trim();
 
 			        // Styling the table: create style object
-			        
+
 			    }
 			}
 			]
@@ -204,10 +204,10 @@ All Attendances
 				var val = [];
 				if(d.length > 0){
 					val.push('<option value="-1">--Select--</option>');
-					$.each(d, function(k,v){				
-						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');	
-					});										
-					$('#subject').html(val);				
+					$.each(d, function(k,v){
+						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
+					});
+					$('#subject').html(val);
 				}
 			}
 		});
@@ -215,7 +215,7 @@ All Attendances
 
 	// $(".datepicker").each(function(i, e) {
 	// 	var $this = $(e),
-	// 	options = {			
+	// 	options = {
 	// 		onSelect: function() {
 	// 			var table = $('#attendance-table').DataTable();
 	// 			table.search( $(this).val() ).draw();

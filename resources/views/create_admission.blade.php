@@ -119,7 +119,7 @@ $ID3 = 'relative';
 								<label class="form-label">Email
 								</label>
 								<div class="controls">
-									<input type="email" title="Enter Valid Email" class="form-control" name="stu[email]" placeholder="Email Id">
+									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"  title="Enter Valid Email" class="form-control" name="stu[email]" placeholder="Email Id">
 								</div>
 							</div>
 						</div>
@@ -304,14 +304,14 @@ $ID3 = 'relative';
 									<!-- <span style="color:red;">*</span>: -->
 								</label>
 								<div class="controls">
-									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]" onclick="prev_year_per();" placeholder="Previous Year" id = "previousYear">
+									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]"  placeholder="Previous Year" id = "previousYear">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 					<div class="text-center">
-						<button type="submit" onClick="" class="btn btn-warning">Save</button>
+						<button type="submit" onclick="validateSubject('validate')" id='save-admission' class="btn btn-warning">Save</button>
 						<button type="button" class="btn btn-primary" id = "otherBtn" style="display: none;" onclick="form_hide();">Other Information
 						</button>
 						<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" style="display: none;">Finish</a>
@@ -322,10 +322,10 @@ $ID3 = 'relative';
 <!--code-->
 <div id="show_otherinfo" class="col-lg-12" style="display: none;">
 	<section class="box">
-		<div class="pull-right">
+		<!-- <div class="pull-right">
 			<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
 		</div>
-		<br>
+		<br> -->
 		<div class="content-body">
 			<form id="{{ $ID3 }}Form">
 				<input type="hidden" id = "studentA" name="student">
@@ -334,8 +334,8 @@ $ID3 = 'relative';
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="modalfile3" class="form-label">Relation With Student</label>
-								<select id="modalfile3" class="form-control" name = "relation">
-									<option value="-1">--Select--</option>
+								<select id="modalfile3" required=""  required="" class="form-control" name = "relation">
+									<option value="">--Select--</option>
 									<option value="Brother">Brother</option>
 									<option value="Sister">Sister</option>
 								</select>
@@ -344,7 +344,7 @@ $ID3 = 'relative';
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="modalname1" class="form-label">Full Name</label>
-								<input type="text" class="form-control" id="modalname1" name="full_name" placeholder="Enter name">
+								<input type="text" required="" class="form-control" id="modalname1" name="full_name" placeholder="Enter name">
 							</div>
 						</div>
 					</div>
@@ -354,13 +354,13 @@ $ID3 = 'relative';
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="modalpw1" class="form-label">Education</label>
-								<input type="text" class="form-control" id="modalpw1" name="education" placeholder="Education">
+								<input type="text" required="" class="form-control" id="modalpw1" name="education" placeholder="Education">
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="modalemail1" class="form-label">Age</label>
-								<input type="text" name="age" class="form-control" id="modalemail1" placeholder="e.g. 7">
+								<input type="number" min="1"  required="" name="age" class="form-control" id="modalemail1" placeholder="e.g. 7">
 							</div>
 						</div>
 					</div>
@@ -416,6 +416,7 @@ $ID3 = 'relative';
 
 				<div class="modal-body">
 					<div class="row">
+						<input type="hidden" id="validate_subject" name="validate_subject">
 						<div class="col-xs-12 col-sm-12">
 							<div class="col-sm-6">
 								<div class="form-group">

@@ -84,7 +84,7 @@ View Enquiries
 									<th>Admission</th>
 									<th>Date</th>
 									<th>Action</th>
-									<th>follow up</th>
+									
 								</tr>
 							</thead>
 							<tbody>
@@ -120,7 +120,7 @@ View Enquiries
 			{data: 'ad_school', name: 'ad_school'},
 			{data: 'std_name', name: 'std_name'},
 			{},
-			{},
+			
 			{}
 			],
 			'columnDefs': [
@@ -146,15 +146,8 @@ View Enquiries
 				'render': function (data, type, full, meta){
 					return '<a class="btn btn-warning" href = "'+edit(full.enq_id)+'">Edit</a>';
 				}
-			},
-			{
-				'targets': 9,
-				'searchable': false,
-				'orderable': false,
-				'render': function (data, type, full, meta){
-					return '<a href = "javascript:void(0);" class="btn btn-success" onclick="follow('+full.enq_id+');" onclick = "l();">follow</a>';
-				}
 			}
+			
 // &nbsp;&nbsp;<a class="btn btn-warning" href = "'+edit1(full.enq_id)+'">folloup</a>
 			],"order": [[ 7, "desc" ]]
 		});

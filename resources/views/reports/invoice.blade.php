@@ -96,7 +96,7 @@
 		margin: 0%;
 	}
 	.cash-box h1{
-		font-size: 35px;
+		font-size: 20px;
 	}
 	.address{
 		font-size: 15px;
@@ -283,7 +283,7 @@
 		margin: 0%;
 	}
 	.cash-box h1{
-		font-size: 35px;
+		font-size: 27px;
 	}
 	.address{
 		font-size: 15px;
@@ -465,7 +465,7 @@
 										<p><i><u>{{ $tit[$aa] }}</u></i></p>
 									</td>
 									<td class="title-box">
-										<p>Mob.: {{ env('mobile_number')}}</p>
+										<p>Mob.:  {{ env('mobile_number')}}</p>
 									</td>
 								</tr>
 								<tr>
@@ -475,7 +475,8 @@
 								</tr>
 								<tr>
 									<td colspan="2">
-										<p class="address">{{env('address')}}</p>
+										<p class="address"><?php echo (env('address')) ? env('address') : 'Ratnamani Complex, Bhujbal Alai Rd, Londhe Wada, Chaitanya Nagar, Kothrud Dahanukar
+Colony, Pune, India- 411029.'; ?> </p>
 									</td>
 								</tr>
 							</table>
@@ -544,7 +545,7 @@
 							<td class="t-border">{{ Carbon\Carbon::parse($invoice->invoices()->first()->in_add_date)->format('d/m/y') }}</td>
 							<td class="t-border">{{ $invoice->invoices()->first()->in_cheque_number }}</td>
 							<td class="t-border">{{ Carbon\Carbon::parse($invoice->invoices()->first()->in_cheque_date)->format('d/m/y') }}</td>
-							<td class="t-border">{{ $invoice->invoices()->first()->in_bank_name }}</td>
+							<td class="t-border">{{ $invoice->invoices()->first()->in_cheque_bank }}</td>
 						</tr>
 						@php
 						$installments = $invoice->installments()->get();
@@ -553,6 +554,7 @@
 						@endphp
 
 						@for ($ie = 0; $ie < 4; $ie++)
+						<?php $ki++;?>
 						<tr class="t-border" align="center">
 							@if ($ie < $ci)
 							<td class="t-border" align="left"><p>{{ $installments[$ie]->install_type }}</p></td>
@@ -562,7 +564,7 @@
 							<td class="t-border">{{ Carbon\Carbon::parse($installments[$ie]->install_pdc_date)->format('d/m/y') }}</td>
 							<td class="t-border">{{ $installments[$ie]->install_bank_name }}</td>
 							@else
-							<td class="t-border" align="left"><p>{{ 'Installment'.romanic_number($ki++) }}</p></td>
+							<td class="t-border" align="left"><p>{{ 'Installment '.$ki }}</p></td>
 							<td class="t-border">&nbsp;</td>
 							<td class="t-border">&nbsp;</td>
 							<td class="t-border">&nbsp;</td>
@@ -681,13 +683,13 @@
 								</tr>
 								<tr>
 									<td colspan="2">
-										<h1>Dhamale Maths Classes</h1>
+										<h1>{{env('class_name')}}</h1>
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2">
-										<p class="address">Ratnamani Complex, Bhujbal Alai Rd, Londhe Wada, Chaitanya Nagar, Kothrud Dahanukar
-Colony, Pune, India- 411029.</p>
+										<p class="address"><?php echo (env('address')) ? env('address') : 'Ratnamani Complex, Bhujbal Alai Rd, Londhe Wada, Chaitanya Nagar, Kothrud Dahanukar
+Colony, Pune, India- 411029.'; ?> </p>
 									</td>
 								</tr>
 							</table>

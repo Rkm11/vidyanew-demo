@@ -68,7 +68,7 @@ $ID2 = 'previous';
 								<label class="form-label">Email:</label>
 
 								<div class="controls">
-									<input type="email"  title="Enter Valid Mail" id = "email" class="form-control" name="stu[email]" placeholder="Email Id">
+									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"  title="Enter Valid Mail" id = "email" class="form-control" name="stu[email]" placeholder="Email Id">
 								</div>
 							</div>
 						</div>

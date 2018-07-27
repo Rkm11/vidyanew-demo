@@ -20,7 +20,7 @@
                                     <th>Parent</th>
                                     <th>Parent No.</th>
                                     <th>School</th>
-                                    <th>Standard</th>                                    
+                                    <th>Standard</th>
                                     <th>ACTION</th>
                                     <th>Print</th>
                                     <th>Date</th>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="modal-footer">
                     <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                   
+
 
 
                 </div>
@@ -92,7 +92,7 @@
                 processing: true,
                 //serverSide: true,
                 searching: true,
-                ajax: '{!! route('admission.data') !!}',          
+                ajax: '{!! route('admission.data') !!}',
                 columns: [
                 {data : 'stu_uid' , name : 'stu_uid'},
                 {data : 'stu_name' , name : 'stu_name'},
@@ -106,15 +106,15 @@
                 {
                     data: 'created_at', name: 'created_at'
                 },
-                
+
                 ],
                 'columnDefs': [
                 {
                     'targets': 7,
                     'searchable': false,
-                    'orderable': false,             
+                    'orderable': false,
                     'render': function (data, type, full, meta){
-                        return '<a href = "javascript:void(0);" class="btn btn-success" onclick="getTestData('+full.stu_id+');" onclick = "l();">Marksheet</a>';                    
+                        return '<a href = "javascript:void(0);" class="btn btn-success" onclick="getTestData('+full.stu_id+');" onclick = "l();">Marksheet</a>';
                     }
                 },{
                 'targets': 9,
@@ -132,15 +132,15 @@
                 "searchable": false
                 },{
                 'targets': 8,
-                'render': function (data, type, full, meta){ 
-                                                       
+                'render': function (data, type, full, meta){
+
                     return '<a class="btn btn-warning"  href = "'+pr(full.stu_id)+'">Print</a>';
                     }
                 }
                 ],"order": [[ 8, "desc" ]]
             });
 
-            
+
         });
         var v = '{{ url('invoice/') }}';
         function redA(id){
@@ -195,7 +195,7 @@
             exportOptions: {
                 columns: ':visible'
             },
-            title : 'Vidhyabhusan ',
+            title : '<?php echo env('class_name') ?>',
             customize: function (doc) {
 
                 doc.defaultStyle.fontSize = 12;
@@ -207,11 +207,11 @@
                 // doc.content[1].table.body  = {alignment:'center'};
                 // doc.content[1].table.alignment = [ 'center', 'center', 'center','center','center' ];
                 // doc.styles.table['body'].alignment = 'center';
-                
+
                 doc.content[0].text = doc.content[0].text.trim();
 
                 // Styling the table: create style object
-                
+
             }
         }
         ]

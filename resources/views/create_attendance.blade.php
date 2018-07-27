@@ -183,7 +183,6 @@ Create Attendances
 	}
 
 	function updateAttendance(id, val){
-		console.log(id,val);
 		var fd = new FormData();
 		fd.append('batch',$('#batch').val());
 		fd.append('subject',$('#subject').val());
@@ -192,7 +191,11 @@ Create Attendances
 		fd.append('student',id);
 		fd.append('result',val);
 		fd.append('added',$('#date').val());
-
+	if(''==$('#batch').val() || ''==$('#date').val() ||''==$('#medium').val() || ''==$('#standard').val()||''==$('#subject').val()){
+		alert('Please Select all parameters.');
+		$('input[name="att'+id+'"]').attr('checked', false);
+		return false;
+	}
 		$.ajax({
 			url : '{{ route('attendance.store') }}',
 			data : fd,
@@ -200,7 +203,6 @@ Create Attendances
 			processData : false,
 			contentType : false,
 			success : function(data){
-				console.log(data);
 				$('#msg').html('Saving data Automatically...');
 				window.setTimeout(function () {
 					$('#msg').html('');

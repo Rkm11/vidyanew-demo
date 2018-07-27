@@ -11,7 +11,6 @@ use App\Models\ParentDetail;
 use App\Models\Payment;
 use App\Models\Student;
 use App\Telecalling;
-use Carbon\Carbon;
 use Charts;
 use DataTables;
 use DB;
@@ -63,14 +62,15 @@ class EnquiryController extends Controller {
 			->responsive(true)
 			->groupByMonth(date('Y'), true);
 
-		$tomorrow = Carbon::tomorrow()->toDateString();
+		$tomorrow = date('d-m-Y');
+		$tomorrow = date('d-m-Y', strtotime($tomorrow . ' +1 day'));
 		$installment_list = Installment::select(['students.stu_first_name', 'install_id', 'students.stu_last_name', 'stu_mobile', 'install_type',
 			'install_due_date', 'install_amount', 'install_status', 'install_student'])
 			->join('students', 'installments.install_student', '=', 'students.stu_id')
 			->where('installments.install_due_date', '=', $tomorrow)
 			->where('installments.install_status', '=', 0)
 			->get();
-
+		// dd($installment_list);
 		return view('dashboard', compact('ecout', 'acout', 'pcout', 'tcout', 'r_bal', 'icout', 'chart', 'installment_list'));
 		// return view('dashboard')->with(compact('ecout','acout','pcout','tcout','r_bal','icout','chart','installment_list'));
 	}

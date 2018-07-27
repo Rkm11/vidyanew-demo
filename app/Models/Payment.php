@@ -35,8 +35,8 @@ class Payment extends Eloquent
 	];
 
 	protected $dates = [
-		'pay_add_date',
-		'pay_cheque_date',
+		//'pay_add_date',
+		//'pay_cheque_date',
 		'pay_created_at'
 	];
 

@@ -42,8 +42,8 @@ class Invoice extends Eloquent
 	];
 
 	protected $dates = [
-		'in_add_date',
-		'in_cheque_date',
+		// 'in_add_date',
+		// 'in_cheque_date',
 		'in_created_at'
 	];
 

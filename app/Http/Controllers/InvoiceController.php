@@ -49,25 +49,25 @@ class InvoiceController extends Controller {
 		if ($r->install) {
 			$ins = Installment::where('install_id', $r->install)->first();
 			$ad = AdmissionDetail::where('ad_student', $ins->install_student)->first();
-			// echo $n['in_paid_amount'] . '-' . $ins->install_amount;die;
 			if ($ins->install_amount != $n['in_paid_amount']) {
 				$remaining = $ins->install_amount - $n['in_paid_amount'];
 				$p = $ins->install_sequence;
 				$pre = Installment::where('install_sequence', $p)->first();
-				// dd($pre)->install_amount;
 				$upTotal = $pre->install_amount + $remaining;
 				$pre = Installment::where('install_sequence', $p)->update(['install_amount' => $upTotal]);
 			}
 			Installment::where('install_id', $r->install)->update(['install_amount' => $n['in_paid_amount'], 'install_status' => $r['install_status']]);
 		}
+
 		if (isset($ad) && !empty($ad->ad_remaining_fees)) {
 			$total = $ad->ad_remaining_fees;
 		} else {
 			$total = $n['in_fees'];
 		}
-		// dd($n['in_fees']);
-		$remaining = $total - $n['in_paid_amount'];
-		AdmissionDetail::where('ad_student', $n['in_student'])->update(['ad_remaining_fees' => $remaining]);
+		if ($r['install_status'] != 0) {
+			$remaining = $total - $n['in_paid_amount'];
+			AdmissionDetail::where('ad_student', $n['in_student'])->update(['ad_remaining_fees' => $remaining]);
+		}
 		$stu = Student::find($n['in_student']);
 		if ($r['formtype'] == 'payment') {
 			BalanceSheet::create(['bs_particular' => $stu->stu_first_name . ' ' . $stu->stu_last_name . ' ( ' . $n['in_receipt_no'] . ' )', 'bs_purpose' => $n['in_type'], 'bs_credit' => $n['in_paid_amount']]);
@@ -158,12 +158,14 @@ class InvoiceController extends Controller {
 	// }
 	public function downloadPDF($id) {
 		$invoice = Student::join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id')->where('stu_id', $id)->first();
+		// dd($invoice->invoices()->first());
 		// $this->downloadReceipt($i->invoices()->first()->in_id);
 		// return view('reports.invoice', compact('invoice'));
 		//return $invoice;
 		//return phpinfo();
 		$pdf = PDF::loadView('reports.invoice', compact('invoice'))->setPaper('a4')->setWarnings(false);
-		return $pdf->download('Fee-Structure.pdf');
+		$pdf_date = 'Fee-Structure-' . date('d-m-Y h:i:s') . '.pdf';
+		return $pdf->download($pdf_date);
 
 	}
 
@@ -171,6 +173,6 @@ class InvoiceController extends Controller {
 
 		$invoice = Invoice::find($id);
 		$pdf = PDF::loadView('reports.receipt', compact('invoice'))->setPaper('a4')->setWarnings(false);
-		return $pdf->download('Reciept.pdf');
+		return $pdf->download('Reciept-' . date('d-m-Y h:i:s') . '.pdf');
 	}
 }

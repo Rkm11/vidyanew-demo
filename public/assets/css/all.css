@@ -1,0 +1,64 @@
+	*{
+		font-size: 16px;
+	}
+	p, h1{
+		margin: 0;
+		font-weight: 600;
+	}
+	td{
+		padding: 5px;
+		
+	}
+
+	
+	img{
+		width: 100px;
+		padding: 5px;
+	}
+	span{
+		font-weight: 500;
+		font-style: italic;
+		font-size: 17px;
+	}
+	.border{
+		width: 100%;
+	}
+	.header{
+		border-bottom: 2px solid black; 
+	}
+	.cash-box{
+		width: 100%;	
+		padding-left: 10px;
+	}
+	.title-box{
+		width: 98%;
+		text-align: right;
+	}
+	.title{
+		margin: 0%;		
+	}
+	.cash-box h1{		
+		font-size: 35px;	
+	}
+	.address{
+		font-size: 20px;
+		font-weight: 600;
+	}
+	.details{
+		width: 94%;		
+	}
+	.details table{
+		width: 100%;
+		padding: 0px 30px 5px 30px;
+	}	
+	.other-info{
+		border-collapse: collapse;
+		width: 100%!important;
+		padding: 0!important;
+	}
+	.t-border {
+		border: 2px solid black;
+	}
+	.tbl-body{
+		background-color:rgb(157, 218, 192);
+	}
