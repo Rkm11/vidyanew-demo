@@ -45,6 +45,7 @@ class AdmissionDetail extends Eloquent {
 		'ad_batch_year',
 		'ad_batch',
 		'ad_school',
+		'ad_date',
 		'ad_standard',
 		'ad_medium',
 		'ad_subjects',

@@ -1,3 +1,4 @@
+
 <?php
 date_default_timezone_set("Asia/Calcutta"); //India time (GMT+5:30)
 // echo date('d-m-Y H:i:s');die;
@@ -5,6 +6,9 @@ date_default_timezone_set("Asia/Calcutta"); //India time (GMT+5:30)
 @extends('layouts.master')
 
 @php
+function chkN($v){
+	return (!is_null($v)) ? $v : '';
+}
 $ID = 'admission';
 $ID2 = 'previous';
 $ID3 = 'relative';
@@ -73,7 +77,7 @@ $ID3 = 'relative';
 								</label>
 								<span class="desc">&nbsp;</span>
 								<div class="controls">
-									<input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" placeholder="Date" required>
+									<input type="text" class="form-control datepicker" name="ad[date]" data-format="dd-mm-yyyy" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" placeholder="Date" required>
 								</div>
 							</div>
 						</div>
@@ -119,7 +123,7 @@ $ID3 = 'relative';
 								<label class="form-label">Email
 								</label>
 								<div class="controls">
-									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"  title="Enter Valid Email" class="form-control" name="stu[email]" placeholder="Email Id">
+									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail"  class="form-control" name="stu[email]"  placeholder="Email Id">
 								</div>
 							</div>
 						</div>
@@ -129,7 +133,7 @@ $ID3 = 'relative';
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
-									<input type="text" title="Enter Your Number" class="form-control" name="stu[mobile]" placeholder="Mobile Number" maxlength="10"  pattern="[0-9]{10}" required>
+									<input type="text" title="Enter Your Number" class="form-control" name="stu[mobile]" placeholder="Mobile Number"  maxlength="10"  pattern="[0-9]{10}" required>
 								</div>
 							</div>
 						</div>
@@ -192,7 +196,7 @@ $ID3 = 'relative';
 									<select class="form-control" id = "standard" name="ad[standard]" required>
 										<option value="">--Select--</option>
 										@forelse (App\Models\Standard::get() as $s)
-										<option value = "{{ $s->std_id }}">{{ $s->std_name }}</option>
+										<option  value = "{{ $s->std_id }}" >{{ $s->std_name }}</option>
 										@empty
 										{{-- empty expr --}}
 										@endforelse
@@ -222,7 +226,7 @@ $ID3 = 'relative';
 									<select class="form-control" name="ad[batch]" required>
 										<option value="" \>--Select--</option>
 										@forelse (App\Models\Batch::get() as $b)
-										<option value = "{{ $b->batch_id }}">{{ $b->batch_name }}</option>
+										<option value = "{{ $b->batch_id }}" >{{ $b->batch_name }}</option>
 										@empty
 										@endforelse
 									</select>
@@ -238,7 +242,7 @@ $ID3 = 'relative';
 									<select class="form-control" name="ad[medium]" required>
 										<option value="">--Select--</option>
 										@forelse (App\Models\Medium::get() as $med)
-										<option value = "{{ $med->med_id }}">{{ $med->med_name }}</option>
+										<option value = "{{ $med->med_id }}"  >{{ $med->med_name }}</option>
 										@empty
 										@endforelse
 									</select>
@@ -253,7 +257,7 @@ $ID3 = 'relative';
 							<div class="form-group">
 								<label class="form-label">School Name<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" title="Enter School Name" name = "ad[school]" class="form-control" placeholder="School Name" pattern="[a-z A-Z 0-9]+" required>
+									<input type="text" title="Enter School Name" name = "ad[school]" class="form-control"  placeholder="School Name" pattern="[a-z A-Z 0-9]+" required>
 								</div>
 							</div>
 						</div>
@@ -286,6 +290,7 @@ $ID3 = 'relative';
 						</div>
 					</div>
 				</div>
+				<div id = "{{ $ID }}Msg" class="text-center"></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
@@ -304,7 +309,7 @@ $ID3 = 'relative';
 									<!-- <span style="color:red;">*</span>: -->
 								</label>
 								<div class="controls">
-									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]"  placeholder="Previous Year" id = "previousYear">
+									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]"   placeholder="Previous Year" id = "previousYear">
 								</div>
 							</div>
 						</div>
@@ -317,7 +322,6 @@ $ID3 = 'relative';
 						<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" style="display: none;">Finish</a>
 					</div>
 			</form>
-		<div id = "{{ $ID }}Msg" class="text-center"></div>
 	</section>
 <!--code-->
 <div id="show_otherinfo" class="col-lg-12" style="display: none;">
@@ -333,7 +337,7 @@ $ID3 = 'relative';
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="modalfile3" class="form-label">Relation With Student</label>
+								<label for="modalfile3" class="form-label">Relation With Student<span style="color:red;">*</span></label>
 								<select id="modalfile3" required=""  required="" class="form-control" name = "relation">
 									<option value="">--Select--</option>
 									<option value="Brother">Brother</option>
@@ -343,7 +347,7 @@ $ID3 = 'relative';
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="modalname1" class="form-label">Full Name</label>
+								<label for="modalname1" class="form-label">Full Name<span style="color:red;">*</span></label>
 								<input type="text" required="" class="form-control" id="modalname1" name="full_name" placeholder="Enter name">
 							</div>
 						</div>
@@ -353,13 +357,13 @@ $ID3 = 'relative';
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="modalpw1" class="form-label">Education</label>
+								<label for="modalpw1" class="form-label">Education<span style="color:red;">*</span></label>
 								<input type="text" required="" class="form-control" id="modalpw1" name="education" placeholder="Education">
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="modalemail1" class="form-label">Age</label>
+								<label for="modalemail1" class="form-label">Age<span style="color:red;">*</span></label>
 								<input type="number" min="1"  required="" name="age" class="form-control" id="modalemail1" placeholder="e.g. 7">
 							</div>
 						</div>
@@ -533,8 +537,7 @@ $ID3 = 'relative';
 								+'</div>'
 								+'</div>');
 						}else{
-
-							val.push('<div class="col-sm-6"><li><input type="checkbox" name = "subject[]" value="'+v.sub_id+'" class="skin-square-green"><label class="icheck-label form-label">'+v.sub_name+'</label></li></div>');
+							val.push('<div class="col-sm-6"><li><input type="checkbox" name = "subject[]" value="'+v.sub_id+'" '+' class="skin-square-green"><label class="icheck-label form-label">'+v.sub_name+'</label></li></div>');
 						}
 					});
 				}else{
@@ -550,6 +553,5 @@ $ID3 = 'relative';
 			}
 		});
 	}
-
 </script>
 @endpush

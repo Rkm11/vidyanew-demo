@@ -75,7 +75,7 @@ $ID3 = 'relative';
 								</label>
 								<span class="desc">&nbsp;</span>
 								<div class="controls">
-									<input type="text" class="form-control datepicker" data-format="dd/mm/yyyy" value="{{ Carbon\Carbon::now()->format('d/m/Y') }}" required>
+									<input type="text" class="form-control datepicker" name="ad[date]" data-format="dd/mm/yyyy" value="{{(isset($a->ad_date))?$a->ad_date:date('d-m-Y')}}" required>
 								</div>
 							</div>
 						</div>
@@ -121,7 +121,7 @@ $ID3 = 'relative';
 								<label class="form-label">Email
 								</label>
 								<div class="controls">
-									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"  class="form-control" name="stu[email]" placeholder="Email Id"  value = "{{ chkN($a->stu_email) }}">
+									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail"  class="form-control" name="stu[email]" placeholder="Email Id"  value = "{{ chkN($a->stu_email) }}">
 								</div>
 							</div>
 						</div>
@@ -315,10 +315,10 @@ $ID3 = 'relative';
 				<div class="clearfix"></div>
 				<div class="row">
 					<div class="col-xs-12">
-						<div class="" align="center">
+						<div class="" align="center" id="buttons">
 							<button type="submit" id = "saveBtn" class="btn btn-warning">Save</button>
-							<button type="button" class="btn btn-primary" id = "otherBtn" style="display: none;" onclick="form_hide();">Other Information</button>
-							<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" style="display: none;">Finish</a>
+							<button type="button" class="btn btn-primary" id = "otherBtn"  onclick="form_hide();">Other Information</button>
+							<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" >Finish</a>
 						</div>
 					</div>
 				</div>
@@ -339,9 +339,9 @@ $ID3 = 'relative';
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="modalfile3" class="form-label">Relation With Student</label>
-								<select id="modalfile3" class="form-control" name = "relation">
-									<option value="-1">--Select--</option>
+								<label for="modalfile3" class="form-label">Relation With Student<span style="color:red;">*</span></label>
+								<select id="modalfile3" required=""  required="" class="form-control" name = "relation">
+									<option value="">--Select--</option>
 									<option value="Brother">Brother</option>
 									<option value="Sister">Sister</option>
 								</select>
@@ -349,8 +349,8 @@ $ID3 = 'relative';
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="modalname1" class="form-label">Full Name</label>
-								<input type="text" class="form-control" id="modalname1" name="full_name" placeholder="Enter name" pattern="[a-zA-z]=" required>
+								<label for="modalname1" class="form-label">Full Name<span style="color:red;">*</span></label>
+								<input type="text" required="" class="form-control" id="modalname1" name="full_name" placeholder="Enter name">
 							</div>
 						</div>
 					</div>
@@ -359,14 +359,14 @@ $ID3 = 'relative';
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="modalpw1" class="form-label">Education</label>
-								<input type="text" class="form-control" id="modalpw1" name="education" placeholder="Education" required>
+								<label for="modalpw1" class="form-label">Education<span style="color:red;">*</span></label>
+								<input type="text" required="" class="form-control" id="modalpw1" name="education" placeholder="Education">
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="modalemail1" class="form-label">Age</label>
-								<input type="text" name="age" class="form-control" id="modalemail1" placeholder="e.g. 7" maxlenght="100" patern="[0-9]{100}" required>
+								<label for="modalemail1" class="form-label">Age<span style="color:red;">*</span></label>
+								<input type="number" min="1"  required="" name="age" class="form-control" id="modalemail1" placeholder="e.g. 7">
 							</div>
 						</div>
 					</div>

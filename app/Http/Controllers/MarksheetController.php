@@ -223,8 +223,9 @@ class MarksheetController extends Controller {
 			->where('mark_student', $id)->get();
 
 		if ($i->isEmpty()) {
-			return all();
+			// return false;
 		}
+		// dd($i);
 
 		//return gettype($i[0]->subject);//->student->stu_alt_mobile;
 		//return view('reports.marksheet', compact('i'));

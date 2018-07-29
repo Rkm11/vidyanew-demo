@@ -111,7 +111,7 @@ class AttendanceController extends Controller {
 	public function store(Request $r) {
 		// return $r->all();
 		$cur = Carbon::now()->format('d-m-Y');
-		$preAt = Attendance::where('att_added', '=', $cur)->where('att_student', $r->student)->where('att_subject', $r->subject)->first();
+		$preAt = Attendance::where('att_added', '=', $r->added)->where('att_student', $r->student)->where('att_subject', $r->subject)->first();
 		if (!$preAt) {
 			$d = $this->changeKeys($this->pre, $r->all());
 			return Attendance::create($d) ? 'success' : 'error';

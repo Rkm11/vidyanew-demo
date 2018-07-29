@@ -84,7 +84,7 @@ View Enquiries
 									<th>Admission</th>
 									<th>Date</th>
 									<th>Action</th>
-									
+
 								</tr>
 							</thead>
 							<tbody>
@@ -120,7 +120,7 @@ View Enquiries
 			{data: 'ad_school', name: 'ad_school'},
 			{data: 'std_name', name: 'std_name'},
 			{},
-			
+
 			{}
 			],
 			'columnDefs': [
@@ -147,16 +147,22 @@ View Enquiries
 					return '<a class="btn btn-warning" href = "'+edit(full.enq_id)+'">Edit</a>';
 				}
 			}
-			
+
 // &nbsp;&nbsp;<a class="btn btn-warning" href = "'+edit1(full.enq_id)+'">folloup</a>
 			],"order": [[ 7, "desc" ]]
 		});
 	});
+	// var v = '{{ url('admission/') }}',
+	// e = '{{ url('enquiry') }}';
+	// function redA(id){
+	// 	return v+'/confirm/'+id;
+	// }
 	var v = '{{ url('admission/') }}',
 	e = '{{ url('enquiry') }}';
 	function redA(id){
 		return v+'/'+id+'/edit';
 	}
+
 		function edit(id){
 		return e+'/'+id+'/edit';
 	}

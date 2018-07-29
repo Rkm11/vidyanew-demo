@@ -62,7 +62,6 @@ class AdmissionController extends Controller {
 	public function store(Request $r) {
 		date_default_timezone_set('Asia/Calcutta');
 		$data = ['msg' => 'success'];
-
 		// return $data;
 		$path = "images/";
 		$new = uniqid() . ".jpeg";
@@ -70,6 +69,7 @@ class AdmissionController extends Controller {
 		$ad = $r->all()['ad'];
 		$father_picture = '';
 		$mother_picture = '';
+		$d = $this->changeKeys('ad_', $ad);
 		// return $r->all();
 		if ($r->hasFile('father_img')) {
 			$r->file('father_img')->move($path, 'f-' . $new);
@@ -116,6 +116,7 @@ class AdmissionController extends Controller {
 				$d['ad_student'] = $student;
 				$d['ad_subjects'] = implode(',', $r->all()['subject']);
 				$d['ad_status'] = 1;
+				$d['ad_date'] = $d['ad_date'];
 				$d['ad_remaining_fees'] = $d['ad_fees'];
 				$data['s'] = $student;
 				$cur = Carbon::now()->format('d-m-Y');
@@ -129,7 +130,6 @@ class AdmissionController extends Controller {
 						]);
 					}
 				}
-
 				return AdmissionDetail::create($d) ? $data : 'error';
 			}
 		}
@@ -152,9 +152,12 @@ class AdmissionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-
 		$ad = AdmissionDetail::join('students', 'students.stu_id', '=', 'admission_details.ad_student')->find($id);
 		return view('edit_admission')->with(['a' => $ad]);
+	}
+	public function confirm($id) {
+		$ad = AdmissionDetail::join('students', 'students.stu_id', '=', 'admission_details.ad_student')->find($id);
+		return view('create_admission')->with(['a' => $ad]);
 	}
 
 	/**
@@ -197,8 +200,7 @@ class AdmissionController extends Controller {
 		// $par = $this->changeKeys('parent_', $p);
 
 		$student = AdmissionDetail::find($id)->ad_student;
-		// return $r->all();
-		dd($adm);
+
 		if (AdmissionDetail::where('ad_id', $id)->update($adm)) {
 			ParentDetail::where('parent_id', Student::find($student)->stu_parent)->update([
 				'parent_first_name' => $st['stu_middle_name'],

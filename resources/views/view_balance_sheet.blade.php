@@ -19,7 +19,7 @@ Balance Sheet
 								<span id="date-label-from" class="date-label">From:</span><input class="date_range_filter date" type="text" id="datepicker_from" />
 								&ensp;&ensp;&ensp;<span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
 							</p>
-						</center>	
+						</center>
 						<table class="table table-striped table-bordered" id="balance-table" >
 							<thead style="background-color:#ffffff;">
 								<tr>
@@ -182,10 +182,10 @@ Balance Sheet
 
 	});
 
- 
+
 $(document).ready(function() {
     var otable = $('#balance-table').DataTable();
-     
+
 
           $("#datepicker_from").datepicker({
 		    showOn: "button",
@@ -193,6 +193,7 @@ $(document).ready(function() {
 		    yearRange: "-40:+10",
             changeYear: true,
             changeMonth: true,
+            format: 'yyyy-mm-dd',
 
 		    // buttonImage: "images/calendar.gif",
 		    buttonImageOnly: false,
@@ -211,6 +212,7 @@ $(document).ready(function() {
 		    yearRange: "-40:+10",
             changeYear: true,
             changeMonth: true,
+            format: 'yyyy-mm-dd',
 
 		    // buttonImage: "images/calendar.gif",
 		    buttonImageOnly: false,
@@ -256,7 +258,7 @@ $.fn.dataTableExt.afnFiltering.push(
 
     return true;
     // console.log(data._date);
-   
+
 
   }
 );

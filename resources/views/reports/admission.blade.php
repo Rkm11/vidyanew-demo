@@ -290,7 +290,7 @@ Colony, Pune, India- 411029.'; ?> </p>
 							</table>
 						</td>
 						<td style="width: 30%;">
-							<p>Date: <span>{{ Carbon\Carbon::parse($i->updated_at)->toFormattedDateString() }}</span></p>
+							<p>Date: <span>{{ Carbon\Carbon::parse($i->ad_date)->toFormattedDateString() }}</span></p>
 						</td>
 					</tr>
 					<tr>
