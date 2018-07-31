@@ -245,7 +245,7 @@ Create Attendances
 			success : function(d){
 				var val = [];
 				if(d.length > 0){
-					val.push('<option value="-1">--Select--</option>');
+					val.push('<option value="">--Select--</option>');
 					$.each(d, function(k,v){
 						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
 					});
