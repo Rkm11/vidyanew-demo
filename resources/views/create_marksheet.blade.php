@@ -158,7 +158,7 @@ Create Marksheet
 	}
 	$('#batch, #standard, #medium, #subject, #test').on({
 		'change' : function(){
-			if($('#subject').val() != '-1'){
+			if($('#subject').val() != ''){
 				$('#marksheet-table').DataTable().destroy();
 				data();
 			}
