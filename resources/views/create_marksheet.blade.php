@@ -32,7 +32,7 @@ Create Marksheet
 								<label class="form-label">Test<span style="color:red;">*</span>:</label>
 								<div class="controls">
 									<select class="form-control" name="test" id = "test">
-										<option value="-1">--Select--</option>
+										<option value="">--Select--</option>
 										@forelse (App\Models\Test::get() as $b)
 										<option value = "{{ $b->id }}">{{ $b->test_no }}</option>
 										@empty
@@ -79,7 +79,7 @@ Create Marksheet
 								<label class="form-label">Medium<span style="color:red;">*</span>:</label>
 								<div class="controls">
 									<select class="form-control" name="medium" id = "medium">
-										<option value="-1">--Select--</option>
+										<option value="">--Select--</option>
 										@forelse (App\Models\Medium::get() as $m)
 										<option value = "{{ $m->med_id }}">{{ $m->med_name }}</option>
 										@empty
@@ -97,7 +97,7 @@ Create Marksheet
 								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
 								<div class="controls">
 									<select class="form-control" name="standard" id = "standard">
-										<option value="-1">--Select--</option>
+										<option value="">--Select--</option>
 										@forelse (App\Models\Standard::get() as $st)
 										<option value = "{{ $st->std_id }}">{{ $st->std_name }}</option>
 										@empty
@@ -111,7 +111,7 @@ Create Marksheet
 								<label class="form-label">Subjects Offered<span style="color:red;">*</span>:</label>
 								<div class="controls">
 									<select class="form-control" name="subject" id = "subject">
-										<option value="-1">--Select--</option>
+										<option value="">--Select--</option>
 									</select>
 								</div>
 							</div>
@@ -202,7 +202,10 @@ Create Marksheet
 	}
 
 	function updateAttendance(id, val, test){
-
+		if($('#subject').val()=='' ||$('#outtmark').val()=='' ||$('#exam_date').val()=='' ||$('#medium').val()==''
+		||$('#standard').val()==''||$('#medium').val()==''||$('#batch').val()==''){
+					alert('All filters are required before entering marks.');
+				}else{
 		var fd = new FormData();
 		fd.append('subject',$('#subject').val());
 		fd.append('student',id);
@@ -240,6 +243,7 @@ Create Marksheet
 				$('#msg').html('');
 			},800);
 		});
+		}
 	}
 	$('#standard').on({
 		'change' : function(){
@@ -254,7 +258,7 @@ Create Marksheet
 			success : function(d){
 				var val = [];
 				if(d.length > 0){
-					val.push('<option value="-1">--Select--</option>');
+					val.push('<option value="">--Select--</option>');
 					$.each(d, function(k,v){
 						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
 					});
