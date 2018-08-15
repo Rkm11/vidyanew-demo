@@ -98,14 +98,6 @@ View Marksheets
 									<tr>
 										<th>Student Name</th>
 										<th>Subject</th>
-										<th>T-1</th>
-										<th>T-2</th>
-										<th>T-3</th>
-										<th>T-4</th>
-										<th>T-5</th>
-										<th>T-6</th>
-										<th>T-7</th>
-										<th>T-8</th>
 										<th>Total Mark</th>
 										<!-- <th>T-10</th>
 										<th>T-11</th>

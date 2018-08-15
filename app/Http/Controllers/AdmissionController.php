@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
 use App\Models\AdmissionDetail;
-use App\Models\Marksheet;
 use App\Models\ParentDetail;
 use App\Models\Student;
 use Carbon\Carbon;
@@ -122,13 +121,13 @@ class AdmissionController extends Controller {
 				$cur = Carbon::now()->format('d-m-Y');
 
 				foreach ($r->all()['subject'] as $key => $value) {
-					if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
-						Marksheet::create([
-							'mark_subject' => $value,
-							'mark_student' => $student,
-							'mark_added' => $cur,
-						]);
-					}
+					// if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
+					// 	Marksheet::create([
+					// 		'mark_subject' => $value,
+					// 		'mark_student' => $student,
+					// 		'mark_added' => $cur,
+					// 	]);
+					// }
 				}
 				return AdmissionDetail::create($d) ? $data : 'error';
 			}
@@ -211,13 +210,13 @@ class AdmissionController extends Controller {
 			$cur = Carbon::now()->format('d-m-Y');
 
 			foreach ($r->all()['subject'] as $key => $value) {
-				if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
-					Marksheet::create([
-						'mark_subject' => $value,
-						'mark_student' => $student,
-						'mark_added' => $cur,
-					]);
-				}
+				// if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
+				// 	Marksheet::create([
+				// 		'mark_subject' => $value,
+				// 		'mark_student' => $student,
+				// 		'mark_added' => $cur,
+				// 	]);
+				// }
 			}
 			return (Student::where('stu_id', $student)->update($st)) ? 'successU' : 'error';
 		}

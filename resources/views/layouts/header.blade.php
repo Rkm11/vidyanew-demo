@@ -287,20 +287,5 @@
 <!-- CORE JS FRAMEWORK - END -->
 
 
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - FOR FORM VALIDATION -->
-<script src="{{ asset('public/assets/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('public/assets/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>
- <script src="{{ asset('public/assets/js/form-validation.js') }}" type="text/javascript"></script>
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END FOR FORM VALIDATION -->
 
-
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="{{ asset('public/assets/plugins/autosize/autosize.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('public/assets/plugins/icheck/icheck.min.js') }}" type="text/javascript"></script>
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-<!-- FOR DATEPICKER - START -->
-<script src="{{ asset('public/assets/plugins/jquery-ui/smoothness/jquery-ui.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('public/assets/plugins/datepicker/js/datepicker.js') }}" type="text/javascript"></script>
                     <!-- MAIN CONTENT AREA STARTS -->

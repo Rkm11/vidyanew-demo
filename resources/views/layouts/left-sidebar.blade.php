@@ -1,7 +1,7 @@
 <div class="page-sidebar fixedscroll">
 
     <!-- MAIN MENU - START -->
-    <div class="page-sidebar-wrapper" id="main-menu-wrapper" style="background-color:#5aca9b;"> 
+    <div class="page-sidebar-wrapper" id="main-menu-wrapper" style="background-color:#5aca9b;">
 
         <!-- USER INFO - START -->
         <div class="profile-info row">
@@ -30,16 +30,16 @@
 
 
 
-        <ul class='wraplist'>	
+        <ul class='wraplist'>
 
             <li class='menusection' style="color:#ffffff;">Main</li>
-           <li class="open"> 
+           <li class="open">
                 <a href="{{ url('/') }}">
                     <i class="fa fa-dashboard" style="color:#ffffff;"></i>
                     <span class="title" style="color:#ffffff;">Home</span>
                 </a>
-            </li> 
-            <li> 
+            </li>
+            <li>
                 <a href="javascript:;">
                     <i class="fa fa-columns" style="color:#ffffff;"></i>
                     <span class="title"style="color:#ffffff;">Add</span>
@@ -57,6 +57,9 @@
                     </li>
                     <li>
                         <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('test.create') }}" style="color:#ffffff;">Test</a>
                     </li>
                 <!--    <li>
                         <a href="{{ route('parent.index') }}" style="color:#ffffff;">Parent Registration</a>
@@ -85,7 +88,7 @@
 
                 </ul>
             </li>
-            <li> 
+            <li>
                 <a href="javascript:;">
                     <i class="fa fa-columns" style="color:#ffffff;"></i>
                     <span class="title" style="color:#ffffff;">View</span>
@@ -107,16 +110,16 @@
                     <li>
                         <a href="{{ route('marksheet.index') }}" style="color:#ffffff;">All Student Marksheet</a>
                     </li>
-                    <li>                    
+                    <li>
                         <a href="{{ route('balance-sheet.index') }}" style="color:#ffffff;">Balance Sheet</a>
                     </li>
 
-                   
+
 
                     {{-- <li>
                         <a href="#">View All Users</a>
                     </li> --}}
-                    {{-- 
+                    {{--
                     <li>
                         <a href="invoice.php" style="color:#ffffff;">Invoice</a>
                     </li> --}}
@@ -162,7 +165,7 @@
                 {{--</ul>--}}
             {{--</li>--}}
 
-          <!--  <li> 
+          <!--  <li>
                 <a href="sms_sending.php">
                     <i class="fa fa-table" style="color:#ffffff;"></i>
                     <span class="title" style="color:#ffffff;">Sms Body</span>

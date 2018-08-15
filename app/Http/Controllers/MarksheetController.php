@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
+use App\Models\AdmissionDetail;
 use App\Models\Marksheet;
 use App\Models\Student;
 use DataTables;
@@ -24,6 +25,12 @@ class MarksheetController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		$stu = Student::select(['students.stu_id', 'marksheets.mark_total', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
+			->leftJoin('admission_details', 'admission_details.ad_student', '=', 'students.stu_id')
+			->leftJoin('marksheets', 'marksheets.mark_student', '=', 'students.stu_id')
+			->leftJoin('tests', 'tests.id', '=', 'marksheets.mark_testid')
+			->leftJoin('subjects', 'subjects.sub_id', '=', 'tests.test_subject');
+		// dd($stu);die;
 		return view('single_subject_marksheet');
 	}
 
@@ -54,42 +61,32 @@ class MarksheetController extends Controller {
 		if ($r->result > $r->outtmark) {
 			return 'outbound';
 		}
-		$cur = $r->date;
-		$preAt = Marksheet::where('mark_added', '=', $cur)->where('mark_student', $r->student)->where('mark_subject', $r->subject)->first();
+		// dd($r->all());
+		$objMarks = Marksheet::where('mark_student', $r->student)->where('mark_testid', $r->testid)->first();
 		$tests = [];
-
-		if (!$preAt) {
+		if (!empty($objMarks)) {
 			$d = $this->changeKeys($this->pre, $r->all());
-			$d['mark_test_' . $d['mark_test']] = $d['mark_result'];
-			$d['mark_added'] = $d['mark_date'];
-			$total = $r->result;
-			$d['mark_total'] = $total;
+			// dd($objMarks);
+			// dd($d);
+			// $d['mark_test_' . $d['mark_test']] = $d['mark_result'];
+			// $total = $d['mark_total'];
+			// $d['mark_total'] = $total;
+			Marksheet::where('mark_student', $r->student)->where('mark_testid', $r->testid)->update(['mark_total' => $d['mark_total']]);
+			return 'Success';
 
-			return Marksheet::create($d) ? $total : 'error';
 		} else {
-			$m = [];
-			for ($i = 1; $i < 19; $i++) {
-				if ($r->test != $i) {
-					$m[] = 'mark_test_' . $i;
-				}
-			}
-
-			$e = implode(' + ', $m);
-
-			$ptotal = Marksheet::select(DB::raw('SUM(' . $e . ') as total'))->where('mark_id', $preAt->mark_id)->first()->total;
-
-			$total = $ptotal + $r->result;
-
-			if ($preAt->att_result != $r->result) {
-				return Marksheet::where('mark_student', $r->student)->where('mark_subject', $r->subject)->update(['mark_test_' . $r->test => $r->result, 'mark_total' => $total, 'outof_test_' . $r->test => $r->outtmark]) ? $total : 'error';
-			}
+			$d = $this->changeKeys($this->pre, $r->all());
+			return Marksheet::create($d) ? 'success' : 'error';
 		}
 	}
 
 	public function data(Request $r) {
-
-		$stu = Student::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id')->join('marksheets', 'marksheets.mark_student', '=', 'students.stu_id')->join('subjects', 'subjects.sub_id', '=', 'marksheets.mark_subject');
-
+		$stu = Student::select(['students.stu_id', 'marksheets.mark_total', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
+			->leftJoin('admission_details', 'admission_details.ad_student', '=', 'students.stu_id')
+			->leftJoin('marksheets', 'marksheets.mark_student', '=', 'students.stu_id')
+			->leftJoin('tests', 'tests.id', '=', 'marksheets.mark_testid')
+			->leftJoin('subjects', 'subjects.sub_id', '=', 'tests.test_subject');
+		// dd($stu);
 		if ($r->batch) {
 			if ($r->batch != '-1') {
 				$stu->where('admission_details.ad_batch', $r->batch);
@@ -105,12 +102,14 @@ class MarksheetController extends Controller {
 				$stu->where('admission_details.ad_medium', $r->medium);
 			}
 		}
-		if ($r->subject) {
-			if ($r->subject != '-1') {
-				$stu->whereRaw('FIND_IN_SET(' . $r->subject . ',ad_subjects)')->where('marksheets.mark_subject', $r->subject);
-			}
+		if ($r->test_id != '') {
+			$stu->where('tests.id', $r->test_id);
 		}
+
+		// $stu->groupBy('students.stu_id');
+
 		$stu->where('admission_details.ad_status', 1)->get();
+		// dd($stu);
 		return DataTables::of($stu)->filterColumn('stu_name', function ($query, $keyword) {
 			$query->whereRaw("CONCAT(students.stu_first_name, \" \" , students.stu_last_name) like ?", ["%{$keyword}%"]);
 		})->make(true);
@@ -207,29 +206,35 @@ class MarksheetController extends Controller {
 		//
 	}
 	public function allPDF($id) {
+
 		//exit();
 		$m = Student::with('marksheets')->where('stu_id', $id)->first();
 		$pdf = PDF::loadView('reports.single-marksheet1', compact('m'))->setPaper('a4')->setWarnings(false);
 		return $pdf->download($m->stu_first_name . '-' . $m->stu_last_name . '-Marksheet.pdf');
 	}
 	public function downloadPDF($id) {
-
-		//$i = AdmissionDetail::with('student')->where('ad_student',$id)->first();
-		$i = Marksheet::join('subjects', 'marksheets.mark_subject', '=', 'subjects.sub_id')
-			->join('students', 'students.stu_id', '=', 'marksheets.mark_student')
-			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+		$i = AdmissionDetail::with('student')
+			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')->where('ad_student', $id)
 			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
-			->where('mark_student', $id)->get();
-
-		if ($i->isEmpty()) {
-			// return false;
+			->first();
+		$marks = [];
+		$arrSubjects = explode(',', $i->ad_subjects);
+		foreach ($arrSubjects as $sub) {
+			$marksheet = Marksheet::join('tests', 'tests.id', '=', 'marksheets.mark_testid')
+				->join('students', 'students.stu_id', '=', 'marksheets.mark_student')
+				->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+				->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+				->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+				->join('subjects', 'subjects.sub_id', '=', 'tests.test_subject')
+				->where('mark_student', $id)
+				->where('test_subject', $sub)->get();
+			$marks[$sub]['sub_name'] = $marksheet[0]['sub_name'];
+			$marks[$sub]['marks'] = $marksheet;
 		}
-		// dd($i);
-
-		//return gettype($i[0]->subject);//->student->stu_alt_mobile;
-		//return view('reports.marksheet', compact('i'));
-		$pdf = PDF::loadView('reports.marksheet', compact('i'))->setPaper('a4')->setWarnings(false);
+		// dd($marks);
+		// return view('reports.marksheet', compact('i', 'marks'));
+		$pdf = PDF::loadView('reports.marksheet', compact('i', 'marks'))->setPaper('a4')->setWarnings(false);
 		return $pdf->download('marksheet.pdf');
 
 		// return $pdf->download('admission.pdf');

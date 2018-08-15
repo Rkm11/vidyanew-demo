@@ -73,9 +73,17 @@ All Attendances
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Date<span style="color:red;">*</span>:</label>
+								<label class="form-label">Start Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" placeholder="dd-mm-yyyy" name="searchbydate" id="searchbydate" class="form-control datepicker">
+									<input type="text" placeholder="dd-mm-yyyy" name="startDate" id="startDate" class="form-control datepicker">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">End Date<span style="color:red;">*</span>:</label>
+								<div class="controls">
+									<input type="text" placeholder="dd-mm-yyyy" name="endDate" id="endDate" class="form-control datepicker">
 								</div>
 							</div>
 						</div>
@@ -90,13 +98,13 @@ All Attendances
 						<div class="table-responsive">
 							<table id="attendance-table" class="table table-striped  display">
 								<thead >
-									<tr>
+									<!--< tr>
 										<th class="col-sm-1">#</th>
-										<th class="col-sm-4">Name</th>
-										<th class="col-sm-4">Subject</th>
+										<th class="col-sm-3">Name</th>
+										<th class="col-sm-3">Subject</th>
 										<th class="col-sm-3">Report</th>
-										<!--<th>Date</th>-->
-									</tr>
+										<th class="col-sm-3">Date</th>
+									</tr> -->
 								</thead>
 								<tbody>
 								</tbody>
@@ -121,51 +129,47 @@ All Attendances
 
 <script type="text/javascript">
 
-	$('#batch, #standard, #medium, #subject, #searchbydate').on({
+	$('#batch, #standard, #medium, #subject, #startDate,#endDate').on({
 		'change' : function(){
+			getData();
 			$('#attendance-table').DataTable().destroy()
-			data();
 		}
 	});
-    data();
-	function data() {
-		$('#attendance-table').DataTable({
-			processing: true,
-			//serverSide: true,
-
-			ajax: {
-				url : '{!! route('attendance-view.data') !!}',
+	function getData(cb_func) {
+		$.ajax({
+		url : '{!! route('attendance-view.data') !!}',
 				type : 'get',
-				data : function(d){
-					d.batch = $('#batch').val();
-					d.subject = $('#subject').val();
-					d.standard = $('#standard').val();
-					d.medium = $('#medium').val();
-					d.searchbydate = $('#searchbydate').val();
-					console.log("date"+d.searchbydate);
-				}
-			},
-			columns: [
-			{data: 'stu_id', name: 'students.stu_id'},
-			{data: 'stu_name', name: 'stu_name'},
-			{data: 'sub_name', name: 'subjects.sub_name'},
-			{},
-			//{data : 'att_added', name: 'attendances.att_added'}
-			],
-			columnDefs: [{
-				'targets': 3,
-				'render': function (data, type, full, meta){
-					var s = (full.att_result) ? 'Present' : 'Absent';
-					return '<span>'+s+'</span>';
-				}
-			}],
-			dom: 'Bfrtip',
+				data : {
+					"batch" : $('#batch').val(),
+					"subject" : $('#subject').val(),
+					"standard" : $('#standard').val(),
+					"medium" : $('#medium').val(),
+					"startDate" : $('#startDate').val(),
+					"endDate" : $('#endDate').val(),
+				},
+				success: cb_func
+    });
+	}
+	// getData()
+	 getData(function( data ) {
+	 	console.log(data);
+    var columns = [];
+    data = JSON.parse(data);
+    console.log(Object.keys(data[0]));
+    columnNames = Object.keys(data[0]);
+    for (var i in columnNames) {
+      columns.push({data: columnNames[i], title: columnNames[i]});
+    }
+    $('#attendance-table').DataTable( {
+		data: data,
+		columns: columns,
+		dom: 'Bfrtip',
 			buttons: [
 			{
 				text: 'Print',
 				extend: 'pdfHtml5',
 				message: '',
-				orientation: 'portrait',
+				orientation: 'landscape',
 				exportOptions: {
 					columns: ':visible'
 				},
@@ -177,7 +181,7 @@ All Attendances
 					doc.styles.title.fontSize = 14;
 
 			        // // Remove spaces around page title
-			        doc.content[1].table.widths = [ 15, '*', '*','*'];
+			        // doc.content[1].table.widths = [ 15, '*', '*','*','*'];
 			        // doc.content[1].table.alignment = [ 'center', 'center', 'center','center','center' ];
 			        // doc.styles.table['body'].alignment = 'center';
 
@@ -188,8 +192,73 @@ All Attendances
 			    }
 			}
 			]
-		});
-	}
+	} );
+});
+
+
+ //    data();
+	// function data() {
+	// 	$('#attendance-table').DataTable({
+	// 		processing: true,
+	// 		//serverSide: true,
+
+	// 		ajax: {
+	// 			url : '{!! route('attendance-view.data') !!}',
+	// 			type : 'get',
+	// 			data : function(d){
+	// 				d.batch = $('#batch').val();
+	// 				d.subject = $('#subject').val();
+	// 				d.standard = $('#standard').val();
+	// 				d.medium = $('#medium').val();
+	// 				d.startDate = $('#startDate').val();
+	// 				d.endDate = $('#endDate').val();
+	// 			}
+	// 		},
+	// 		columns: [
+	// 		{data: 'stu_id', name: 'students.stu_id'},
+	// 		{data: 'stu_name', name: 'stu_name'},
+	// 		{data: 'sub_name', name: 'subjects.sub_name'},
+	// 		{},
+	// 		{data : 'att_added', name: 'attendances.att_added'}
+	// 		],
+	// 		columnDefs: [{
+	// 			'targets': 3,
+	// 			'render': function (data, type, full, meta){
+	// 				var s = (full.att_result) ? 'Present' : 'Absent';
+	// 				return '<span>'+s+'</span>';
+	// 			}
+	// 		}],
+	// 		dom: 'Bfrtip',
+	// 		buttons: [
+	// 		{
+	// 			text: 'Print',
+	// 			extend: 'pdfHtml5',
+	// 			message: '',
+	// 			orientation: 'portrait',
+	// 			exportOptions: {
+	// 				columns: ':visible'
+	// 			},
+	// 			title : '"{{env('class_name')}}" - Attendances',
+	// 			customize: function (doc) {
+
+	// 				doc.defaultStyle.fontSize = 12;
+	// 				doc.styles.tableHeader.fontSize = 14;
+	// 				doc.styles.title.fontSize = 14;
+
+	// 		        // // Remove spaces around page title
+	// 		        doc.content[1].table.widths = [ 15, '*', '*','*','*'];
+	// 		        // doc.content[1].table.alignment = [ 'center', 'center', 'center','center','center' ];
+	// 		        // doc.styles.table['body'].alignment = 'center';
+
+	// 		        doc.content[0].text = doc.content[0].text.trim();
+
+	// 		        // Styling the table: create style object
+
+	// 		    }
+	// 		}
+	// 		]
+	// 	});
+	// }
 	$('#standard').on({
 		'change' : function(){
 			getSubject(this.value);
@@ -203,7 +272,7 @@ All Attendances
 			success : function(d){
 				var val = [];
 				if(d.length > 0){
-					val.push('<option value="-1">--Select--</option>');
+					val.push('<option value="">--Select--</option>');
 					$.each(d, function(k,v){
 						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
 					});
@@ -213,34 +282,5 @@ All Attendances
 		});
 	}
 
-	// $(".datepicker").each(function(i, e) {
-	// 	var $this = $(e),
-	// 	options = {
-	// 		onSelect: function() {
-	// 			var table = $('#attendance-table').DataTable();
-	// 			table.search( $(this).val() ).draw();
-	// 		}
-	// 	},
-	// 	$nxt = $this.next(),
-	// 	$prv = $this.prev();
-
-
-	// 	$this.datepicker(options);
-
-	//     // if ($nxt.is('.input-group-addon') && $nxt.has('a')) {
-	//     //     $nxt.on('click', function(ev) {
-	//     //         ev.preventDefault();
-	//     //         $this.datepicker('show');
-	//     //     });
-	//     // }
-
-	//     // if ($prv.is('.input-group-addon') && $prv.has('a')) {
-	//     //     $prv.on('click', function(ev) {
-	//     //         ev.preventDefault();
-
-	//     //         $this.datepicker('show');
-	//     //     });
-	//     // }
-	// });
 </script>
 @endpush

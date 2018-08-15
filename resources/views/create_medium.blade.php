@@ -37,17 +37,17 @@ $ID = 'medium';
 									<input type="text" class="form-control" name="name" placeholder="e.g. English" rquired>
 								</div>
 							</div>
-						</div>						
+						</div>
 					</div>
 				</div>
-				<div class="row">	
+				<div class="row">
 					<div class="col-xs-10 col-sm-12">
 						<div class="text-center">
 							<button type="submit" class="btn btn-success">Create</button>
 						</div>
 					</div>
 				</div>
-				<div id = "{{ $ID }}Msg" class="text-center">						
+				<div id = "{{ $ID }}Msg" class="text-center">
 				</div>
 			</form>
 		</div>
@@ -58,7 +58,7 @@ $ID = 'medium';
 @endsection
 
 @push('footer')
-<script>		
-	CRUD.formSubmission("{{ route($ID.'.store') }}", 0,{'empty' : 'name'});	
+<script>
+	CRUD.formSubmission("{{ route($ID.'.store') }}", 0,{}, ID);
 </script>
 @endpush

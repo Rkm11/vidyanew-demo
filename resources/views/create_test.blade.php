@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('page-title')
-Create Marksheet
+Create Test
 @endsection
 
 @push('header')
@@ -16,115 +16,116 @@ Create Marksheet
 }
 
 </style>
-
+@php
+$ID = 'test';
+@endphp
 @endpush
+<script>
+	ID = '{{ $ID }}';
+	</script>
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
 		<br>
 		<div class="content-body" style="background-color:#9ddac0;">
-			<form>
+			<form id = "{{ $ID }}Form">
 				<div class="row">
 						<div class="col-sm-12">
 						<div class="col-sm-3">
 
 							<div class="form-group">
-								<label class="form-label">Test<span style="color:red;">*</span>:</label>
+								<label class="form-label">Test Name<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<select class="form-control" onchange="fetchTest(this.value)" name="testid" id = "testid">
+									<input type="text"   placeholder="Test Name" id="name" name="name" required>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label class="form-label">Date<span style="color:red;">*</span>:</label>
+								<div class="controls">
+									<input type="text" readonly="" class="datepicker" placeholder="dd-mm-yy" id="date" name="date" required>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label class="form-label">Out Of Mark<span style="color:red;">*</span>:</label>
+								<div class="controls">
+									<input type="text" title=" Mark 0-100" name="outof" id="outtmark" placeholder="e.g  out of 100" maxlength="100" required>
+								</div>
+							</div>
+						</div>
+						</div>
+					<div class="col-xs-12 col-sm-12 ">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="form-label">Batch<span style="color:red;">*</span>:</label>
+								<div class="controls">
+									<select class="form-control" name="batch" id = "batch" required>
 										<option value="">--Select--</option>
-										@forelse (App\Models\Test::orderBy('id',' DESC')->get() as $b)
-										<option value = "{{ $b->id }}">{{ $b->test_name }}</option>
+										@forelse (App\Models\Batch::get() as $b)
+										<option value = "{{ $b->batch_id }}">{{ $b->batch_name }}</option>
 										@empty
 										@endforelse
 									</select>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">
-							<div class="form-group">
-								<label class="form-label">Test Date:</label>
-								<div class="controls">
-									<input type="text"   readonly="" placeholder="dd-mm-yy" id="exam_date" name="exam_date" required>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="form-group">
-								<label class="form-label">Out Of Mark:</label>
-								<div class="controls">
-									<input type="text" title=" Mark 0-100" readonly="" name="outtmark" id="outtmark" placeholder="e.g  out of 100" maxlenght="100" pattern="[0-9]{100}" required>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="form-group">
-								<label class="form-label">Subject:</label>
-								<div class="controls">
-									<input type="text" placeholder="Test Subject" name="sub" id="sub" readonly="" disabled="">
-									<input type="hidden"   name="subject" id="subject">
-								</div>
-							</div>
-						</div>
-						</div>
-					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-3">
-							<div class="form-group">
-								<label class="form-label">Batch<span style="color:red;">*</span>:</label>
-								<div class="controls">
-									<input type="text" placeholder="Batch" name="batch_name" id="batch_name" readonly="" >
-									<input type="hidden" placeholder="Batch" name="batch" id="batch" readonly="" >
-								</div>
-							</div>
-						</div>
 
-						<div class="col-sm-3">
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Medium<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" placeholder="Medium" name="medium_name" id="medium_name" readonly="">
-									<input type="hidden" placeholder="Medium" name="medium" id="medium" readonly="">
+									<select class="form-control" name="medium" id = "medium">
+										<option value="">--Select--</option>
+										@forelse (App\Models\Medium::get() as $m)
+										<option value = "{{ $m->med_id }}">{{ $m->med_name }}</option>
+										@empty
+										@endforelse
+									</select>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 ">
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" placeholder="Standard" name="standard_name" id="standard_name" readonly="">
-									<input type="hidden" placeholder="Standard" name="standard" id="standard" readonly="">
+									<select class="form-control" name="standard" id = "standard">
+										<option value="">--Select--</option>
+										@forelse (App\Models\Standard::get() as $st)
+										<option value = "{{ $st->std_id }}">{{ $st->std_name }}</option>
+										@empty
+										@endforelse
+									</select>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-sm-12">
-						<BUTTON  type="button" class="btn btn-primary pull-right" onclick="fetchStudents()">Fetch Students</BUTTON>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="form-label">Subjects Offered<span style="color:red;">*</span>:</label>
+								<div class="controls">
+									<select class="form-control" name="subject" id = "subject">
+										<option value="">--Select--</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
-
-				<header class="panel_header" style="background-color:#9ddac0;">
-					<h2 class="col-sm-4 title pull-left" style="padding-left: 0px;">Create Marksheet Sheet</h2>
-					<div class="col-sm-6 save" id = "msg"></div>
-				</header>
 				<div class="row">
-					<div class="col-sm-12 col-xs-12">
-						<div class="table-responsive">
-							<table id="marksheet-table" class="table table-striped display">
-								<thead style="background-color:#fff;">
-
-									<tr >
-										<th>Student Name</th>
-										<th>Obt_mark</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
+					<div class="col-xs-10 col-sm-12">
+						<div class="text-center">
+							<button type="submit" class="btn btn-success">Create</button>
 						</div>
-						<div class="clearfix"></div><br>
-
-
 					</div>
+				</div>
+				<div id = "{{ $ID }}Msg" class="text-center">
 				</div>
 				<div class="clearfix"></div>
 			</form>
@@ -134,19 +135,21 @@ Create Marksheet
 @endsection
 
 @push('footer')
+<script>
+	CRUD.formSubmission("{{ route($ID.'.store') }}", 0,{}, ID);
+</script>
 <script type="text/javascript">
 	function c(v) {
 		return (v == null) ? 0 : v;
 	}
-	function fetchStudents() {
-		if(''==$('#test').val() || ''==$('#batch').val() || ''==$('#standard').val() || ''==$('#medium').val()){
-			alert('Please Select all filters to fetch student details.');
-			return false;
-		}else{
-			$('#marksheet-table').DataTable().destroy();
+	$('#batch, #standard, #medium, #subject, #test').on({
+		'change' : function(){
+			if($('#subject').val() != ''){
+				$('#marksheet-table').DataTable().destroy();
 				data();
+			}
 		}
-	}
+	});
 	function data() {
 		$('#marksheet-table').removeAttr('width').DataTable({
 			scrollY:"969px",
@@ -159,12 +162,10 @@ Create Marksheet
 				url : '{!! route('marksheet.data') !!}',
 				type : 'get',
 				data : function(d){
-					d.test_id = $('#test').val();
 					d.batch = $('#batch').val();
 					d.subject = $('#subject').val();
 					d.standard = $('#standard').val();
 					d.medium = $('#medium').val();
-					d.test_id = $('#testid').val();
 				}
 			},
 			columns: [
@@ -178,7 +179,7 @@ Create Marksheet
 				'orderable': false,
 				'render': function (data, type, full, meta){
 					// var t = c(full.mark_test_1);
-					return '  <input  type="text" class="form-control" onkeyup = "updateAttendance('+full.stu_id+',this.value, 1);" value = "'+c(full.mark_total)+'">';
+					return '  <input  type="text" class="form-control" onkeyup = "updateAttendance('+full.stu_id+',this.value, 1);" value = "'+c(full.mark_test_1)+'">';
 
 				}
 			}
@@ -194,9 +195,10 @@ Create Marksheet
 		var fd = new FormData();
 		fd.append('subject',$('#subject').val());
 		fd.append('student',id);
-		fd.append('total',val);
-		fd.append('testid',$('#testid').val());
-		fd.append('added',$('#added').val());
+		fd.append('result',val);
+		fd.append('test',$('#test').val());
+		fd.append('outtmark',$('#outtmark').val());
+		fd.append('date',$('#exam_date').val());
 		$.ajax({
 			url : '{{ route('marksheet.store') }}',
 			data : fd,
@@ -229,31 +231,24 @@ Create Marksheet
 		});
 		}
 	}
-
-function fetchTest(id){
+	$('#standard').on({
+		'change' : function(){
+			getSubject(this.value);
+		}
+	});
+	function getSubject(id){
 		$.ajax({
-			url : '{{ route('test-data') }}',
+			url : '{{ route('subject-data') }}',
 			type : 'post',
 			data : {id : id},
 			success : function(d){
 				var val = [];
 				if(d.length > 0){
-					ids=[];
-					console.log(d);
-					ids.push(d[0].test_subject);
-					$('#exam_date').val(d[0].test_date);
-					$('#sub').val(d[0].sub_name);
-					$('#subject').val(d[0].test_subject);
-					$('#medium_name').val(d[0].med_name);
-					$('#standard_name').val(d[0].std_name);
-					$('#outtmark').val(d[0].test_outof);
-					$('#batch_name').val(d[0].batch_name);
-					$('#medium').val(d[0].med_id);
-					$('#standard').val(d[0].std_id);
-					$('#batch').val(d[0].batch_id);
-				}else{
-					alert('Invalid Test Name');
-					location.reload();
+					val.push('<option value="">--Select--</option>');
+					$.each(d, function(k,v){
+						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
+					});
+					$('#subject').html(val);
 				}
 			}
 		});

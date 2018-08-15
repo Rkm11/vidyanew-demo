@@ -33,74 +33,52 @@
 
 	<table width="100%">
 
-	<tr><th colspan="2"><h4> Name of Student : {{$i[0]->stu_first_name}} {{$i[0]->stu_middle_name}} {{$i[0]->stu_last_name}}</h4></th></tr>
-	<tr><th colspan="2"><h4> Name of School/College : {{$i[0]->ad_school}} </h4></th></tr>
-	<tr><th><h4> Standard : {{$i[0]->std_name}}</h4></th><th><h4> Medium : {{$i[0]->med_name}}</h4></th></tr>
+	<tr><th colspan="2"><h4> Name of Student : {{$i->stu_first_name}} {{$i->stu_middle_name}} {{$i->stu_last_name}}</h4></th></tr>
+	<tr><th colspan="2"><h4> Name of School/College : {{$i->ad_school}} </h4></th></tr>
+	<tr><th><h4> Standard : {{$i->std_name}}</h4></th><th><h4> Medium : {{$i->med_name}}</h4></th></tr>
 
 	</table>
 		<?php $flghassubject = 1;?>
-  		@foreach($i as $row)
-  		<?php if ($row->sub_name) {
-
+  		@foreach($marks as $row)
+  		<?php
+if ($row['sub_name']) {
 	$flghassubject++;
 }
 ?>
-  		<table class="table table-bordered">
+  		<table class="table table-bordered" width="100%">
   		<tbody>
   		<tr>
-    		<th>{{ env('class_name') }} </th>
-    		<th colspan="11"></th>
+    		<th colspan="11">{{ env('class_name') }} </th>
+    		<!-- <th ></th> -->
    		</tr>
 		<tr>
-			<th colspan="11">Subject:{{$row->sub_name}}</th>
+			<th colspan="11">Subject:{{$row['sub_name']}}</th>
 		</tr>
    		<tr>
-		    <th rowspan="4"></th>
-		    <th>Test #</th>
-		    <td>Test 1</td>
-		    <td>Test 2</td>
-		    <td>Test 3</td>
-		    <td>Test 4</td>
-		    <td>Test 5</td>
-		    <td>Test 6</td>
-		    <td>Test 7</td>
-		    <td>Test 8</td>
+		    <!-- <th rowspan="1"></th> -->
+		    <th>Test Name</th>
+		    <td>Date</td>
+		    <td>Marks</td>
+		    <td >Out of</td>
+		</tr>
+		    <?php
+foreach ($row['marks'] as $tests) {
+	$test_name = explode('-', $tests->test_name);
+	$test_name = $test_name[0];
+	?>
+	<tr>
+	<td >{{$test_name}}</td>
 
-   		</tr>
-	  	<tr>
-	    	<td>Date</td>
-	    	<td>{{$row->mark_added}}</td>
-	    	<td>{{$row->mark_added}}</td>
-	    	<td>{{$row->mark_added}}</td>
-	    	<td>{{$row->mark_added}}</td>
-	    	<td>{{$row->mark_added}}</td>
-	    	<td>{{$row->mark_added}}</td>
-	    	<td>{{$row->mark_added}}</td>
-	    	<td>{{$row->mark_added}}</td>
-	    </tr>
-	  	<tr>
-	    	<td>Marks</td>
-	    	<td>{{$row->mark_test_1}}</td>
-	    	<td>{{$row->mark_test_2}}</td>
-	    	<td>{{$row->mark_test_3}}</td>
-	    	<td>{{$row->mark_test_4}}</td>
-	    	<td>{{$row->mark_test_5}}</td>
-	    	<td>{{$row->mark_test_6}}</td>
-	    	<td>{{$row->mark_test_7}}</td>
-	    	<td>{{$row->mark_test_8}}</td>
-	  	</tr>
-	   	<tr>
-	    	<td>Out of</td>
-	    	<td>{{$row->outof_test_1}}</td>
-	    	<td>{{$row->outof_test_2}}</td>
-	    	<td>{{$row->outof_test_3}}</td>
-	    	<td>{{$row->outof_test_4}}</td>
-	    	<td>{{$row->outof_test_5}}</td>
-	    	<td>{{$row->outof_test_6}}</td>
-	    	<td>{{$row->outof_test_7}}</td>
-	    	<td>{{$row->outof_test_8}}</td>
 
+	    	<td>{{$tests['test_date']}}</td>
+
+	    	<td>{{$tests['mark_total']}}</td>
+
+
+	    	<td>{{$tests['test_outof']}}</td>
 	  	</tr>
+		    <?php }?>
+
 	  	</tbody>
 	  	</table>
 

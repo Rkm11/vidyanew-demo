@@ -24,6 +24,14 @@ class AttendanceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		$stu = Attendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_id', '=', 'attendances.att_student')->join('subjects', 'subjects.sub_id', '=', 'attendances.att_subject');
+		$arrStu = array();
+		$stu = $stu->get();
+		foreach ($stu as $key => $value) {
+			$stu_id = $value->stu_id;
+			// $arrStu[$stu_id] = $value;
+		}
+
 		return view('view_attendance');
 	}
 
@@ -62,7 +70,9 @@ class AttendanceController extends Controller {
 	public function dataAttendance(Request $r) {
 		$stu = Attendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_id', '=', 'attendances.att_student')->join('subjects', 'subjects.sub_id', '=', 'attendances.att_subject');
 		// $stu = Student::join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
+		// dd($r->batch);
 		if ($r->batch) {
+			// dd('11');
 			if ($r->batch != '-1') {
 				$stu->where('attendances.att_batch', $r->batch);
 			}
@@ -83,14 +93,32 @@ class AttendanceController extends Controller {
 			}
 		}
 
-		if ($r->searchbydate) {
-			$stu->where('attendances.att_added', date('d-m-Y', strtotime($r->searchbydate)))->get();
+		if ($r->startDate && $r->endDate) {
+			$stu->where('attendances.att_added', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
 		}
-		$stu->toSql();
+		if ($r->startDate && empty($r->endDate)) {
+			$stu->where('attendances.att_added', date('d-m-Y', strtotime($r->startDate)))->get();
+		}
+		$stu = $stu->get();
 
-		return DataTables::of($stu)->filterColumn('stu_name', function ($query, $keyword) {
-			$query->whereRaw("CONCAT(students.stu_first_name, \" \" , students.stu_last_name) like ?", ["%{$keyword}%"]);
-		})->make(true);
+		$arrStu = [];
+		foreach ($stu as $key => $value) {
+			$stu_id = $value->stu_id;
+			$date = date('d', strtotime($value->att_added));
+			$arrStu[$stu_id]['Full Name'] = $value->stu_first_name . ' ' . $value->stu_last_name;
+			$arrStu[$stu_id][$date] = ($value->att_result) ? 'P' : 'A';
+		}
+
+		$temp = $arrStu;
+		$arrStu = [];
+		foreach ($temp as $value) {
+			$arrStu[] = $value;
+		}
+
+		$arrStu = (array) $arrStu;
+
+		return json_encode($arrStu);
 	}
 
 	/**
@@ -112,6 +140,7 @@ class AttendanceController extends Controller {
 		// return $r->all();
 		$cur = Carbon::now()->format('d-m-Y');
 		$preAt = Attendance::where('att_added', '=', $r->added)->where('att_student', $r->student)->where('att_subject', $r->subject)->first();
+		// dd($preAt);
 		if (!$preAt) {
 			$d = $this->changeKeys($this->pre, $r->all());
 			return Attendance::create($d) ? 'success' : 'error';
@@ -122,6 +151,21 @@ class AttendanceController extends Controller {
 		}
 	}
 
+	public function createReport() {
+		$stu = Attendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_id', '=', 'attendances.att_student')->join('subjects', 'subjects.sub_id', '=', 'attendances.att_subject');
+		$arrStu = array();
+		$stu = $stu->get();
+		foreach ($stu as $key => $value) {
+			$stu_id = $value->stu_id;
+			$arrStu[$stu_id] = $value;
+		}
+		foreach ($stu as $key => $value) {
+			$stu_id = $value->stu_id;
+			// dd($value->att_result);
+			$arrStu[$stu_id][$value->att_added] = $value->att_result;
+		}
+		return view('reports.attendances', compact('i'));
+	}
 	/**
 	 * Display the specified resource.
 	 *

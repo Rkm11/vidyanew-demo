@@ -84,7 +84,7 @@ Balance Sheet
 				'searchable': true,
 				'orderable': false,
 				'render': function (data, type, full, meta){
-					return full.bs_created_at.split(' ')[0];
+					return full.bs_added_date;
 					// var date = new Date(full.bs_created_at.split(' ')[0]);
 					// var c =  date.getDate() + "-"+date.getMonth()+"-" + date.getFullYear();
 					// return c;
@@ -193,7 +193,6 @@ $(document).ready(function() {
 		    yearRange: "-40:+10",
             changeYear: true,
             changeMonth: true,
-            format: 'yyyy-mm-dd',
 
 		    // buttonImage: "images/calendar.gif",
 		    buttonImageOnly: false,
@@ -212,7 +211,6 @@ $(document).ready(function() {
 		    yearRange: "-40:+10",
             changeYear: true,
             changeMonth: true,
-            format: 'yyyy-mm-dd',
 
 		    // buttonImage: "images/calendar.gif",
 		    buttonImageOnly: false,
