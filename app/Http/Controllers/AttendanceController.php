@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use PDF;
 
 class AttendanceController extends Controller {
 	public function __construct() {
@@ -36,7 +37,6 @@ class AttendanceController extends Controller {
 	}
 
 	public function data(Request $r) {
-		// return $r;
 		$stu = Student::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
 		// ->join('attendances','attendances.att_student','=','admission_details.ad_student');
 		if ($r->batch) {
@@ -98,10 +98,12 @@ class AttendanceController extends Controller {
 			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
 		}
 		if ($r->startDate && empty($r->endDate)) {
-			$stu->where('attendances.att_added', date('d-m-Y', strtotime($r->startDate)))->get();
+			$stu->where('attendances.att_added', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
 		}
-		$stu = $stu->get();
-
+		if (empty($r->startDate) && $r->endDate) {
+			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+		}
+		// $stu = $stu->get();
 		$arrStu = [];
 		foreach ($stu as $key => $value) {
 			$stu_id = $value->stu_id;
@@ -109,7 +111,6 @@ class AttendanceController extends Controller {
 			$arrStu[$stu_id]['Full Name'] = $value->stu_first_name . ' ' . $value->stu_last_name;
 			$arrStu[$stu_id][$date] = ($value->att_result) ? 'P' : 'A';
 		}
-
 		$temp = $arrStu;
 		$arrStu = [];
 		foreach ($temp as $value) {
@@ -118,7 +119,12 @@ class AttendanceController extends Controller {
 
 		$arrStu = (array) $arrStu;
 
-		return json_encode($arrStu);
+		// return json_encode($arrStu);
+		$stu->toSql();
+
+		return DataTables::of($stu)->filterColumn('stu_name', function ($query, $keyword) {
+			$query->whereRaw("CONCAT(students.stu_first_name, \" \" , students.stu_last_name) like ?", ["%{$keyword}%"]);
+		})->make(true);
 	}
 
 	/**
@@ -151,20 +157,69 @@ class AttendanceController extends Controller {
 		}
 	}
 
-	public function createReport() {
+	public function generateReport(Request $r) {
 		$stu = Attendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_id', '=', 'attendances.att_student')->join('subjects', 'subjects.sub_id', '=', 'attendances.att_subject');
-		$arrStu = array();
+		// $stu = Student::join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
+		// dd($r->all());
+		if ($r->batch) {
+			// dd('11');
+			if ($r->batch != '-1') {
+				$stu->where('attendances.att_batch', $r->batch);
+			}
+		}
+		if ($r->standard) {
+			if ($r->standard != '-1') {
+				$stu->where('attendances.att_standard', $r->standard);
+			}
+		}
+		if ($r->medium) {
+			if ($r->medium != '-1') {
+				$stu->where('attendances.att_medium', $r->medium);
+			}
+		}
+		if ($r->subject) {
+			if ($r->subject != '-1') {
+				$stu->where('attendances.att_subject', $r->subject);
+			}
+		}
+
+		if ($r->startDate && $r->endDate) {
+			$stu->where('attendances.att_added', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+		}
+		if ($r->startDate && empty($r->endDate)) {
+			$stu->where('attendances.att_added', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+		}
+		if (empty($r->startDate) && $r->endDate) {
+			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+		}
 		$stu = $stu->get();
+		$arrStu = [];
+		$arrColumns = array('Full Name');
 		foreach ($stu as $key => $value) {
 			$stu_id = $value->stu_id;
-			$arrStu[$stu_id] = $value;
+			$date = date('d', strtotime($value->att_added));
+			$arrStu[$stu_id]['Full Name'] = $value->stu_first_name . ' ' . $value->stu_last_name;
+			$arrStu[$stu_id][$date] = ($value->att_result) ? 'P' : 'A';
+			array_push($arrColumns, $date);
 		}
-		foreach ($stu as $key => $value) {
-			$stu_id = $value->stu_id;
-			// dd($value->att_result);
-			$arrStu[$stu_id][$value->att_added] = $value->att_result;
+		$arrColumns = array_unique($arrColumns);
+		$temp = $arrStu;
+		$arrStu = [];
+		foreach ($temp as $value) {
+			$arrStu[] = $value;
 		}
-		return view('reports.attendances', compact('i'));
+
+		$arrStu = (array) $arrStu;
+		if (empty($arrStu)) {
+			$arrColumns = array();
+		}
+		// return view('reports.attendance', compact('arrStu', 'arrColumns'));
+		$pdf = PDF::loadView('reports.attendance', compact('arrStu', 'arrColumns'))->setPaper('a4', 'landscape')->setWarnings(false);
+		$pdf_name = 'attendance-' . date('Y-m-d h:i:s') . '.pdf';
+		return $pdf->download($pdf_name);
+		// return json_encode($arrStu);
+		// return view('reports.attendances', compact('i'));
 	}
 	/**
 	 * Display the specified resource.
@@ -205,5 +260,11 @@ class AttendanceController extends Controller {
 	 */
 	public function destroy($id) {
 		//
+	}
+
+	public function readExcel() {
+		$reader = \Excel::load(Input::file('import_file'))->toArray();
+		dd($reader);
+		return redirect()->back()->with('reader', $reader);
 	}
 }

@@ -39,5 +39,6 @@ class BalanceSheet extends Eloquent {
 		'bs_credit',
 		'bs_added_date',
 		'bs_created_at',
+		'bs_date',
 	];
 }

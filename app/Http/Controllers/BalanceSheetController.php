@@ -31,8 +31,19 @@ class BalanceSheetController extends Controller {
 	}
 
 	public function data(Request $r) {
-		$bal = BalanceSheet::orderBy('bs_created_at', 'desc')->get();
-		// dd($bal);
+		$r->all();
+		$bal = BalanceSheet::orderBy('bs_created_at', 'desc');
+
+		if ($r->startDate && $r->endDate) {
+			$bal->where('bs_date', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+			$bal->where('bs_date', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+		}
+		if ($r->startDate && empty($r->endDate)) {
+			$bal->where('bs_date', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+		}
+		if (empty($r->startDate) && $r->endDate) {
+			$bal->where('bs_date', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+		}
 		return DataTables::of($bal)->make(true);
 	}
 	/**

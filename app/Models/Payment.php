@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Payment
- * 
+ *
  * @property int $pay_id
  * @property string $pay_voucher
  * @property \Carbon\Carbon $pay_add_date
@@ -25,19 +25,18 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Payment extends Eloquent
-{
+class Payment extends Eloquent {
 	protected $primaryKey = 'pay_id';
 	public $timestamps = false;
 
 	protected $casts = [
-		'pay_amount' => 'int'
+		'pay_amount' => 'int',
 	];
 
 	protected $dates = [
 		//'pay_add_date',
 		//'pay_cheque_date',
-		'pay_created_at'
+		'pay_created_at',
 	];
 
 	protected $fillable = [
@@ -49,6 +48,6 @@ class Payment extends Eloquent
 		'pay_given_for',
 		'pay_cheque_number',
 		'pay_cheque_date',
-		'pay_created_at'
+		'pay_created_at',
 	];
 }

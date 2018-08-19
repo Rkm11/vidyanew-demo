@@ -70,7 +70,7 @@ class InvoiceController extends Controller {
 		}
 		$stu = Student::find($n['in_student']);
 		if ($r['formtype'] == 'payment') {
-			BalanceSheet::create(['bs_particular' => $stu->stu_first_name . ' ' . $stu->stu_last_name . ' ( ' . $n['in_receipt_no'] . ' )', 'bs_purpose' => $n['in_type'], 'bs_credit' => $n['in_paid_amount']]);
+			BalanceSheet::create(['bs_particular' => $stu->stu_first_name . ' ' . $stu->stu_last_name . ' ( ' . $n['in_receipt_no'] . ' )', 'bs_date' => $n['in_add_date'], 'bs_purpose' => $n['in_type'], 'bs_credit' => $n['in_paid_amount']]);
 		}
 		$in = Invoice::create($n)->in_id;
 
