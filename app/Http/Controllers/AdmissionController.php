@@ -6,6 +6,7 @@ use App\Http\Traits\GetData;
 use App\Models\AdmissionDetail;
 use App\Models\ParentDetail;
 use App\Models\Student;
+use App\Models\StudentRelative;
 use Carbon\Carbon;
 use DataTables;
 use DB;
@@ -236,9 +237,11 @@ class AdmissionController extends Controller {
 	public function downloadPDF($id) {
 
 		$i = AdmissionDetail::with('student')->where('ad_student', $id)->first();
-
-		// return view('reports.admission', compact('i'));
-		$pdf = PDF::loadView('reports.admission', compact('i'))->setPaper('a4')->setWarnings(false);
+		// dd($i->ad_student);
+		$rel = StudentRelative::where('sr_student', $i->ad_student)->get();
+		// dd($rel);
+		// return view('reports.admission', compact('i', 'rel'));
+		$pdf = PDF::loadView('reports.admission', compact('i', 'rel'))->setPaper('a4')->setWarnings(false);
 		$pdf_name = 'admission-' . date('Y-m-d h:i:s') . '.pdf';
 		return $pdf->download($pdf_name);
 
