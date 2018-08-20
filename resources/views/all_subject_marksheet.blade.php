@@ -114,7 +114,7 @@
                     'searchable': false,
                     'orderable': false,
                     'render': function (data, type, full, meta){
-                        return '<a href = "javascript:void(0);" class="btn btn-success" onclick="getTestData('+full.stu_id+');" onclick = "l();">Marksheet</a>';
+                        return '<a href = "view-marksheet/'+full.stu_id+'" class="btn btn-success" onclick="getTestData('+full.stu_id+');" >Marksheet</a>';
                     }
                 },{
                 'targets': 9,

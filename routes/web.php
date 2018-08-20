@@ -33,6 +33,7 @@ Route::get('installment-data', 'InstallmentController@data')->name('installment.
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
 
 Route::get('generate-att-report', 'AttendanceController@generateReport')->name('generate-att-report');
+Route::get('view-marksheet/{id}', 'MarksheetController@viewMarksheet')->name('view-marksheet');
 Route::get('read-file', 'AttendanceController@readExcel')->name('read-file');
 Route::get('attendance-data', 'AttendanceController@data')->name('attendance.data');
 Route::get('attendance-view-data', 'AttendanceController@dataAttendance')->name('attendance-view.data');

@@ -197,6 +197,7 @@ Create Marksheet
 		fd.append('total',val);
 		fd.append('testid',$('#testid').val());
 		fd.append('added',$('#added').val());
+		fd.append('outtmark', $('#outtmark').val());
 		$.ajax({
 			url : '{{ route('marksheet.store') }}',
 			data : fd,

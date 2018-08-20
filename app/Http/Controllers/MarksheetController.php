@@ -57,8 +57,7 @@ class MarksheetController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $r) {
-
-		if ($r->result > $r->outtmark) {
+		if ($r->total > $r->outtmark) {
 			return 'outbound';
 		}
 		// dd($r->all());
@@ -241,5 +240,31 @@ class MarksheetController extends Controller {
 
 		// return $pdf->download('admission.pdf');
 		// return view('view_admissions');
+	}
+
+	public function viewMarksheet($id) {
+		$i = AdmissionDetail::with('student')
+			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')->where('ad_student', $id)
+			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+			->first();
+		$marks = [];
+		$arrSubjects = explode(',', $i->ad_subjects);
+		foreach ($arrSubjects as $sub) {
+			$marksheet = Marksheet::join('tests', 'tests.id', '=', 'marksheets.mark_testid')
+				->join('students', 'students.stu_id', '=', 'marksheets.mark_student')
+				->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+				->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+				->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+				->join('subjects', 'subjects.sub_id', '=', 'tests.test_subject')
+				->where('mark_student', $id)
+				->where('test_subject', $sub)->get();
+			// print_r($marksheet);
+			if (!empty($marksheet)) {
+				$marks[$sub]['sub_name'] = (isset($marksheet[0]['sub_name'])) ? $marksheet[0]['sub_name'] : '';
+				$marks[$sub]['marks'] = $marksheet;
+			}
+		}
+		return view('reports.marksheet', compact('i', 'marks'));
 	}
 }
