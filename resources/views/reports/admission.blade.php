@@ -474,7 +474,6 @@ Colony, Pune, India- 411029.'; ?> </p>
 								</thead>
 								<tbody>
 									@php
-									$rel = $i->relatives()->get();
 									$c1 = count($rel);
 
 									$k1 = 1;
