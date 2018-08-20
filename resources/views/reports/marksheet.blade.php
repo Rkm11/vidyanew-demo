@@ -38,8 +38,12 @@
 	<tr><th><h4> Standard : {{$i->std_name}}</h4></th><th><h4> Medium : {{$i->med_name}}</h4></th></tr>
 
 	</table>
-		<?php $flghassubject = 1;?>
+		<?php $flghassubject = 1;
+?>
   		@foreach($marks as $row)
+  		@if(empty($row) || empty($row['sub_name']))
+  			@continue;
+  			@endif
   		<?php
 if ($row['sub_name']) {
 	$flghassubject++;

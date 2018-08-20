@@ -229,10 +229,12 @@ class MarksheetController extends Controller {
 				->join('subjects', 'subjects.sub_id', '=', 'tests.test_subject')
 				->where('mark_student', $id)
 				->where('test_subject', $sub)->get();
-			$marks[$sub]['sub_name'] = $marksheet[0]['sub_name'];
-			$marks[$sub]['marks'] = $marksheet;
+			// print_r($marksheet);
+			if (!empty($marksheet)) {
+				$marks[$sub]['sub_name'] = (isset($marksheet[0]['sub_name'])) ? $marksheet[0]['sub_name'] : '';
+				$marks[$sub]['marks'] = $marksheet;
+			}
 		}
-		// dd($marks);
 		// return view('reports.marksheet', compact('i', 'marks'));
 		$pdf = PDF::loadView('reports.marksheet', compact('i', 'marks'))->setPaper('a4')->setWarnings(false);
 		return $pdf->download('marksheet.pdf');
