@@ -1,5 +1,13 @@
 <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
+ <!-- CORE JS FRAMEWORK - START -->
+<script src="{{ asset('public/assets/js/jquery-1.12.4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/js/jquery.easing.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/plugins/viewport/viewportchecker.js') }}" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="{{ asset('public/assets/js/jquery-1.12.4.min.js') }}"><\/script>');</script>
+<!-- CORE JS FRAMEWORK - END -->
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - FOR FORM VALIDATION -->
 <script src="{{ asset('public/assets/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>

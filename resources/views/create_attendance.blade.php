@@ -203,6 +203,7 @@ Create Attendances
 			processData : false,
 			contentType : false,
 			success : function(data){
+
 				$('#msg').html('Saving data Automatically...');
 				window.setTimeout(function () {
 					$('#msg').html('');

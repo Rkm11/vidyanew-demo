@@ -11,7 +11,7 @@ All Attendances
 	<section class="box ">
 		<br>
 		<div class="content-body" style="background-color:#9ddac0">
-			<form>
+			<input type="hidden" name="base_url" id="base_url"  value="<?php echo url('/'); ?>">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-6">
@@ -87,7 +87,28 @@ All Attendances
 								</div>
 							</div>
 						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label"></label>
+								<div class="controls">
+							<a href="javascript:void(0);" onclick="generateReport()" class="btn">Generate Report</a>
+						</div>
+						</div>
+						</div>
+						<!-- <form id="file-upload" method="post" url="<?php echo url('/read-file'); ?>" enctype="multipart/form-data" name="file-upload">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Upload Attendance Report:</label>
+								<div class="controls">
+							<input type="file" name="import_file" id="import_file" onchange="fileUpload()" />
+							<input type="submit" name="submit" value="submit">
+						</div>
+						</div>
+						</div>
+					</form> -->
 					</div>
+					</div>
+
 				</div>
 				<header class="panel_header"  style="background-color:#9ddac0;">
 					<h2 class="col-sm-4 title pull-left" style="padding-left: 0px;">Attendance Sheet</h2>
@@ -98,13 +119,13 @@ All Attendances
 						<div class="table-responsive">
 							<table id="attendance-table" class="table table-striped  display">
 								<thead >
-									<!--< tr>
+									<tr>
 										<th class="col-sm-1">#</th>
 										<th class="col-sm-3">Name</th>
 										<th class="col-sm-3">Subject</th>
 										<th class="col-sm-3">Report</th>
 										<th class="col-sm-3">Date</th>
-									</tr> -->
+									</tr>
 								</thead>
 								<tbody>
 								</tbody>
@@ -131,134 +152,166 @@ All Attendances
 
 	$('#batch, #standard, #medium, #subject, #startDate,#endDate').on({
 		'change' : function(){
-			getData();
 			$('#attendance-table').DataTable().destroy()
+			data();
 		}
 	});
-	function getData(cb_func) {
-		$.ajax({
-		url : '{!! route('attendance-view.data') !!}',
-				type : 'get',
-				data : {
-					"batch" : $('#batch').val(),
-					"subject" : $('#subject').val(),
-					"standard" : $('#standard').val(),
-					"medium" : $('#medium').val(),
-					"startDate" : $('#startDate').val(),
-					"endDate" : $('#endDate').val(),
-				},
-				success: cb_func
-    });
+	function fileUpload() {
+		console.log('submit');
+		// $('#file-upload').submit();
 	}
-	// getData()
-	 getData(function( data ) {
-	 	console.log(data);
-    var columns = [];
-    data = JSON.parse(data);
-    console.log(Object.keys(data[0]));
-    columnNames = Object.keys(data[0]);
-    for (var i in columnNames) {
-      columns.push({data: columnNames[i], title: columnNames[i]});
-    }
-    $('#attendance-table').DataTable( {
-		data: data,
-		columns: columns,
-		dom: 'Bfrtip',
-			buttons: [
-			{
-				text: 'Print',
-				extend: 'pdfHtml5',
-				message: '',
-				orientation: 'landscape',
-				exportOptions: {
-					columns: ':visible'
-				},
-				title : '"{{env('class_name')}}" - Attendances',
-				customize: function (doc) {
+	function generateReport() {
+		var url='';
+		var base_url=$('#base_url').val();
+		batch=($('#batch').val()!='')?$('#batch').val():'0';
+		subject=($('#subject').val()!='')?$('#subject').val():'0';
+		standard=($('#standard').val()!='')?$('#standard').val():'0';
+		medium=($('#medium').val()!='')?$('#medium').val():'0';
+		startDate=($('#startDate').val()!='')?$('#startDate').val():'';
+		endDate=($('#endDate').val()!='')?$('#endDate').val():'';
+		url=base_url+'/generate-att-report'+'?batch='+batch+'&subject='+subject+'&standard='+standard+'&medium='+medium+'&startDate='+startDate+'&endDate='+endDate;
+		console.log(url);
+		$("a").attr("href", url)
+				// $.ajax({
+		// url : '{!! route('generate-att-report') !!}',
+		// 		type : 'get',
+		// 		data : {
+		// 			"batch" : $('#batch').val(),
+		// 			"subject" : $('#subject').val(),
+		// 			"standard" : $('#standard').val(),
+		// 			"medium" : $('#medium').val(),
+		// 			"startDate" : $('#startDate').val(),
+		// 			"endDate" : $('#endDate').val(),
+		// 		},
+		// 		success: function(d){
+		// 			console.log(d);
+		// 		}
+  //   });
+	}
+// 	function getData(cb_func) {
+// 		$.ajax({
+// 		url : '{!! route('attendance-view.data') !!}',
+// 				type : 'get',
+// 				data : {
+// 					"batch" : $('#batch').val(),
+// 					"subject" : $('#subject').val(),
+// 					"standard" : $('#standard').val(),
+// 					"medium" : $('#medium').val(),
+// 					"startDate" : $('#startDate').val(),
+// 					"endDate" : $('#endDate').val(),
+// 				},
+// 				success: cb_func
+//     });
+// 	}
+// 	// getData()
+// 	 getData(function( data ) {
+// 	 	console.log(data);
+//     var columns = [];
+//     data = JSON.parse(data);
+//     console.log(Object.keys(data[0]));
+//     columnNames = Object.keys(data[0]);
+//     for (var i in columnNames) {
+//       columns.push({data: columnNames[i], title: columnNames[i]});
+//     }
+//     $('#attendance-table').DataTable( {
+// 		data: data,
+// 		columns: columns,
+// 		dom: 'Bfrtip',
+// 			buttons: [
+// 			{
+// 				text: 'Print',
+// 				extend: 'pdfHtml5',
+// 				message: '',
+// 				orientation: 'landscape',
+// 				exportOptions: {
+// 					columns: ':visible'
+// 				},
+// 				title : '"{{env('class_name')}}" - Attendances',
+// 				customize: function (doc) {
 
-					doc.defaultStyle.fontSize = 12;
-					doc.styles.tableHeader.fontSize = 14;
-					doc.styles.title.fontSize = 14;
+// 					doc.defaultStyle.fontSize = 12;
+// 					doc.styles.tableHeader.fontSize = 14;
+// 					doc.styles.title.fontSize = 14;
 
-			        // // Remove spaces around page title
-			        // doc.content[1].table.widths = [ 15, '*', '*','*','*'];
-			        // doc.content[1].table.alignment = [ 'center', 'center', 'center','center','center' ];
-			        // doc.styles.table['body'].alignment = 'center';
+// 			        // // Remove spaces around page title
+// 			        // doc.content[1].table.widths = [ 15, '*', '*','*','*'];
+// 			        // doc.content[1].table.alignment = [ 'center', 'center', 'center','center','center' ];
+// 			        // doc.styles.table['body'].alignment = 'center';
 
-			        doc.content[0].text = doc.content[0].text.trim();
+// 			        doc.content[0].text = doc.content[0].text.trim();
 
-			        // Styling the table: create style object
+// 			        // Styling the table: create style object
 
-			    }
-			}
-			]
-	} );
-});
+// 			    }
+// 			}
+// 			]
+// 	} );
+// });
 
 
- //    data();
-	// function data() {
-	// 	$('#attendance-table').DataTable({
-	// 		processing: true,
-	// 		//serverSide: true,
+    data();
+	function data() {
+		$('#attendance-table').DataTable({
+			processing: true,
+			//serverSide: true,
 
-	// 		ajax: {
-	// 			url : '{!! route('attendance-view.data') !!}',
-	// 			type : 'get',
-	// 			data : function(d){
-	// 				d.batch = $('#batch').val();
-	// 				d.subject = $('#subject').val();
-	// 				d.standard = $('#standard').val();
-	// 				d.medium = $('#medium').val();
-	// 				d.startDate = $('#startDate').val();
-	// 				d.endDate = $('#endDate').val();
-	// 			}
-	// 		},
-	// 		columns: [
-	// 		{data: 'stu_id', name: 'students.stu_id'},
-	// 		{data: 'stu_name', name: 'stu_name'},
-	// 		{data: 'sub_name', name: 'subjects.sub_name'},
-	// 		{},
-	// 		{data : 'att_added', name: 'attendances.att_added'}
-	// 		],
-	// 		columnDefs: [{
-	// 			'targets': 3,
-	// 			'render': function (data, type, full, meta){
-	// 				var s = (full.att_result) ? 'Present' : 'Absent';
-	// 				return '<span>'+s+'</span>';
-	// 			}
-	// 		}],
-	// 		dom: 'Bfrtip',
-	// 		buttons: [
-	// 		{
-	// 			text: 'Print',
-	// 			extend: 'pdfHtml5',
-	// 			message: '',
-	// 			orientation: 'portrait',
-	// 			exportOptions: {
-	// 				columns: ':visible'
-	// 			},
-	// 			title : '"{{env('class_name')}}" - Attendances',
-	// 			customize: function (doc) {
+			ajax: {
+				url : '{!! route('attendance-view.data') !!}',
+				type : 'get',
+				data : function(d){
+					d.batch = $('#batch').val();
+					d.subject = $('#subject').val();
+					d.standard = $('#standard').val();
+					d.medium = $('#medium').val();
+					d.startDate = $('#startDate').val();
+					d.endDate = $('#endDate').val();
+				}
+			},
+			columns: [
+			{data: 'stu_id', name: 'students.stu_id'},
+			{data: 'stu_name', name: 'stu_name'},
+			{data: 'sub_name', name: 'subjects.sub_name'},
+			{},
+			{data : 'att_added', name: 'attendances.att_added'}
+			],
+			columnDefs: [{
+				'targets': 3,
+				'render': function (data, type, full, meta){
+					var s = (full.att_result) ? 'Present' : 'Absent';
+					return '<span>'+s+'</span>';
+				}
+			}],
+			// dom: 'Bfrtip',
+			// buttons: [
+			// {
+			// 	text: 'Print',
+			// 	extend: 'pdfHtml5',
+			// 	message: '',
+			// 	orientation: 'portrait',
+			// 	exportOptions: {
+			// 		columns: ':visible'
+			// 	},
+			// 	title : '"{{env('class_name')}}" - Attendances',
+			// 	customize: function (doc) {
 
-	// 				doc.defaultStyle.fontSize = 12;
-	// 				doc.styles.tableHeader.fontSize = 14;
-	// 				doc.styles.title.fontSize = 14;
+			// 		doc.defaultStyle.fontSize = 12;
+			// 		doc.styles.tableHeader.fontSize = 14;
+			// 		doc.styles.title.fontSize = 14;
 
-	// 		        // // Remove spaces around page title
-	// 		        doc.content[1].table.widths = [ 15, '*', '*','*','*'];
-	// 		        // doc.content[1].table.alignment = [ 'center', 'center', 'center','center','center' ];
-	// 		        // doc.styles.table['body'].alignment = 'center';
+			//         // // Remove spaces around page title
+			//         doc.content[1].table.widths = [ 15, '*', '*','*','*'];
+			//         // doc.content[1].table.alignment = [ 'center', 'center', 'center','center','center' ];
+			//         // doc.styles.table['body'].alignment = 'center';
 
-	// 		        doc.content[0].text = doc.content[0].text.trim();
+			//         doc.content[0].text = doc.content[0].text.trim();
 
-	// 		        // Styling the table: create style object
+			//         // Styling the table: create style object
 
-	// 		    }
-	// 		}
-	// 		]
-	// 	});
-	// }
+			//     }
+			// }
+			// ]
+		});
+	}
 	$('#standard').on({
 		'change' : function(){
 			getSubject(this.value);
