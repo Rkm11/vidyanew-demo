@@ -121,7 +121,6 @@ All Attendances
 									<tr>
 										<th class="col-sm-1">#</th>
 										<th class="col-sm-3">Name</th>
-										<th class="col-sm-3">Subject</th>
 										<th class="col-sm-3">Report</th>
 										<th class="col-sm-3">Date</th>
 									</tr>
@@ -178,14 +177,12 @@ $('#import_file').on('change', function (){
 		var url='';
 		var base_url=$('#base_url').val();
 		batch=($('#batch').val()!='')?$('#batch').val():'0';
-		subject=($('#subject').val()!='')?$('#subject').val():'0';
 		standard=($('#standard').val()!='')?$('#standard').val():'0';
 		medium=($('#medium').val()!='')?$('#medium').val():'0';
 		startDate=($('#startDate').val()!='')?$('#startDate').val():'';
 		endDate=($('#endDate').val()!='')?$('#endDate').val():'';
-		url=base_url+'/generate-att-report'+'?batch='+batch+'&subject='+subject+'&standard='+standard+'&medium='+medium+'&startDate='+startDate+'&endDate='+endDate;
-		console.log(url);
-		$("a").attr("href", url)
+		url=base_url+'/generate-bio-att-report'+'?batch='+batch+'&standard='+standard+'&medium='+medium+'&startDate='+startDate+'&endDate='+endDate;
+		$("a").attr("href", url);
 				// $.ajax({
 		// url : '{!! route('generate-att-report') !!}',
 		// 		type : 'get',
@@ -270,7 +267,7 @@ $('#import_file').on('change', function (){
 			//serverSide: true,
 
 			ajax: {
-				url : '{!! route('attendance-view.data') !!}',
+				url : '{!! route('bio-attendance-view-data.data') !!}',
 				type : 'get',
 				data : function(d){
 					d.batch = $('#batch').val();
@@ -282,14 +279,13 @@ $('#import_file').on('change', function (){
 				}
 			},
 			columns: [
-			{data: 'stu_id', name: 'students.stu_id'},
+			{data: 'stu_bio_id', name: 'students.stu_bio_id'},
 			{data: 'stu_name', name: 'stu_name'},
-			{data: 'sub_name', name: 'subjects.sub_name'},
 			{},
-			{data : 'att_added', name: 'attendances.att_added'}
+			{data : 'ba_date', name: 'biometric_attendances.ba_date'}
 			],
 			columnDefs: [{
-				'targets': 3,
+				'targets': 2,
 				'render': function (data, type, full, meta){
 					var s = (full.att_result) ? 'Present' : 'Absent';
 					return '<span>'+s+'</span>';

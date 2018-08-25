@@ -3,37 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
-use App\Models\Attendance;
+use App\Models\BiometricAttendance;
 use App\Models\Student;
-use Carbon\Carbon;
 use DataTables;
 use DB;
+use Excel;
 use Illuminate\Http\Request;
 use PDF;
 
-class AttendanceController extends Controller {
+class BiometricController extends Controller {
 	public function __construct() {
 		$this->middleware('auth');
 	}
 
 	use GetData;
 
-	protected $pre = 'att_';
+	protected $pre = 'ba_';
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$stu = Attendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_id', '=', 'attendances.att_student')->join('subjects', 'subjects.sub_id', '=', 'attendances.att_subject');
+		$stu = BiometricAttendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_bio_id', '=', 'biometric_attendances.ba_student');
 		$arrStu = array();
 		$stu = $stu->get();
-		foreach ($stu as $key => $value) {
-			$stu_id = $value->stu_id;
-			// $arrStu[$stu_id] = $value;
-		}
 
-		return view('view_attendance');
+		return view('view_biometric');
 	}
 
 	public function data(Request $r) {
@@ -68,46 +64,41 @@ class AttendanceController extends Controller {
 	}
 
 	public function dataAttendance(Request $r) {
-		$stu = Attendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_id', '=', 'attendances.att_student')->join('subjects', 'subjects.sub_id', '=', 'attendances.att_subject');
+		$stu = BiometricAttendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_bio_id', '=', 'biometric_attendances.ba_student')->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
 		// $stu = Student::join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
 		// dd($r->batch);
 		if ($r->batch) {
 			// dd('11');
 			if ($r->batch != '-1') {
-				$stu->where('attendances.att_batch', $r->batch);
+				$stu->where('admission_details.ad_batch', $r->batch);
 			}
 		}
 		if ($r->standard) {
 			if ($r->standard != '-1') {
-				$stu->where('attendances.att_standard', $r->standard);
+				$stu->where('admission_details.ad_standard', $r->standard);
 			}
 		}
 		if ($r->medium) {
 			if ($r->medium != '-1') {
-				$stu->where('attendances.att_medium', $r->medium);
-			}
-		}
-		if ($r->subject) {
-			if ($r->subject != '-1') {
-				$stu->where('attendances.att_subject', $r->subject);
+				$stu->where('admission_details.ad_medium', $r->medium);
 			}
 		}
 
 		if ($r->startDate && $r->endDate) {
-			$stu->where('attendances.att_added', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
-			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+			$stu->where('biometric_attendances.ba_student.ba_date', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+			$stu->where('biometric_attendances.ba_date', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
 		}
 		if ($r->startDate && empty($r->endDate)) {
-			$stu->where('attendances.att_added', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+			$stu->where('biometric_attendances.ba_date', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
 		}
 		if (empty($r->startDate) && $r->endDate) {
-			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+			$stu->where('biometric_attendances.ba_date', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
 		}
 		// $stu = $stu->get();
 		$arrStu = [];
 		foreach ($stu as $key => $value) {
 			$stu_id = $value->stu_id;
-			$date = date('d', strtotime($value->att_added));
+			$date = date('d', strtotime($value->ba_date));
 			$arrStu[$stu_id]['Full Name'] = $value->stu_first_name . ' ' . $value->stu_last_name;
 			$arrStu[$stu_id][$date] = ($value->att_result) ? 'P' : 'A';
 		}
@@ -133,7 +124,7 @@ class AttendanceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		return view('create_attendance');
+		return view('create_biometric');
 	}
 
 	/**
@@ -143,64 +134,69 @@ class AttendanceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $r) {
-		// return $r->all();
-		$cur = Carbon::now()->format('d-m-Y');
-		$preAt = Attendance::where('att_added', '=', $r->added)->where('att_student', $r->student)->where('att_subject', $r->subject)->first();
-		// dd($preAt);
-		if (!$preAt) {
-			$d = $this->changeKeys($this->pre, $r->all());
-			return Attendance::create($d) ? 'success' : 'error';
-		} else {
-			if ($preAt->att_result != $r->result) {
-				return Attendance::where('att_student', $r->student)->update(['att_result' => $r->result]) ? 'success' : 'error';
+		// require 'Excelx.php';
+		// $excel = new Excelx('Employee_Punch_Monitor.xls');
+		$url = 'Employee_Punch_Monitor.xls';
+		$reader = Excel::load($url, function ($reader) {})->get();
+		var_dump($excel->toArray());
+		die('ss');
+		$data = array(
+			array("SNo." => 1, "Emp Code " => "T25", "" => null, "Name" => "1", "Last Punch" => "13:07", "" => null, "Direction" => null, "Punch Records" => "13:07,", "" => null, "Status" => "Present1"),
+			array("SNo." => 2, "Emp Code " => "T26", "" => null, "Name" => "ajay", "Last Punch" => "", "" => null, "Direction" => null, "Punch Records" => "", "" => null, "Status" => "Not Present"),
+			array("SNo." => 3, "Emp Code " => "T27", "" => null, "Name" => "Test Employee 1", "Last Punch" => "", "" => null, "Direction" => null, "Punch Records" => "", "" => null, "Status" => "Present"));
+
+		foreach ($data as $key => $value) {
+			$preAt = BiometricAttendance::join('students', 'students.stu_bio_id', '=', 'biometric_attendances.ba_student')->where('ba_date', '=', "'" . $r->date . "'")->where('ba_student', "'" . trim($value['Emp Code ']) . "'")->first();
+			if (!$preAt) {
+				$d = $this->changeKeys($this->pre, $r->all());
+				BiometricAttendance::create([
+					'ba_attendence' => ($value['Status'] != '' && $value['Status'] == 'Present') ? 1 : 0, 'ba_date' => $r->date, 'ba_student' => trim($value['Emp Code '])]) ? 'success' : 'error';
+			} else {
+				if ($preAt->att_result != $r->result) {
+					BiometricAttendance::where('ba_student', "'" . trim($value['Emp Code ']) . "'")->update(['ba_attendence' => ($value['Status'] != '' && $value['Status'] == 'Present') ? 1 : 0]) ? 'success' : 'error';
+				}
 			}
 		}
+		return 'success';
 	}
 
 	public function generateReport(Request $r) {
-		$stu = Attendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_id', '=', 'attendances.att_student')->join('subjects', 'subjects.sub_id', '=', 'attendances.att_subject');
-		// $stu = Student::join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
-		// dd($r->all());
+		$stu = BiometricAttendance::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])->join('students', 'students.stu_bio_id', '=', 'biometric_attendances.ba_student')->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
 		if ($r->batch) {
 			// dd('11');
 			if ($r->batch != '-1') {
-				$stu->where('attendances.att_batch', $r->batch);
+				$stu->where('admission_details.ad_batch', $r->batch);
 			}
 		}
 		if ($r->standard) {
 			if ($r->standard != '-1') {
-				$stu->where('attendances.att_standard', $r->standard);
+				$stu->where('admission_details.ad_standard', $r->standard);
 			}
 		}
 		if ($r->medium) {
 			if ($r->medium != '-1') {
-				$stu->where('attendances.att_medium', $r->medium);
-			}
-		}
-		if ($r->subject) {
-			if ($r->subject != '-1') {
-				$stu->where('attendances.att_subject', $r->subject);
+				$stu->where('admission_details.ad_medium', $r->medium);
 			}
 		}
 
 		if ($r->startDate && $r->endDate) {
-			$stu->where('attendances.att_added', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
-			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+			$stu->where('biometric_attendances.ba_student.ba_date', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+			$stu->where('biometric_attendances.ba_date', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
 		}
 		if ($r->startDate && empty($r->endDate)) {
-			$stu->where('attendances.att_added', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+			$stu->where('biometric_attendances.ba_date', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
 		}
 		if (empty($r->startDate) && $r->endDate) {
-			$stu->where('attendances.att_added', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
+			$stu->where('biometric_attendances.ba_date', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
 		}
 		$stu = $stu->get();
 		$arrStu = [];
 		$arrColumns = array('Full Name');
 		foreach ($stu as $key => $value) {
 			$stu_id = $value->stu_id;
-			$date = date('d', strtotime($value->att_added));
+			$date = date('d', strtotime($value->ba_date));
 			$arrStu[$stu_id]['Full Name'] = $value->stu_first_name . ' ' . $value->stu_last_name;
-			$arrStu[$stu_id][$date] = ($value->att_result) ? 'P' : 'A';
+			$arrStu[$stu_id][$date] = ($value->ba_attendence) ? 'P' : 'A';
 			array_push($arrColumns, $date);
 		}
 		$arrColumns = array_unique($arrColumns);
@@ -214,7 +210,7 @@ class AttendanceController extends Controller {
 		if (empty($arrStu)) {
 			$arrColumns = array();
 		}
-		// return view('reports.attendance', compact('arrStu', 'arrColumns'));
+		return view('reports.attendance', compact('arrStu', 'arrColumns'));
 		$pdf = PDF::loadView('reports.attendance', compact('arrStu', 'arrColumns'))->setPaper('a4', 'landscape')->setWarnings(false);
 		$pdf_name = 'attendance-' . date('Y-m-d h:i:s') . '.pdf';
 		return $pdf->download($pdf_name);
