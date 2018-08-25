@@ -279,10 +279,10 @@ $ID3 = 'relative';
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Upload Image
-									<small>&nbsp;(1.Student<span style="color:red;">*</span>)(2.Father,3.Mother - optional)</small>
+									<small>&nbsp;(1.Student,2.Father,3.Mother - optional)</small>
 								</label>
 								<div class="controls">
-									<input type="file" class="form-control" name="student_img" style="margin-bottom: 1px;" required="">
+									<input type="file" class="form-control" name="student_img" style="margin-bottom: 1px;" >
 									<input type="file" class="form-control" name="father_img" style="margin-bottom: 1px;">
 									<input type="file" class="form-control" name="mother_img">
 								</div>
