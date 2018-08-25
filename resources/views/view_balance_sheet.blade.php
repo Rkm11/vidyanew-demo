@@ -291,7 +291,7 @@ Balance Sheet
 				exportOptions: {
 					columns: ':visible'
 				},
-				title : 'Dhamale maths classes - Balance Sheet',
+				title : '<?php echo env('class_name'); ?>',
 				customize: function (doc) {
 
 					doc.defaultStyle.fontSize = 12;
