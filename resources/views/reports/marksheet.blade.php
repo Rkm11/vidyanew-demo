@@ -1,3 +1,7 @@
+@php
+use App\Models\Setting;
+$classDetais=Setting::first();
+@endphp
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -5,7 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Admission Form</title>
+	<title>Marksheet</title>
 
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 	<style type="text/css">
@@ -52,7 +56,7 @@ if ($row['sub_name']) {
   		<table class="table table-bordered" width="100%">
   		<tbody>
   		<tr>
-    		<th colspan="11">{{ env('class_name') }} </th>
+    		<th colspan="11">{{ $classDetais->set_class_name }} </th>
     		<!-- <th ></th> -->
    		</tr>
 		<tr>

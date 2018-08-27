@@ -44,7 +44,7 @@ if (empty($a)) {?>
 } else {
 	$a = explode(' ', $stud->install_type);
 	$a = (!empty($a[1])) ? $a[1] + 1 : 0;
-	if ($a > 1 && $a < 5) {?>
+	if ($a > 1 && $a < 13) {?>
 											<option value="Instalment <?php echo $a; ?>">Instalment <?php echo $a; ?></option>
 										<?php }
 }

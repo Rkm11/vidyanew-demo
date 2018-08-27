@@ -1,3 +1,7 @@
+@php
+use App\Models\Setting;
+$classDetais=Setting::first();
+@endphp
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -7,7 +11,7 @@
 
 	<title>Admission Form</title>
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-	 
+
 </head>
 <style type="text/css">
 h2 {
@@ -16,15 +20,15 @@ h2 {
 
 </style>
 <body>
-	
+
 	<h2>Follow Up - Status</h2>
 	<hr>
 	<table>
-		
+
 		<tr>
 			<td><h3>Student Name: </h3></td>
 			<td>{{$i->student_name}}</td>
-		</tr>	
+		</tr>
 		<tr>
 			<td><h3>Mobile</h3></td>
 			<td>{{$i->mobile}}</td>
@@ -50,7 +54,7 @@ h2 {
 			<td>{{$i->follow5}}</td>
 		</tr>
 	</table>
-	
+
 
 </body>
 </html>

@@ -1,3 +1,7 @@
+@php
+use App\Models\Setting;
+$classDetais=Setting::first();
+@endphp
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -8,7 +12,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ env('class_name') }}</title>
+    <title>{{ $classDetais->set_class_name }}</title>
 
 
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
@@ -28,7 +32,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="" style="color:#fff;"><span><b>{{ env('class_name') }} </b></span></a>
+                    <a class="navbar-brand" href="" style="color:#fff;"><span><b>{{ $classDetais->set_class_name }} </b></span></a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

@@ -8,7 +8,7 @@
 
             <div class="profile-image col-xs-7">
                 <a href="ui-profile.html">
-                    <img alt="" src="{{ asset('public/data/profile/logo.png') }}" class="img-responsive img-circle">
+                    <img alt="" src="{{asset('public/images/logo.png')}}" class="img-responsive img-circle">
                 </a>
             </div>
 
@@ -54,9 +54,6 @@
                     </li>
                     <li>
                         <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('biometric.create') }}" style="color:#ffffff;">Biometric Attendance</a>
                     </li>
                     <li>
                         <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
@@ -109,9 +106,6 @@
                     </li>
                     <li>
                         <a href="{{ route('attendance.index') }}" style="color:#ffffff;">Attendance</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('biometric.index') }}" style="color:#ffffff;">Biometric Attendance</a>
                     </li>
                     <li>
                         <a href="{{ route('marksheet.all') }}" style="color:#ffffff;">Marksheet</a>
