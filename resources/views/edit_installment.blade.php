@@ -41,6 +41,14 @@ $ID = 'installment';
 										<option value="Instalment 2" {{$stud->install_type=='Instalment 2'?'selected=""':''}}>Instalment 2</option>
 										<option value="Instalment 3" {{$stud->install_type=='Instalment 3'?'selected=""':''}}>Instalment 3</option>
 										<option value="Instalment 4"{{$stud->install_type=='Instalment 4'?'selected=""':''}}>Instalment 4</option>
+										<option value="Instalment 5"{{$stud->install_type=='Instalment 5'?'selected=""':''}}>Instalment 5</option>
+										<option value="Instalment 6"{{$stud->install_type=='Instalment 6'?'selected=""':''}}>Instalment 6</option>
+										<option value="Instalment 7"{{$stud->install_type=='Instalment 7'?'selected=""':''}}>Instalment 7</option>
+										<option value="Instalment 8"{{$stud->install_type=='Instalment 8'?'selected=""':''}}>Instalment 8</option>
+										<option value="Instalment 9"{{$stud->install_type=='Instalment 9'?'selected=""':''}}>Instalment 9</option>
+										<option value="Instalment 10"{{$stud->install_type=='Instalment 10'?'selected=""':''}}>Instalment 10</option>
+										<option value="Instalment 11"{{$stud->install_type=='Instalment 11'?'selected=""':''}}>Instalment 11</option>
+										<option value="Instalment 12"{{$stud->install_type=='Instalment 12'?'selected=""':''}}>Instalment 12</option>
 									</select>
 								</div>
 							</div>

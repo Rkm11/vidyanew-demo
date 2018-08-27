@@ -1,3 +1,7 @@
+@php
+use App\Models\Setting;
+$classDetais=Setting::first();
+@endphp
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -27,10 +31,10 @@
 								<p></p>
 							</div>
 							<div>
-								<h1>{{env('class_name')}}</h1>
+								<h1>{{ $classDetais->set_class_name }}</h1>
 							</div>
 							<div class="address">
-								<p>{{env('address')}}</p>
+								<p>{{ $classDetais->set_class_address }}</p>
 							</div>
 						</td>
 					</tr>

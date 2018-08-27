@@ -8,7 +8,7 @@
 
             <div class="profile-image col-xs-7">
                 <a href="ui-profile.html">
-                    <img alt="" src="{{ asset('public/data/profile/logo.png') }}" class="img-responsive img-circle">
+                    <img alt="" src="{{asset('public/images/logo.png')}}" class="img-responsive img-circle">
                 </a>
             </div>
 

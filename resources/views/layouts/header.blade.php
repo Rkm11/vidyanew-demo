@@ -1,3 +1,7 @@
+@php
+use App\Models\Setting;
+$classDetais=Setting::first();
+@endphp
 <!DOCTYPE html>
 <html class=" ">
 
@@ -5,14 +9,14 @@
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ env('class_name') }}   @yield('title')</title>
+    <title>{{ $classDetais->set_class_name }}   @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content="" name="description" />
     <meta content="" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <link rel="shortcut icon" href="{{ asset('public/assets/images/favicon.png') }}" type="image/x-icon" />    <!-- Favicon -->
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('public/assets/images/apple-touch-icon-57-precomposed.png') }}">	<!-- For iPhone -->
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('public/assets/images/apple-touch-icon-57-precomposed.png') }}">    <!-- For iPhone -->
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('public/assets/images/apple-touch-icon-114-precomposed.png') }}">    <!-- For iPhone 4 Retina display -->
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('public/assets/images/apple-touch-icon-72-precomposed.png') }}">    <!-- For iPad -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('public/assets/images/apple-touch-icon-144-precomposed.png') }}">    <!-- For iPad Retina display -->
@@ -85,7 +89,7 @@
     </div>
 
     <div class='page-topbar ' style="background-color:#424a5d;">
-      <a class="navbar-brand" href="" style="color:#fff;"><span><b>{{ env('class_name') }} </b></span></a>
+      <a class="navbar-brand" href="" style="color:#fff;"><span><b>{{ $classDetais->set_class_name }} </b></span></a>
         <div class='quick-area'>
             <div class='pull-left'>
                 <ul class="info-menu left-links list-inline list-unstyled">
@@ -215,7 +219,7 @@
                 <ul class="info-menu right-links list-inline list-unstyled">
                     <li class="profile">
                         <a href="#" data-toggle="dropdown" class="toggle">
-                            <img src="{{ asset('public/data/profile/logo.png') }}" alt="user-image" class="img-circle img-inline">
+                            <img src="{{asset('public/images/logo.png')}}" alt="user-image" class="img-circle img-inline">
                             <span><i class="fa fa-angle-down"></i></span>
                         </a>
                         <ul class="dropdown-menu profile animated fadeIn">
@@ -229,6 +233,17 @@
                                         </a>
 
                                 </a>
+                            </li>
+                            <li class="last">
+
+                                <a href="{{url('/settings')}}">
+                                            <i class="fa fa-envelope"></i>
+                                            Edit Settings
+                                        </a>
+
+                                </a>
+                            </li>
+                            <li>
 
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

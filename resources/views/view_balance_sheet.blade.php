@@ -1,3 +1,7 @@
+@php
+use App\Models\Setting;
+$classDetais=Setting::first();
+@endphp
 @extends('layouts.master')
 @section('page-title')
 Balance Sheet
@@ -291,7 +295,7 @@ Balance Sheet
 				exportOptions: {
 					columns: ':visible'
 				},
-				title : '<?php echo env('class_name'); ?>',
+				title : '<?php echo $classDetais->set_class_name; ?>',
 				customize: function (doc) {
 
 					doc.defaultStyle.fontSize = 12;

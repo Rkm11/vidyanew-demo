@@ -21,6 +21,7 @@ Route::resource('relative', 'StudentRelativeController');
 Route::resource('student', 'StudentController');
 Route::resource('installment', 'InstallmentController');
 Route::resource('test', 'TestController');
+Route::resource('settings', 'ChangeSettingController');
 
 Route::resource('telecalling', 'TelecallingController', ['name' => ['update' => 'telecalling.update'], ['store' => 'telecalling.store']]);
 Route::get('telecalling-data', 'TelecallingController@getdata')->name('enquiry.data');
@@ -77,5 +78,9 @@ Route::get('admission/confirm/{id}', 'AdmissionController@confirm');
 Route::get('/changepassword', 'ChangePasswordController@showchangepassword');
 
 Route::post('/changepassword', 'ChangePasswordController@changepassword')->name('changepassword');
+
+Route::get('/changesetting', 'ChangeSettingController@showchangesetting');
+
+Route::post('/changesetting', 'ChangePasswordController@changesetting')->name('changesetting');
 
 Auth::routes();

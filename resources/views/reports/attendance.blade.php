@@ -1,3 +1,7 @@
+@php
+use App\Models\Setting;
+$classDetais=Setting::first();
+@endphp
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
