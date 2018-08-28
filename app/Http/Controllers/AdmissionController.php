@@ -104,7 +104,7 @@ class AdmissionController extends Controller {
 
 		if ($parent) {
 			$n = $this->changeKeys('stu_', $s);
-
+			dd($n->all());
 			$n['stu_parent'] = $parent;
 			if (isset($ad['batch'])) {
 				$bat = $ad['batch'];

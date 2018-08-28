@@ -56,6 +56,9 @@
                         <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
                     </li>
                     <li>
+                         <a href="{{ route('biometric.create') }}" style="color:#ffffff;">Biometric Attendance</a>
+                     </li>
+                    <li>
                         <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
                     </li>
                     <li>
@@ -107,6 +110,9 @@
                     <li>
                         <a href="{{ route('attendance.index') }}" style="color:#ffffff;">Attendance</a>
                     </li>
+                    <li>
+                         <a href="{{ route('biometric.index') }}" style="color:#ffffff;">Biometric Attendance</a>
+                     </li>
                     <li>
                         <a href="{{ route('marksheet.all') }}" style="color:#ffffff;">Marksheet</a>
                     </li>

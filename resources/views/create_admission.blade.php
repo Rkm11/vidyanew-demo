@@ -59,17 +59,16 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div>
-						{{-- <div class="col-sm-4">
+						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">ID
-									<span style="color:red;">*</span>:
+								<label class="form-label">Biometric ID:
 								</label>
 								<span class="desc">&nbsp;</span>
 								<div class="controls">
-									<input type="text" class="form-control" name="stu[uid]" placeholder="ID" >
+									<input type="text" class="form-control" name="stu[bio_id]" placeholder="ID" >
 								</div>
 							</div>
-						</div> --}}
+						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Date

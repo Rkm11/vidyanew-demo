@@ -7,6 +7,7 @@ Route::resource('enquiry', 'EnquiryController');
 Route::resource('admission', 'AdmissionController');
 Route::resource('parent', 'ParentController');
 Route::resource('attendance', 'AttendanceController');
+Route::resource('biometric', 'BiometricController');
 Route::resource('marksheet', 'MarksheetController');
 Route::resource('standard', 'StandardController');
 Route::resource('medium', 'MediumController');
@@ -34,10 +35,15 @@ Route::get('installment-data', 'InstallmentController@data')->name('installment.
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
 
 Route::get('generate-att-report', 'AttendanceController@generateReport')->name('generate-att-report');
+Route::get('generate-bio-att-report', 'BiometricController@generateReport')->name('generate-bio-att-report');
 Route::get('view-marksheet/{id}', 'MarksheetController@viewMarksheet')->name('view-marksheet');
 Route::get('read-file', 'AttendanceController@readExcel')->name('read-file');
 Route::get('attendance-data', 'AttendanceController@data')->name('attendance.data');
-Route::get('attendance-view-data', 'AttendanceController@dataAttendance')->name('attendance-view.data');
+Route::get('bio-attendance-data', 'BiometricController@data')->name('biometric.data');
+Route::post('bio-attendance-data', 'BiometricController@data')->name('biometric.data');
+Route::get('attendance-view-data', 'AttendanceController@dataAttendance')->name('attendance-view.data')
+;
+Route::get('bio-attendance-view-data', 'BiometricController@dataAttendance')->name('bio-attendance-view-data.data');
 
 Route::get('marksheet-data', 'MarksheetController@data')->name('marksheet.data');
 Route::get('marksheet-all', 'MarksheetController@all')->name('marksheet.all');
