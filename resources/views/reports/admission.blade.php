@@ -238,8 +238,8 @@ $classDetais=Setting::first();
 						<td class="cash-box">
 							<div class="title-box">
 							<div class="title-box">
-								<p>Mobile No.: {{ $classDetais->set_mobile1 }}{{ ($classDetais->set_mobile2)?','.$classDetais->set_mobile2:'' }} </p>
-								<p>{{ ($classDetais->set_emailid)?'Email Id: '.$classDetais->set_emailid:'' }}
+								<p>Mobile No.:{{ $classDetais->set_mobile1}}{{ ($classDetais->set_mobile2)?','.$classDetais->set_mobile2:'' }} </p>
+								<p>{{ ($classDetais->set_emailid)?'Email Id: '.$classDetais->set_emailid:''}}
 								{{ ($classDetais->set_website)?'Website: '.$classDetais->set_website:'' }} </p>
 							</div>
 							<div>

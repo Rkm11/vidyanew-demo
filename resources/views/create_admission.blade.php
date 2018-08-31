@@ -257,7 +257,7 @@ $ID3 = 'relative';
 							<div class="form-group">
 								<label class="form-label">School Name<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" title="Enter School Name" name = "ad[school]" class="form-control"  placeholder="School Name" pattern="[a-z A-Z 0-9]+" required>
+									<input type="text" title="Enter School Name" name = "ad[school]" class="form-control"  placeholder="School Name" pattern="[a-z A-Z 0-9]+">
 								</div>
 							</div>
 						</div>

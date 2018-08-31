@@ -110,9 +110,9 @@
                     <li>
                         <a href="{{ route('marksheet.all') }}" style="color:#ffffff;">Marksheet</a>
                     </li>
-                    <li>
+                   <!--  <li>
                         <a href="{{ route('marksheet.index') }}" style="color:#ffffff;">All Student Marksheet</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="{{ route('balance-sheet.index') }}" style="color:#ffffff;">Balance Sheet</a>
                     </li>

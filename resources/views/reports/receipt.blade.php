@@ -266,15 +266,15 @@ $classDetais=Setting::first();
 								</tr>
 								<tr>
 									<td colspan="2">
-										<h1>{{ $classDetais->set_class_name }}</h1>
+										<h1>{{ $classDetais->set_class_name}}</h1>
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2">
-										<p class="address">{{ $classDetais->set_class_address }}</p>
-										<p>Mobile No.: {{ $classDetais->set_mobile1 }}{{ ($classDetais->set_mobile2)?','.$classDetais->set_mobile2:'' }} </p>
-										<p>{{ ($classDetais->set_emailid)?'Email Id: '.$classDetais->set_emailid:'' }}
-								{{ ($classDetais->set_website)?'Website: '.$classDetais->set_website:'' }} </p>
+										<p class="address">{{$classDetais->set_class_address}}</p>
+										<p>Mobile No.: {{$classDetais->set_mobile1}}{{($classDetais->set_mobile2)?','.$classDetais->set_mobile2:''}} </p>
+										<p>{{($classDetais->set_emailid)?'Email Id:'.$classDetais->set_emailid:''}}
+								{{($classDetais->set_website)?'Website: '.$classDetais->set_website:''}} </p>
 									</td>
 								</tr>
 							</table>
