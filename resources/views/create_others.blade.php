@@ -43,10 +43,10 @@ $IDSub = 'subject';
 					<div class="col-xs-12 col-sm-12">
 						<div class="form-group">
 							<div class="col-md-2 text-right margin-top-10">
-								<label class="form-label">Batch Title<span style="color:red;">*</span>:</label>
+								<label class="form-label">Batch Time<span style="color:red;">*</span>:</label>
 							</div>
 							<div class="col-md-8 controls">
-								<input type="text" class="form-control" name="name" placeholder="e.g. Morning" required>
+								<input type="text" class="form-control" name="name" placeholder="e.g. 08:00 AM - 10:00 AM" required>
 							</div>
 							<div class="col-md-2 margin-top-5">
 								<button type="submit" class="btn btn-success">Create</button>
@@ -64,10 +64,10 @@ $IDSub = 'subject';
 					<div class="col-xs-12 col-sm-12">
 						<div class="form-group">
 							<div class="col-md-2 text-right margin-top-10">
-								<label class="form-label">Medium Title<span style="color:red;">*</span>:</label>
+								<label class="form-label">Education Qualification<span style="color:red;">*</span>:</label>
 							</div>
 							<div class="col-md-8 controls">
-								<input type="text" class="form-control" name="name" placeholder="e.g. Hindi" required>
+								<input type="text" class="form-control" name="name" placeholder="e.g.MCA" required>
 							</div>
 							<div class="col-md-2 margin-top-5">
 								<button type="submit" class="btn btn-success">Create</button>
@@ -85,10 +85,10 @@ $IDSub = 'subject';
 					<div class="col-xs-12 col-sm-12">
 						<div class="form-group">
 							<div class="col-md-2 text-right margin-top-10">
-								<label class="form-label">Standard Title<span style="color:red;">*</span>:</label>
+								<label class="form-label">Course Name<span style="color:red;">*</span>:</label>
 							</div>
 							<div class="col-md-8 controls">
-								<input type="text" class="form-control" name="name" placeholder="e.g. 7th" required>
+								<input type="text" class="form-control" name="name" placeholder="Course Name" required>
 							</div>
 							<div class="col-md-2 margin-top-5">
 								<button type="submit" class="btn btn-success">Create</button>
@@ -122,7 +122,7 @@ $IDSub = 'subject';
 			</form>
 		</div> -->
 	</section>
-	<section class="box ">
+	<!-- <section class="box ">
 		<br/>
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 ">
@@ -184,7 +184,7 @@ $IDSub = 'subject';
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 </div>
 <!-- END CONTAINER -->
 @endsection

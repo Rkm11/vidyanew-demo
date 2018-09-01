@@ -32,11 +32,11 @@ class AdmissionController extends Controller {
 	}
 
 	public function data(Request $r) {
-		$enq = AdmissionDetail::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'standards.std_name', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_school', 'admission_details.created_at',
+		$enq = AdmissionDetail::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_school', 'admission_details.ad_date', 'admission_details.created_at',
 			DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
 		// ->join('marksheets', 'marksheets.mark_student', '=', 'admission_details.ad_student')
-			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+		// ->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
 			->where('admission_details.ad_status', 1)
 		// ->orderBy('created_at','desc')
@@ -109,27 +109,27 @@ class AdmissionController extends Controller {
 			if (isset($ad['batch'])) {
 				$bat = $ad['batch'];
 			}
-			$n['stu_uid'] = $this->autoId($bat, $ad['medium'], $ad['standard']);
+			// $n['stu_uid'] = $this->autoId($bat, $ad['medium'], $ad['standard']);
 			$student = Student::create($n)->stu_id;
 			if ($student) {
 				$d = $this->changeKeys('ad_', $ad);
 				$d['ad_student'] = $student;
-				$d['ad_subjects'] = implode(',', $r->all()['subject']);
+				$d['ad_subjects'] = implode(',', $r->all()['subjects']);
 				$d['ad_status'] = 1;
 				$d['ad_date'] = $d['ad_date'];
 				$d['ad_remaining_fees'] = $d['ad_fees'];
 				$data['s'] = $student;
 				$cur = Carbon::now()->format('d-m-Y');
 
-				foreach ($r->all()['subject'] as $key => $value) {
-					// if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
-					// 	Marksheet::create([
-					// 		'mark_subject' => $value,
-					// 		'mark_student' => $student,
-					// 		'mark_added' => $cur,
-					// 	]);
-					// }
-				}
+				// foreach ($r->all()['subject'] as $key => $value) {
+				// if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
+				// 	Marksheet::create([
+				// 		'mark_subject' => $value,
+				// 		'mark_student' => $student,
+				// 		'mark_added' => $cur,
+				// 	]);
+				// }
+				// }
 				return AdmissionDetail::create($d) ? $data : 'error';
 			}
 		}

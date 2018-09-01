@@ -21,7 +21,7 @@ View Admissions
 									<th>Mobile</th>
 									<th>Parent</th>
 									<th>Parent No.</th>
-									<th>Standard</th>
+									<th>Admission Date</th>
 									<th>Admission</th>
 									<th>Action</th>
 									<th>Print</th>
@@ -67,12 +67,12 @@ View Admissions
 			//serverSide: true,
 			ajax: '{!! route('admission.data') !!}',
 			columns: [
-			{data : 'stu_uid', name : 'stu_uid'},
+			{data : 'ad_id', name : 'ad_id'},
 			{data : 'stu_name', name : 'stu_name'},
 			{},
 			{data: 'parent_first_name', name: 'parent_first_name'},
 			{},
-			{data: 'std_name', name: 'std_name'},
+			{data: 'ad_date', name: 'ad_date'},
 			{},
 			{},
 			{},
@@ -90,7 +90,7 @@ View Admissions
 			},{
 				'targets': 4,
 				'render': function (data, type, full, meta){
-					if(full.parent_mobile == null){
+					if(full.parent_mobile == null || full.parent_mobile==0){
 						return '-';
 					}else{
 						return full.parent_mobile;

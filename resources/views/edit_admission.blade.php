@@ -43,16 +43,10 @@ $ID3 = 'relative';
 
 									<select class="form-control" name="ad[batch_year]" required>
 										<option value="">--Select--</option>
-										@for ($i = 14; $i < 24; $i++)
-										@php
-										$v = '20'.$i.'-'.(++$i);
-										$bChk = ($a->ad_batch_year == $v) ? 'selected' : '';
-										@endphp
-										<option value="{{ $v }}" {{ $bChk }}>{{ $v }}</option>
-										@php
-										--$i;
-										@endphp
-										@endfor
+										<option value="FC Road" <?php echo ('FC Road' == $a->ad_batch_year) ? 'selected' : ''; ?>>FC Road</option>
+										<option value="Karve nagar" <?php echo ('Karve nagar' == $a->ad_batch_year) ? 'selected' : ''; ?>>Karve nagar</option>
+										<option value="Kothrud" <?php echo ('Kothrud' == $a->ad_batch_year) ? 'selected' : ''; ?>>Kothrud</option>
+										<option value="MIT" <?php echo ('MIT' == $a->ad_batch_year) ? 'selected' : ''; ?>>MIT</option>
 									</select>
 								</div>
 							</div>
@@ -187,52 +181,7 @@ $ID3 = 'relative';
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Standard
-									<span style="color:red;">*</span>:
-								</label>
-								<div class="controls">
-									<select class="form-control" id = "standard" name="ad[standard]">
-										<option value="-1">--Select--</option>
-										@forelse (App\Models\Standard::get() as $s)
-										<option value = "{{ $s->std_id }}" {{ ($a->ad_standard == $s->std_id) ? 'selected' : ''}}>{{ $s->std_name }}</option>
-										@empty
-										@endforelse
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row" id = "subject-box" style = "display:none;">
-					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-12">
-							<label class="form-label">Subjects<span style="color:red;">*</span>:</label>
-							<ul class="list-unstyled" id = "subjectsBox">
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Medium
-									<span style="color:red;">*</span>:
-								</label>
-								<div class="controls">
-									<select class="form-control" name="ad[medium]">
-										<option value="-1">--Select--</option>
-										@forelse (App\Models\Medium::get() as $med)
-										<option value = "{{ $med->med_id }}" {{ ($a->ad_medium != '')?(($a->ad_medium == $med->med_id) ? 'selected' : '') : '' }}>{{ $med->med_name }}</option>
-										@empty
-										@endforelse
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Batch
+								<label class="form-label">Batch Time
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
@@ -245,6 +194,15 @@ $ID3 = 'relative';
 									</select>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" id = "subject-box" style = "display:none;">
+					<div class="col-xs-12 col-sm-12 ">
+						<div class="col-sm-12">
+							<label class="form-label">Courses<span style="color:red;">*</span>:</label>
+							<ul class="list-unstyled" id = "subjectsBox">
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -516,52 +474,21 @@ $ID3 = 'relative';
 	});
 	function getSubject(id, di){
 		$.ajax({
-			url : '{{ route('subject-data') }}',
-			type : 'post',
-			data : {id : id},
+url : '{{ route('standard-data') }}',
+			type : 'get',
+			data : {},
 			success : function(d){
 				var val = [];
 				if(d.length > 0){
 					$.each(d, function(k,v){
-						if(di == 'standardPre'){
-							val.push('<div class="row">'
-								+'<div class="col-xs-12 col-sm-12">'
-								+'<div class="col-sm-6">'
-								+'<div class="form-group">'
-								+'<label class="form-label">Subject'+(++k)
-								+'<span style="color:red;">*'
-								+'</span>:'
-								+'</label>'
-								+'<div class="controls">'
-								+'<input type="text" class="form-control" value="'+v.sub_name+'" disabled>'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'<div class="col-sm-6">'
-								+'<div class="form-group">'
-								+'<label class="form-label">Marks'
-								+'<span style="color:red;">*'
-								+'</span>:'
-								+'</label>'
-								+'<div class="controls">'
-								+'<input type="number" class="form-control" name="mark['+v.sub_id+']" placeholder ="Mark">'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'</div>');
-						}else{
 							chk = '';
-							@if ($a->ad_standard)
 							var subs = '{{ $a->ad_subjects }}'.split(',');
 							for(var i=0; i<subs.length;i++) {
 								subs[i] = +subs[i];
 							}
-							chk = ($.inArray(v.sub_id, subs) >= 0) ? 'checked' : '';
-							@endif
+							chk = ($.inArray(v.std_id, subs) >= 0) ? 'checked' : '';
 
-							val.push('<div class="col-sm-6"><li><input type="checkbox" name = "subject[]" value="'+v.sub_id+'" '+chk+' class="skin-square-green"><label class="icheck-label form-label">'+v.sub_name+'</label></li></div>');
-						}
+							val.push('<div class="col-sm-3"><li><input type="checkbox" name = "subject[]" value="'+v.std_id+'" '+chk+' class="skin-square-green"><label class="icheck-label form-label">'+v.std_name+'</label></li></div>');
 					});
 				}else{
 					val.push('<div class = "alert alert-danger text-center">No Subject Found</div>');
@@ -577,8 +504,6 @@ $ID3 = 'relative';
 		});
 	}
 
-	@if ($a->ad_standard)
-	getSubject('{{ $a->ad_standard }}','standard');
-	@endif
+	getSubject();
 </script>
 @endpush

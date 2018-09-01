@@ -39,22 +39,18 @@ $ID3 = 'relative';
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Batch No
+								<label class="form-label">Batch Place
 									<span style="color:red;">*</span>:
 								</label>
 								<span class="desc">&nbsp;</span>
 								<div class="controls">
 									<select  class="form-control" name="ad[batch_year]" required>
 										<option value="">--Select--</option>
-										@for ($i = 14; $i < 24; $i++)
-										@php
-										$v = '20'.$i.'-'.(++$i);
-										@endphp
-										<option value="{{ $v }}">{{ $v }}</option>
-										@php
-										--$i;
-										@endphp
-										@endfor
+										<option value="FC Road">FC Road</option>
+										<option value="Karve nagar">Karve nagar</option>
+										<option value="Kothrud">Kothrud</option>
+										<option value="MIT">MIT</option>
+										<option value="Sinhgad Road">Sinhgad Road</option>
 									</select>
 								</div>
 							</div>
@@ -187,7 +183,7 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<!-- <div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard
 									<span style="color:red;">*</span>:
@@ -203,13 +199,13 @@ $ID3 = 'relative';
 									</select>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
-				<div class="row" id = "subject-box" style = "display:none;">
+				<div class="row" id = "subject-box" >
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-12">
-							<label class="form-label">Subjects<span style="color:red;">*</span>:</label>
+							<label class="form-label">Courses<span style="color:red;">*</span>:</label>
 							<ul class="list-unstyled" id = "subjectsBox">
 							</ul>
 						</div>
@@ -219,7 +215,7 @@ $ID3 = 'relative';
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Batch
+								<label class="form-label">Batch Time
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
@@ -235,7 +231,7 @@ $ID3 = 'relative';
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Medium
+								<label class="form-label">Education Qualification
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
@@ -317,8 +313,8 @@ $ID3 = 'relative';
 				</div>
 					<div class="text-center">
 						<button type="submit" onclick="validateSubject('validate')" id='save-admission' class="btn btn-warning">Save</button>
-						<button type="button" class="btn btn-primary" id = "otherBtn" style="display: none;" onclick="form_hide();">Other Information
-						</button>
+						<!-- <button type="button" class="btn btn-primary" id = "otherBtn" style="display: none;" onclick="form_hide();">Other Information
+						</button> -->
 						<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" style="display: none;">Finish</a>
 					</div>
 			</form>
@@ -484,7 +480,7 @@ $ID3 = 'relative';
 	$("#addmission_form").addClass("open");
 
 	function form_hide(){
-		$("#show_otherinfo").toggle();
+		// $("#show_otherinfo").toggle();
 	}
 
 	function prev_year_per(){
@@ -494,61 +490,24 @@ $ID3 = 'relative';
 	var find = "{{ route('find-school') }}",
 	schoolUrl = "{{ route('school.store') }}";
 	CRUD.formSubmission("{{ route($ID.'.store') }}", 0,{}, ID);
-
-	$('#standard, #standardPre').on({
-		'change' : function(){
-			getSubject(this.value, this.id);
-		}
-	});
-	function getSubject(id, di){
+	getSubject();
+	function getSubject(){
 		$.ajax({
-			url : '{{ route('subject-data') }}',
-			type : 'post',
-			data : {id : id},
+			url : '{{ route('standard-data') }}',
+			type : 'get',
+			data : {},
 			success : function(d){
 				var val = [];
+				// console.log(d);
 				if(d.length > 0){
 					$.each(d, function(k,v){
-						if(di == 'standardPre'){
-							val.push('<div class="row">'
-								+'<div class="col-xs-12 col-sm-12">'
-								+'<div class="col-sm-6">'
-								+'<div class="form-group">'
-								+'<label class="form-label">Subject'+(++k)
-								+'<span style="color:red;">*'
-								+'</span>:'
-								+'</label>'
-								+'<div class="controls">'
-								+'<input type="text" class="form-control" value="'+v.sub_name+'" disabled>'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'<div class="col-sm-6">'
-								+'<div class="form-group">'
-								+'<label class="form-label">Marks'
-								+'<span style="color:red;">*'
-								+'</span>:'
-								+'</label>'
-								+'<div class="controls">'
-								+'<input type="number" class="form-control" name="mark['+v.sub_id+']" placeholder ="Mark">'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'</div>');
-						}else{
-							val.push('<div class="col-sm-6"><li><input type="checkbox" name = "subject[]" value="'+v.sub_id+'" '+' class="skin-square-green"><label class="icheck-label form-label">'+v.sub_name+'</label></li></div>');
-						}
+							val.push('<div class="col-sm-3"><li><input type="checkbox" name = "subjects[]" value="'+v.std_id+'" '+' class="skin-square-green"><label class="icheck-label form-label">'+v.std_name+'</label></li></div>');
 					});
 				}else{
-					val.push('<div class = "alert alert-danger text-center">No Subject Found</div>');
+					val.push('<div class = "alert alert-danger text-center">No Courses Found</div>');
 				}
-				if(di == 'standardPre'){
-					$('#subjectPre').html(val);
-				}else{
 					$('#subject-box').show();
 					$('#subjectsBox').html(val);
-				}
 				iCheck();
 			}
 		});

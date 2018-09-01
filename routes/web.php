@@ -49,6 +49,7 @@ Route::get('marksheet-view-alldata', 'MarksheetController@allMarksheet')->name('
 Route::post('marksheet-get', 'MarksheetController@getTestData')->name('marksheet-get');
 Route::post('subject-get', 'SubjectController@data')->name('subject-get');
 Route::post('subject-data', 'SubjectController@getData')->name('subject-data');
+Route::get('standard-data', 'StandardController@standardData')->name('standard-data');
 
 Route::get('enquiry-data', 'EnquiryController@data')->name('enquiry.data');
 Route::get('enquiry-data-2', 'EnquiryController@stuData')->name('enquiry.data2');
