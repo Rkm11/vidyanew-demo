@@ -518,18 +518,6 @@ $classDetais=Setting::first();
 				</table>
 			</td>
 		</tr>
-		<tr class="details">
-			<td>
-				<table class="b-line">
-					<tr>
-						<td class="std">
-							<p class="p-line">Standard: <span>{{ App\Models\Standard::find($invoice->ad_standard)->std_name }}</span></p>
-						</td>
-						<td></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
 		<tr class="table-box">
 			<td style="padding: 0px 30px 0px 30px;">
 				<table class="t-border">
@@ -579,51 +567,6 @@ $classDetais=Setting::first();
 
 						</tr>
 						@endfor
-					</tbody>
-				</table>
-			</td>
-		</tr>
-		<tr class="details">
-			<td>
-				<table>
-					<tr>
-						<td>
-							<p class="sub-off">Subject Offered:</p>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr class="details">
-			<td>
-				<table style="margin-top: -10px!important;">
-					<tbody>
-						<tr>
-							<td>
-								<table style="padding: 0px!important;">
-									<tbody>
-										@php
-										$subs = App\Models\Subject::whereIn('sub_id', explode(',',$invoice->ad_subjects))->get();
-										$c = count($subs);
-
-										$k = 1;
-										@endphp
-										<tr>
-											@for ($ie = 0; $ie < 10; $ie++)
-											@if ($ie < $c)
-											<td class="sub-list-td"><p>{{ romanic_number($k++) }}. <span>{{ $subs[$ie]->sub_name }}</span></p></td>
-											@else
-											<td class="sub-list-td"><p>{{ romanic_number($k++) }}. </p></td>
-											@endif
-											@if ($ie == 4)
-										</tr><tr>
-											@endif
-											@endfor
-										</tr>
-									</tbody>
-								</table>
-							</td>
-						</tr>
 					</tbody>
 				</table>
 			</td>

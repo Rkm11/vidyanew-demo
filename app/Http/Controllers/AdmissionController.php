@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
 use App\Models\AdmissionDetail;
+use App\Models\Certification;
 use App\Models\ParentDetail;
 use App\Models\Student;
 use App\Models\StudentRelative;
@@ -120,16 +121,12 @@ class AdmissionController extends Controller {
 				$d['ad_remaining_fees'] = $d['ad_fees'];
 				$data['s'] = $student;
 				$cur = Carbon::now()->format('d-m-Y');
-
-				// foreach ($r->all()['subject'] as $key => $value) {
-				// if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
-				// 	Marksheet::create([
-				// 		'mark_subject' => $value,
-				// 		'mark_student' => $student,
-				// 		'mark_added' => $cur,
-				// 	]);
-				// }
-				// }
+				foreach ($r->all()['subjects'] as $key => $value) {
+					Certification::create([
+						'cer_sid' => $student,
+						'cer_cid' => $value,
+					]);
+				}
 				return AdmissionDetail::create($d) ? $data : 'error';
 			}
 		}
@@ -193,13 +190,23 @@ class AdmissionController extends Controller {
 
 		$adm = $this->changeKeys($this->pre, $ad);
 
-		$adm['ad_subjects'] = implode(',', $r->all()['subject']);
+		$adm['ad_subjects'] = implode(',', $r->all()['subjects']);
 		$adm['ad_status'] = 1;
 		$adm['ad_remaining_fees'] = $adm['ad_fees'];
 		$st = $this->changeKeys('stu_', $s);
 		// $par = $this->changeKeys('parent_', $p);
 
 		$student = AdmissionDetail::find($id)->ad_student;
+		$certicationDetails = Certification::where('cer_sid', $id)->get();
+		if ($certicationDetails) {
+			Certification::where('cer_sid', $student)->delete();
+		}
+		foreach ($r->all()['subjects'] as $key => $value) {
+			Certification::create([
+				'cer_sid' => $student,
+				'cer_cid' => $value,
+			]);
+		}
 
 		if (AdmissionDetail::where('ad_id', $id)->update($adm)) {
 			ParentDetail::where('parent_id', Student::find($student)->stu_parent)->update([
@@ -209,16 +216,6 @@ class AdmissionController extends Controller {
 				'parent_mother_picture' => $mother_picture,
 			]);
 			$cur = Carbon::now()->format('d-m-Y');
-
-			foreach ($r->all()['subject'] as $key => $value) {
-				// if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
-				// 	Marksheet::create([
-				// 		'mark_subject' => $value,
-				// 		'mark_student' => $student,
-				// 		'mark_added' => $cur,
-				// 	]);
-				// }
-			}
 			return (Student::where('stu_id', $student)->update($st)) ? 'successU' : 'error';
 		}
 

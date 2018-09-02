@@ -52,15 +52,15 @@
                     <li>
                         <a href="{{ route('admission.create') }}" style="color:#ffffff;">Admission Form</a>
                     </li>
-                    <li>
+                   <!--  <li>
                         <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a href="{{ route('test.create') }}" style="color:#ffffff;">Test</a>
-                    </li>
+                    </li> -->
                 <!--    <li>
                         <a href="{{ route('parent.index') }}" style="color:#ffffff;">Parent Registration</a>
                     </li>  -->
@@ -104,12 +104,15 @@
                     <li>
                         <a href="{{ route('admission.index') }}" style="color:#ffffff;">Admissions</a>
                     </li>
-                    <li>
+                     <li>
+                        <a href="{{ route('certification.index') }}" style="color:#ffffff;">Certifications</a>
+                    </li>
+                    <!-- <li>
                         <a href="{{ route('attendance.index') }}" style="color:#ffffff;">Attendance</a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a href="{{ route('marksheet.all') }}" style="color:#ffffff;">Marksheet</a>
-                    </li>
+                    </li> -->
                    <!--  <li>
                         <a href="{{ route('marksheet.index') }}" style="color:#ffffff;">All Student Marksheet</a>
                     </li> -->

@@ -274,8 +274,8 @@ $ID3 = 'relative';
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="" align="center" id="buttons">
-							<button type="submit" id = "saveBtn" class="btn btn-warning">Save</button>
-							<button type="button" class="btn btn-primary" id = "otherBtn"  onclick="form_hide();">Other Information</button>
+							<button type="submit" id = "saveBtn" class="btn btn-primary">Save</button>
+							 <button type="button" class="btn btn-primary" id = "otherBtn"  onclick="form_hide();">Other Information</button>
 							<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" >Finish</a>
 						</div>
 					</div>
@@ -488,10 +488,10 @@ url : '{{ route('standard-data') }}',
 							}
 							chk = ($.inArray(v.std_id, subs) >= 0) ? 'checked' : '';
 
-							val.push('<div class="col-sm-3"><li><input type="checkbox" name = "subject[]" value="'+v.std_id+'" '+chk+' class="skin-square-green"><label class="icheck-label form-label">'+v.std_name+'</label></li></div>');
+							val.push('<div class="col-sm-3"><li><input type="checkbox" name = "subjects[]" value="'+v.std_id+'" '+chk+' class="skin-square-green"><label class="icheck-label form-label">'+v.std_name+'</label></li></div>');
 					});
 				}else{
-					val.push('<div class = "alert alert-danger text-center">No Subject Found</div>');
+					val.push('<div class = "alert alert-danger text-center">No Course Found</div>');
 				}
 				if(di == 'standardPre'){
 					$('#subjectPre').html(val);

@@ -80,7 +80,7 @@ View Enquiries
 									<th>Parent No.</th>
 
 									<th>School</th>
-									<th>Standard</th>
+									<th>Created AT</th>
 									<th>Admission</th>
 									<th>Date</th>
 									<th>Action</th>
@@ -118,7 +118,7 @@ View Enquiries
 			{data: 'parent_first_name', name: 'parent_first_name'},
 			{data: 'parent_mobile', name: 'parent_mobile'},
 			{data: 'ad_school', name: 'ad_school'},
-			{data: 'std_name', name: 'std_name'},
+			{data: 'created_at', name: 'created_at'},
 			{},
 
 			{}

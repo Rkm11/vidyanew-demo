@@ -313,8 +313,8 @@ $ID3 = 'relative';
 				</div>
 					<div class="text-center">
 						<button type="submit" onclick="validateSubject('validate')" id='save-admission' class="btn btn-warning">Save</button>
-						<!-- <button type="button" class="btn btn-primary" id = "otherBtn" style="display: none;" onclick="form_hide();">Other Information
-						</button> -->
+						<button type="button" class="btn btn-primary" id = "otherBtn" style="display: none;" onclick="form_hide();">Other Information
+						</button>
 						<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" style="display: none;">Finish</a>
 					</div>
 			</form>
@@ -480,7 +480,7 @@ $ID3 = 'relative';
 	$("#addmission_form").addClass("open");
 
 	function form_hide(){
-		// $("#show_otherinfo").toggle();
+		$("#show_otherinfo").toggle();
 	}
 
 	function prev_year_per(){

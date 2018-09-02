@@ -19,7 +19,7 @@ View Invocies
 									<th>Mobile</th>
 									<!-- <th>Parent</th> -->
 									<th>Parent No.</th>
-									<th>Standard</th>
+									<th>Admission Date</th>
 									<th>Total</th>
 									<th>Remaining</th>
 									<th>Action</th>
@@ -95,11 +95,11 @@ View Invocies
 			//serverSide: true,
 			ajax: '{!! route('invoice.data') !!}',
 			columns: [
-			{data: 'stu_uid', name: 'stu_uid'},
+			{data: 'stu_id', name: 'stu_id'},
 			{data: 'stu_name', name: 'stu_name'},
 			{},
 			{},
-			{data: 'std_name', name: 'std_name'},
+			{data: 'ad_date', name: 'ad_date'},
 			{data: 'ad_fees', name: 'ad_fees'},
 			{},
 			{},

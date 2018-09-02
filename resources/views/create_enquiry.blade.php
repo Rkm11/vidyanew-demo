@@ -114,7 +114,7 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<!-- <div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard
 									<span style="color:red;">*</span>:
@@ -129,7 +129,7 @@ $ID2 = 'previous';
 									</select>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 
@@ -137,7 +137,7 @@ $ID2 = 'previous';
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Batch
+								<label class="form-label">Batch Time
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
@@ -153,7 +153,7 @@ $ID2 = 'previous';
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Medium
+								<label class="form-label">Education Qualification
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
@@ -179,10 +179,10 @@ $ID2 = 'previous';
 						</div>
 					</div>
 				</div>
-				<div class="row" id = "subject-box" style = "display:none;">
+				<div class="row" id = "subject-box" >
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-12">
-							<label class="form-label">Subjects<span style="color:red;">*</span>:</label>
+							<label class="form-label">Courses<span style="color:red;">*</span>:</label>
 							<ul class="list-unstyled" id = "subjectsBox">
 							</ul>
 						</div>
@@ -353,56 +353,23 @@ $ID2 = 'previous';
 			getSubject(this.value, this.id);
 		}
 	});
-	function getSubject(id, di){
+		getSubject();
+	function getSubject(){
 		$.ajax({
-			url : '{{ route('subject-data') }}',
-			type : 'post',
-			data : {id : id},
+			url : '{{ route('standard-data') }}',
+			type : 'get',
 			success : function(d){
 				var val = [];
+				// console.log(d);
 				if(d.length > 0){
 					$.each(d, function(k,v){
-						if(di == 'standardPre'){
-							val.push('<div class="row">'
-								+'<div class="col-xs-12 col-sm-12">'
-								+'<div class="col-sm-6">'
-								+'<div class="form-group">'
-								+'<label class="form-label">Subject'+(++k)
-								+'<span style="color:red;">*'
-								+'</span>:'
-								+'</label>'
-								+'<div class="controls">'
-								+'<input type="text" class="form-control" value="'+v.sub_name+'" disabled>'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'<div class="col-sm-6">'
-								+'<div class="form-group">'
-								+'<label class="form-label">Marks'
-								+'<span style="color:red;">*'
-								+'</span>:'
-								+'</label>'
-								+'<div class="controls">'
-								+'<input type="number" class="form-control" name="mark['+v.sub_id+']" placeholder ="Mark">'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'</div>'
-								+'</div>');
-						}else{
-
-							val.push('<div class="col-sm-6"><li><input type="checkbox" name = "subject[]" value="'+v.sub_id+'" class="skin-square-green"><label class="icheck-label form-label">'+v.sub_name+'</label></li></div>');
-						}
+							val.push('<div class="col-sm-3"><li><input type="checkbox" name = "subjects[]" value="'+v.std_id+'" '+' class="skin-square-green"><label class="icheck-label form-label">'+v.std_name+'</label></li></div>');
 					});
 				}else{
-					val.push('<div class = "alert alert-danger text-center">No Subject Found</div>');
+					val.push('<div class = "alert alert-danger text-center">No Courses Found</div>');
 				}
-				if(di == 'standardPre'){
-					$('#subjectPre').html(val);
-				}else{
 					$('#subject-box').show();
 					$('#subjectsBox').html(val);
-				}
 				iCheck();
 
 			}

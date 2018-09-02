@@ -76,7 +76,7 @@ $classDetais=Setting::first();
         display: none;
     }
     .loader h1{
-        color: white;
+        color: #e5c524;
         margin-top: 20%;
     }
 </style>

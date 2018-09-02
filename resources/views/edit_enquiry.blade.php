@@ -113,7 +113,7 @@ $ID = 'enquiry';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<!-- <div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard
 									<span style="color:red;">*</span>:
@@ -128,7 +128,7 @@ $ID = 'enquiry';
 									</select>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 
@@ -136,7 +136,7 @@ $ID = 'enquiry';
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Batch
+								<label class="form-label">Batch Time
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
@@ -152,7 +152,7 @@ $ID = 'enquiry';
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Medium
+								<label class="form-label">Education Qualification
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
@@ -162,7 +162,7 @@ $ID = 'enquiry';
 										<option value = "{{ $med->med_id }}" {{ ($en->ad_medium != '')?(($en->ad_medium == $med->med_id) ? 'selected' : '') : '' }}>{{ $med->med_name }}</option>
 										@empty
 										@endforelse
-									
+
 									</select>
 								</div>
 							</div>
@@ -179,10 +179,10 @@ $ID = 'enquiry';
 						</div>
 					</div>
 				</div>
-				<div class="row" id = "subject-box" style = "display:none;">
+				<div class="row" id = "subject-box">
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-12">
-							<label class="form-label">Subjects<span style="color:red;">*</span>:</label>
+							<label class="form-label">Courses<span style="color:red;">*</span>:</label>
 							<ul class="list-unstyled" id = "subjectsBox">
 							</ul>
 						</div>
@@ -257,39 +257,34 @@ $ID = 'enquiry';
 			getSubject(this.value);
 		}
 	});
+	getSubject();
 	function getSubject(id){
 		$.ajax({
-			url : '{{ route('subject-data') }}',
-			type : 'post',
-			data : {id : id},
+url : '{{ route('standard-data') }}',
+			type : 'get',
+			data : {},
 			success : function(d){
 				var val = [];
 				if(d.length > 0){
 					$.each(d, function(k,v){
+							chk = '';
+							var subs = '{{ $en->ad_subjects }}'.split(',');
+							for(var i=0; i<subs.length;i++) {
+								subs[i] = +subs[i];
+							}
+							chk = ($.inArray(v.std_id, subs) >= 0) ? 'checked' : '';
 
-						chk = '';
-						@if ($en->ad_standard)
-						var subs = '{{ $en->ad_subjects }}'.split(',');
-						for(var i=0; i<subs.length;i++) {
-							subs[i] = +subs[i];
-						}
-						chk = ($.inArray(v.sub_id, subs) >= 0) ? 'checked' : '';
-						@endif
-
-						val.push('<div class="col-sm-6"><li><input type="checkbox" name = "subject[]" value="'+v.sub_id+'" '+chk+' class="skin-square-green"><label class="icheck-label form-label">'+v.sub_name+'</label></li></div>');
+							val.push('<div class="col-sm-3"><li><input type="checkbox" name = "subjects[]" value="'+v.std_id+'" '+chk+' class="skin-square-green"><label class="icheck-label form-label">'+v.std_name+'</label></li></div>');
 					});
 				}else{
-					val.push('<div class = "alert alert-danger text-center">No Subject Found</div>');
+					val.push('<div class = "alert alert-danger text-center">No Course Found</div>');
 				}
+					$('#subject-box').show();
+					$('#subjectsBox').html(val);
 
-				$('#subject-box').show();
-				$('#subjectsBox').html(val);
 				iCheck();
 			}
 		});
 	}
-	@if ($en->ad_standard)
-	getSubject('{{ $en->ad_standard }}','standard');
-	@endif
 </script>
 @endpush

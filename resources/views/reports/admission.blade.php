@@ -74,13 +74,13 @@ $classDetais=Setting::first();
 		width: 33.3333%;
 	}
 	.dob{
-		width: 60%;
+		width: 75%;
 	}
 	.sex{
 		width: 40%;
 	}
 	.school{
-		width: 60%;
+		width: 40%;
 	}
 	.medium{
 		width: 20%;
@@ -285,11 +285,11 @@ $classDetais=Setting::first();
 									<tr>
 										<td valign="center" class="t-border batch">
 											<p>
-												Batch
+												Batch Time
 											</p>
 										</td>
 										<td  class="t-border" style="width: 40%;">&nbsp;<span>{{ $i->batch->batch_name }}</span></td>
-										<td style="width: 30%;"></td>
+										<td style="width: 50%;"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -342,7 +342,7 @@ $classDetais=Setting::first();
 							<p>2) Date of Birth: <span>{{ Carbon\Carbon::parse($i->student->stu_dob)->toFormattedDateString() }}</span></p>
 						</td>
 						<td class="sex">
-							<p>Sex: <span>{{ $i->student->stu_gender ? 'Male' : 'Female' }}</span></p>
+							<p>&nbsp;Gender: <span>{{ $i->student->stu_gender ? 'Male' : 'Female' }}</span></p>
 						</td>
 					</tr>
 				</table>
@@ -356,10 +356,7 @@ $classDetais=Setting::first();
 							<p>3) School / College: <span>{{ $i->ad_school }}</span></p>
 						</td>
 						<td class="medium">
-							<p>Medium: <span>{{ $i->medium->med_name }}</span></p>
-						</td>
-						<td class="standard">
-							<p>Standard: <span>{{ $i->standard->std_name }}</span></p>
+							<p>Qualification: <span>{{ $i->medium->med_name }}</span></p>
 						</td>
 					</tr>
 				</table>
@@ -370,7 +367,7 @@ $classDetais=Setting::first();
 				<table>
 					<tr>
 						<td>
-							<p>4) Subject Offered:</p>
+							<p>4) Courses Offered:</p>
 						</td>
 					</tr>
 				</table>
@@ -385,17 +382,16 @@ $classDetais=Setting::first();
 								<table style="padding: 0px!important;">
 									<tbody>
 										@php
-										$subs = App\Models\Subject::whereIn('sub_id', explode(',',$i->ad_subjects))->get();
+										$subs = App\Models\Standard::whereIn('std_id', explode(',',$i->ad_subjects))->get();
 										$c = count($subs);
 
 										$k = 1;
 										@endphp
 										<tr>
-											@for ($ie = 0; $ie < 10; $ie++)
+											@for ($ie = 0; $ie < 40; $ie++)
 											@if ($ie < $c)
-											<td class="sub-list-td"><p>{{ romanic_number($k++) }}. <span>{{ $subs[$ie]->sub_name }}</span></p></td>
-											@else
-											<td class="sub-list-td"><p>{{ romanic_number($k++) }}. </p></td>
+											<td class="sub-list-td"><p>{{ romanic_number($k++) }}. <span>{{ $subs[$ie]->std_name }}</span></p></td>
+
 											@endif
 											@if ($ie == 4)
 										</tr><tr>

@@ -67,7 +67,7 @@ $ID = 'invoice';
 							<div class="form-group">
 								<label class="form-label">ID<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" value="{{ $stu->stu_uid }}" placeholder="ID" readonly>
+									<input type="text" class="form-control" value="{{ $stu->stu_id }}" placeholder="ID" readonly>
 								</div>
 							</div>
 						</div>
@@ -85,9 +85,10 @@ $ID = 'invoice';
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
+								<label class="form-label">Payable Fees<span style="color:red;">*</span>:</label>
+
 								<div class="controls">
-									<input type="text" class="form-control" value="{{ $stu->admission->standard->std_name }}" placeholder="Standard" readonly>
+									<input type="text" class="form-control" name="fees" placeholder="Total Fees" id = "totalFees" value = "{{ $stu->admission->ad_remaining_fees == 0 ? $stu->admission->ad_fees : $stu->admission->ad_remaining_fees }}" readonly>
 								</div>
 							</div>
 						</div>
@@ -106,10 +107,9 @@ $ID = 'invoice';
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Payable Fees<span style="color:red;">*</span>:</label>
-
+								<label class="form-label">Amount<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="fees" placeholder="Total Fees" id = "totalFees" value = "{{ $stu->admission->ad_remaining_fees == 0 ? $stu->admission->ad_fees : $stu->admission->ad_remaining_fees }}" readonly>
+									<input type="number" <?php echo (isset($_GET['type']) && $_GET['type'] == '2') ? 'readonly' : ''; ?> class="form-control" id = "paid" name="paid_amount" placeholder ="Amount" min="1" value = "{{ ($install)?$install->install_amount : ''}}" max="{{ $stu->admission->ad_fees }}" required>
 								</div>
 							</div>
 						</div>
@@ -118,14 +118,6 @@ $ID = 'invoice';
 				<?php }?>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Amount<span style="color:red;">*</span>:</label>
-								<div class="controls">
-									<input type="number" <?php echo (isset($_GET['type']) && $_GET['type'] == '2') ? 'readonly' : ''; ?> class="form-control" id = "paid" name="paid_amount" placeholder ="Amount" min="1" value = "{{ ($install)?$install->install_amount : ''}}" max="{{ $stu->admission->ad_fees }}" required>
-								</div>
-							</div>
-						</div>
 						@if(!isset($_GET['type']))
 						<div class="col-sm-6">
 							<div class="form-group">

@@ -76,10 +76,10 @@ class EnquiryController extends Controller {
 	}
 
 	public function data(Request $r) {
-		$enq = Enquiry::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'admission_details.ad_school', 'standards.std_name', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_fees', 'admission_details.ad_remaining_fees', 'enquiries.enq_id', 'enquiries.created_at', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
+		$enq = Enquiry::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'admission_details.ad_school', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_fees', 'admission_details.ad_remaining_fees', 'enquiries.enq_id', 'enquiries.created_at', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
 			->join('admission_details', 'admission_details.ad_id', '=', 'enquiries.enq_admission')
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
-			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+		// ->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
 			->orderBy('enquiries.created_at', 'desc')
 			->where('admission_details.ad_status', 0)
@@ -92,7 +92,7 @@ class EnquiryController extends Controller {
 		$enq = Enquiry::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'admission_details.ad_school', 'standards.std_name', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_fees', 'admission_details.ad_remaining_fees', 'enquiries.enq_id', 'enquiries.created_at', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
 			->join('admission_details', 'admission_details.ad_id', '=', 'enquiries.enq_admission')
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
-			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+		// ->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
 			->where('admission_details.ad_status', 1)
 			->get();
@@ -113,7 +113,7 @@ class EnquiryController extends Controller {
 		if ($parent) {
 			$n = $this->changeKeys('stu_', $s);
 			$n['stu_parent'] = $parent;
-			$n['stu_uid'] = $this->autoId($ad['batch'], $ad['medium'], $ad['standard']);
+			// $n['stu_uid'] = $this->autoId($ad['batch'], $ad['medium'], $ad['standard']);
 
 			$student = Student::create($n)->stu_id;
 
@@ -123,7 +123,7 @@ class EnquiryController extends Controller {
 				$d['ad_status'] = 0;
 				$d['ad_reffered_by'] = $ad['reffered_by'];
 				$d['ad_preffered_batches'] = $ad['preffered_batches'];
-				$d['ad_subjects'] = implode(',', $r->all()['subject']);
+				$d['ad_subjects'] = implode(',', $r->all()['subjects']);
 				$admi = AdmissionDetail::create($d)->ad_id;
 				if ($admi) {
 					return Enquiry::create([
@@ -143,7 +143,10 @@ class EnquiryController extends Controller {
 	}
 
 	public function edit($id) {
-		$en = Enquiry::join('admission_details', 'admission_details.ad_id', '=', 'enquiries.enq_admission')->join('students', 'students.stu_id', '=', 'admission_details.ad_student')->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')->where('enquiries.enq_id', $id)->first();
+		$en = Enquiry::join('admission_details', 'admission_details.ad_id', '=', 'enquiries.enq_admission')
+			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
+		// ->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+			->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')->where('enquiries.enq_id', $id)->first();
 		return view('edit_enquiry')->with(['en' => $en]);
 	}
 
@@ -153,10 +156,9 @@ class EnquiryController extends Controller {
 		$s = $r->all()['stu'];
 		$ad = $r->all()['ad'];
 		$p = $r->all()['p'];
-
 		$adm = $this->changeKeys('ad_', $ad);
-		if ($r->subject) {
-			$adm['ad_subjects'] = implode(',', $r->all()['subject']);
+		if ($r->subjects) {
+			$adm['ad_subjects'] = implode(',', $r->all()['subjects']);
 		}
 		$st = $this->changeKeys('stu_', $s);
 		$par = $this->changeKeys('parent_', $p);

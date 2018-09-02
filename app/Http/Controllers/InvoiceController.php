@@ -123,9 +123,9 @@ class InvoiceController extends Controller {
 	}
 
 	public function data(Request $r) {
-		$ad = AdmissionDetail::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_mobile', 'admission_details.ad_school', 'standards.std_name', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_fees', 'admission_details.ad_remaining_fees', 'admission_details.ad_status', 'admission_details.created_at', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
+		$ad = AdmissionDetail::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_mobile', 'admission_details.ad_school', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_fees', 'admission_details.ad_remaining_fees', 'admission_details.ad_status', 'admission_details.created_at', 'admission_details.ad_date', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
-			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+		// ->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
 			->where('admission_details.ad_status', 1)
 			->get();

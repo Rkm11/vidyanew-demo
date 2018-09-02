@@ -22,6 +22,7 @@ Route::resource('student', 'StudentController');
 Route::resource('installment', 'InstallmentController');
 Route::resource('test', 'TestController');
 Route::resource('settings', 'ChangeSettingController');
+Route::resource('certification', 'CertificationController');
 
 Route::resource('telecalling', 'TelecallingController', ['name' => ['update' => 'telecalling.update'], ['store' => 'telecalling.store']]);
 Route::get('telecalling-data', 'TelecallingController@getdata')->name('enquiry.data');
@@ -31,6 +32,8 @@ Route::get('others/create', function () {
 	return view('create_others');
 })->name('others');
 Route::get('installment-data', 'InstallmentController@data')->name('installment.data');
+Route::post('filtered-certification-data', 'CertificationController@filteredData')->name('filtered-certification-data');
+Route::get('certification-data', 'CertificationController@data')->name('certification.data');
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
 
 Route::get('generate-att-report', 'AttendanceController@generateReport')->name('generate-att-report');
