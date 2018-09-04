@@ -95,16 +95,6 @@
  						</div>
  						</div>
  						</div>
- 						<form id="file-upload" method="post"  enctype="multipart/form-data" name="file-upload">
- 						<div class="col-sm-4">
- 							<div class="form-group">
- 								<label class="form-label">Upload Attendance Report:</label>
- 								<div class="controls">
- 							<input type="file" name="import_file" id="import_file"  />
- 						</div>
- 						</div>
- 						</div>
- 					</form>
  					</div>
  					</div>
 
@@ -287,8 +277,9 @@
  			columnDefs: [{
  				'targets': 2,
  				'render': function (data, type, full, meta){
- 					var s = (full.att_result) ? 'Present' : 'Absent';
+ 					var s = (full.ba_attendence) ? 'Present' : 'Absent';
  					return '<span>'+s+'</span>';
+                    // return full.att_result;
  				}
  			}],
  			// dom: 'Bfrtip',

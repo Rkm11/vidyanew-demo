@@ -60,9 +60,9 @@ class AdmissionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $r) {
+		$n = $this->changeKeys('stu_', $r);
 		date_default_timezone_set('Asia/Calcutta');
 		$data = ['msg' => 'success'];
-		// return $data;
 		$path = "images/";
 		$new = uniqid() . ".jpeg";
 		$s = $r->all()['stu'];
@@ -70,7 +70,6 @@ class AdmissionController extends Controller {
 		$father_picture = '';
 		$mother_picture = '';
 		$d = $this->changeKeys('ad_', $ad);
-		// return $r->all();
 		if ($r->hasFile('father_img')) {
 			$r->file('father_img')->move($path, 'f-' . $new);
 			$father_picture = $path . 'f-' . $new;
@@ -87,10 +86,7 @@ class AdmissionController extends Controller {
 			$this->resizeImage($mother_picture);
 		}
 
-		// return $r->all();
-		// return $s;
 		$cur = Carbon::now()->format('d-m-Y');
-		// dd($cur);die;
 		$parent = ParentDetail::create([
 			'parent_first_name' => $s['middle_name'],
 			'parent_last_name' => $s['last_name'],
@@ -104,7 +100,6 @@ class AdmissionController extends Controller {
 
 		if ($parent) {
 			$n = $this->changeKeys('stu_', $s);
-			dd($n->all());
 			$n['stu_parent'] = $parent;
 			if (isset($ad['batch'])) {
 				$bat = $ad['batch'];
@@ -120,16 +115,6 @@ class AdmissionController extends Controller {
 				$d['ad_remaining_fees'] = $d['ad_fees'];
 				$data['s'] = $student;
 				$cur = Carbon::now()->format('d-m-Y');
-
-				foreach ($r->all()['subject'] as $key => $value) {
-					// if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
-					// 	Marksheet::create([
-					// 		'mark_subject' => $value,
-					// 		'mark_student' => $student,
-					// 		'mark_added' => $cur,
-					// 	]);
-					// }
-				}
 				return AdmissionDetail::create($d) ? $data : 'error';
 			}
 		}
@@ -174,7 +159,6 @@ class AdmissionController extends Controller {
 		$ad = $r->all()['ad'];
 		$father_picture = '';
 		$mother_picture = '';
-		// return $r->all();
 		if ($r->hasFile('father_img')) {
 			$r->file('father_img')->move($path, 'f-' . $new);
 			$father_picture = $path . 'f-' . $new;
@@ -197,10 +181,7 @@ class AdmissionController extends Controller {
 		$adm['ad_status'] = 1;
 		$adm['ad_remaining_fees'] = $adm['ad_fees'];
 		$st = $this->changeKeys('stu_', $s);
-		// $par = $this->changeKeys('parent_', $p);
-
 		$student = AdmissionDetail::find($id)->ad_student;
-
 		if (AdmissionDetail::where('ad_id', $id)->update($adm)) {
 			ParentDetail::where('parent_id', Student::find($student)->stu_parent)->update([
 				'parent_first_name' => $st['stu_middle_name'],
@@ -209,16 +190,6 @@ class AdmissionController extends Controller {
 				'parent_mother_picture' => $mother_picture,
 			]);
 			$cur = Carbon::now()->format('d-m-Y');
-
-			foreach ($r->all()['subject'] as $key => $value) {
-				// if (!Marksheet::where('mark_subject', $value)->where('mark_student', $student)->first()) {
-				// 	Marksheet::create([
-				// 		'mark_subject' => $value,
-				// 		'mark_student' => $student,
-				// 		'mark_added' => $cur,
-				// 	]);
-				// }
-			}
 			return (Student::where('stu_id', $student)->update($st)) ? 'successU' : 'error';
 		}
 

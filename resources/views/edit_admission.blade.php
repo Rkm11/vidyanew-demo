@@ -63,7 +63,7 @@ $ID3 = 'relative';
 								</label>
 								<span class="desc">&nbsp;</span>
 								<div class="controls">
-									<input type="text" class="form-control" name="stu[bio_id]" placeholder="ID" >
+									<input type="text" class="form-control" value="{{$a->stu_bio_id}}" name="stu[bio_id]" placeholder="ID" >
 								</div>
 							</div>
 						</div>
