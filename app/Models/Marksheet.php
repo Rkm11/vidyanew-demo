@@ -41,6 +41,7 @@ class Marksheet extends Eloquent {
 		'mark_total',
 		'mark_added',
 		'mark_testid',
+		'mark_subject',
 	];
 
 	public function student() {

@@ -32,7 +32,7 @@ Create Marksheet
 								<label class="form-label">Test<span style="color:red;">*</span>:</label>
 								<div class="controls">
 									<select class="form-control" onchange="fetchTest(this.value)" name="testid" id = "testid">
-										<option value="">--Select--</option>
+										<option value="-1">--Select--</option>
 										@forelse (App\Models\Test::orderBy('id',' DESC')->get() as $b)
 										<option value = "{{ $b->id }}">{{ $b->test_name }}</option>
 										@empty
@@ -61,8 +61,9 @@ Create Marksheet
 							<div class="form-group">
 								<label class="form-label">Subject:</label>
 								<div class="controls">
-									<input type="text" placeholder="Test Subject" name="sub" id="sub" readonly="" disabled="">
-									<input type="hidden"   name="subject" id="subject">
+									<select name="subject" id="subject">
+										<option value="-1">Select</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -139,12 +140,12 @@ Create Marksheet
 		return (v == null) ? 0 : v;
 	}
 	function fetchStudents() {
-		if(''==$('#test').val() || ''==$('#batch').val() || ''==$('#standard').val() || ''==$('#medium').val()){
-			alert('Please Select all filters to fetch student details.');
-			return false;
-		}else{
+		if('-1'!=$('#test').val() && '-1'!=$('#subject').val()&&$('#subject').val()!=null ){
 			$('#marksheet-table').DataTable().destroy();
 				data();
+		}else{
+						alert('Please Select all filters to fetch student details.');
+			return false;
 		}
 	}
 	function data() {
@@ -238,23 +239,37 @@ function fetchTest(id){
 			data : {id : id},
 			success : function(d){
 				var val = [];
-				if(d.length > 0){
-					ids=[];
-					console.log(d);
-					ids.push(d[0].test_subject);
-					$('#exam_date').val(d[0].test_date);
-					$('#sub').val(d[0].sub_name);
-					$('#subject').val(d[0].test_subject);
-					$('#medium_name').val(d[0].med_name);
-					$('#standard_name').val(d[0].std_name);
-					$('#outtmark').val(d[0].test_outof);
-					$('#batch_name').val(d[0].batch_name);
-					$('#medium').val(d[0].med_id);
-					$('#standard').val(d[0].std_id);
-					$('#batch').val(d[0].batch_id);
+				// console.log(d.test_subjects_name);
+				if(d){
+					$('#subject').html('');
+					val.push('<option value="-1">--Select--</option>');
+					if(d.test_subjects_name.length > 0){
+					$.each(d.test_subjects_name, function(k,v){
+						// console.log(v);
+						val.push('<option  value="'+v.sub_id+'">'+v.sub_name+'</option>');
+						// val.push('&nbsp<input type="checkbox" id="subject" name="subject[]"  value="'+v.sub_id+'">'+v.sub_name+'&nbsp');
+					});
+					$('#subject' ).html(val);
 				}else{
-					alert('Invalid Test Name');
-					location.reload();
+					$('#subject').html('');
+					 val.push('<option value="-1">--Select--</option>');
+					$('#subject').html(val);
+				}
+					ids=[];
+					ids.push(d.test_subject);
+					$('#exam_date').val(d.test_date);
+					$('#sub').val(d.test_subjects_name);
+					$('#subject').val(d.test_subjects);
+					$('#medium_name').val(d.med_name);
+					$('#standard_name').val(d.std_name);
+					$('#outtmark').val(d.test_outof);
+					$('#batch_name').val(d.batch_name);
+					$('#medium').val(d.med_id);
+					$('#standard').val(d.std_id);
+					$('#batch').val(d.batch_id);
+				}else{
+					// alert('Invalid Test Name');
+					// location.reload();
 				}
 			}
 		});

@@ -50,6 +50,7 @@ class Student extends Eloquent {
 		'stu_last_name',
 		'stu_email',
 		'stu_mobile',
+		'stu_bio_id',
 		'stu_alt_mobile',
 		'stu_parent',
 		'stu_dob',

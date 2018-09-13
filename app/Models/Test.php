@@ -16,7 +16,7 @@ class Test extends Model {
 		'test_no',
 		'test_name',
 		'test_date',
-		'test_subject',
+		'test_subjects',
 		'test_student',
 		'test_batch',
 		'test_medium',

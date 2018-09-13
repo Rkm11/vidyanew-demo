@@ -31,6 +31,7 @@ Route::get('others/create', function () {
 	return view('create_others');
 })->name('others');
 Route::get('installment-data', 'InstallmentController@data')->name('installment.data');
+Route::get('test.data', 'TestController@data')->name('test.data');
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
 
 Route::get('generate-att-report', 'AttendanceController@generateReport')->name('generate-att-report');
@@ -41,11 +42,13 @@ Route::get('attendance-view-data', 'AttendanceController@dataAttendance')->name(
 
 Route::get('marksheet-data', 'MarksheetController@data')->name('marksheet.data');
 Route::get('marksheet-all', 'MarksheetController@all')->name('marksheet.all');
+Route::get('test-name-data', 'TestController@testNameData')->name('test-name-data');
 
 // Route::get('marksheet-all', 'MarksheetController@allStudent')->name('marksheet.all');
 
 Route::get('marksheet-view-data', 'MarksheetController@dataMarksheet')->name('marksheet-view.data');
-Route::get('marksheet-view-alldata', 'MarksheetController@allMarksheet')->name('marksheet-view.alldata');
+Route::get('marksheet-view.alldata', 'MarksheetController@allMarksheet')->name('marksheet-view.alldata');
+Route::get('all-student-marks', 'MarksheetController@getAllStudentsMarks')->name('all-student-marks');
 Route::post('marksheet-get', 'MarksheetController@getTestData')->name('marksheet-get');
 Route::post('subject-get', 'SubjectController@data')->name('subject-get');
 Route::post('subject-data', 'SubjectController@getData')->name('subject-data');
@@ -72,7 +75,7 @@ Route::get('download-admission/{id}', 'AdmissionController@downloadPDF')->name('
 Route::get('download-telecalling/{id}', 'TelecallingController@downloadPDF')->name('ad-invoice');
 Route::get('download-alltelecalling/{id}', 'TelecallingController@downloadAllPDF')->name('all-tele');
 Route::get('download-marksheet/{id}', 'MarksheetController@downloadPDF')->name('ad-invoice');
-Route::get('download-all/{id}', 'MarksheetController@allPDF')->name('d-all-mark');
+Route::get('download-all', 'MarksheetController@allPDF')->name('d-all-mark');
 Route::get('admission/confirm/{id}', 'AdmissionController@confirm');
 
 Route::get('/changepassword', 'ChangePasswordController@showchangepassword');

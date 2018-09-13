@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Traits\GetData;
 use App\Models\Marksheet;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\Test;
+use DataTables;
 use Illuminate\Http\Request;
 
 class TestController extends Controller {
@@ -22,7 +24,7 @@ class TestController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		//
+		return view('view_tests');
 	}
 
 	/**
@@ -32,6 +34,14 @@ class TestController extends Controller {
 	 */
 	public function create() {
 		return view('create_test');
+	}
+
+	public function data(Request $r) {
+		// return $r->all();
+		$tests = Test::join('batches', 'batches.batch_id', '=', 'tests.test_batch')
+			->join('mediums', 'mediums.med_id', '=', 'tests.test_medium')
+			->join('standards', 'standards.std_id', '=', 'tests.test_standard')->get();
+		return DataTables::of($tests)->make(true);
 	}
 
 	/**
@@ -53,13 +63,21 @@ class TestController extends Controller {
 				->where('admission_details.ad_batch', $n['test_batch'])
 				->where('admission_details.ad_standard', $n['test_standard'])
 				->where('admission_details.ad_medium', $n['test_medium'])->get();
+			if (!empty($n['test_subject'])) {
+				$arrSelectedSubjects = $n['test_subject'];
+				$n['test_subjects'] = implode(',', $arrSelectedSubjects);
+			} else {
+
+				return 'error';
+			}
 			$data = Test::create($n);
 			foreach ($stu as $value) {
-				$subjects = explode(',', $value->ad_subjects);
-				if (in_array($n['test_subject'], $subjects)) {
+				// $subjects = explode(',', $value->ad_subjects);
+				foreach ($arrSelectedSubjects as $subjects) {
 					Marksheet::create([
 						'mark_testid' => $data->id,
 						'mark_student' => $value->stu_id,
+						'mark_subject' => $subjects,
 						'mark_total' => 0,
 					]);
 				}
@@ -97,12 +115,35 @@ class TestController extends Controller {
 
 	public function getData(Request $r) {
 		$id = $r->id;
-		$test = Test::select(['tests.id', 'tests.test_name', 'tests.test_date', 'tests.test_subject', 'tests.test_outof', 'subjects.sub_name', 'batch_name', 'med_name', 'std_name', 'batch_id', 'med_id', 'std_id'])
-			->join('subjects', 'subjects.sub_id', '=', 'tests.test_subject')
+		$test = Test::select(['tests.id', 'tests.test_name', 'tests.test_date', 'tests.test_subjects', 'tests.test_outof', 'batch_name', 'med_name', 'std_name', 'batch_id', 'med_id', 'std_id'])
+		// ->join('subjects', 'subjects.sub_id', '=', 'tests.test_subjects')
 			->join('batches', 'batches.batch_id', '=', 'tests.test_batch')
 			->join('mediums', 'mediums.med_id', '=', 'tests.test_medium')
 			->join('standards', 'standards.std_id', '=', 'tests.test_standard')
-			->where('tests.id', $id)->get();
+			->where('tests.id', $id)->first();
+		if (!empty($test)) {
+			$subjects = explode(',', $test->test_subjects);
+			$allSubjects = Subject::whereIN('sub_id', $subjects)->get();
+			foreach ($allSubjects as $key => $value) {
+				$test_subjects[] = $value->sub_name;
+			}
+			if (!empty($test_subjects)) {
+				$test->test_subjects_name = $allSubjects;
+			}
+		}
+		return $test;
+	}
+
+	public function testNameData(Request $r) {
+		$standard = $r->standard;
+		// $standard = 15;
+		$test = Test::select(['tests.id', 'tests.test_name'])
+			->where('tests.test_standard', $standard)->get();
+		// foreach ($test as $key => $value) {
+		// 	$test_name = explode('-', $value->test_name);
+		// 	$test_name = $test_name[0];
+		// 	$test{$key}->test_name = $test_name;
+		// }
 		return $test;
 	}
 

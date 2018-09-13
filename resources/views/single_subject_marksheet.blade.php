@@ -24,7 +24,7 @@ View Marksheets
 		<br>
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form>
-				<div class="row">
+			 <div class="row">
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-6">
 							<div class="form-group">
@@ -73,19 +73,28 @@ View Marksheets
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+							<div class="col-sm-6">
 							<div class="form-group">
-								<label class="form-label">Subjects Offered<span style="color:red;">*</span>:</label>
+								<label class="form-label">Select Test<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<select class="form-control" name="subject" id = "subject">
+							<select class="form-control" name="test_name" id = "test_name">
 										<option value="-1">--Select--</option>
+										@forelse (App\Models\Test::get() as $test)
+										<option value = "{{ $test->id }}">{{ $test->test_name }}</option>
+										@empty
+										@endforelse
 									</select>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
+				<div id="print-report-div" style ="display:none;">
+					<a id="print-report" class="btn btn-primary">Print</a>
+				</div>
+				<div>
+					<button style ="display:none;" class="btn btn-primary" onclick="data()" id="fetch-data" name="fetch-data">Submit</button>
+				</div>
 				<header class="panel_header" style="background-color:#9ddac0;">
 					<h2 class="col-sm-4 title pull-left" style="padding: 0px;">Marksheet Sheet</h2>
 				</header>
@@ -96,9 +105,10 @@ View Marksheets
 							<table id="marksheet-table" class="table table-striped display">
 								<thead style="background-color:#fff;">
 									<tr>
-										<th>Student Name</th>
-										<th>Subject</th>
-										<th>Total Mark</th>
+										<td>Name</td>
+										<td>Subject</td>
+										<td>Test Name</td>
+										<td>Marks</td>
 										<!-- <th>T-10</th>
 										<th>T-11</th>
 										<th>T-12</th>
@@ -139,235 +149,93 @@ View Marksheets
 <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script> --}}
 <script type="text/javascript">
 
-	$('#batch, #standard, #medium, #subject').on({
+	$('#batch, #standard, #medium,#test_name').on({
 		'change' : function(){
-
 			$('#marksheet-table').DataTable().destroy();
 			data();
 		}
 	});
+
 	data();
-	function data() {
-		$('#marksheet-table').removeAttr('width').DataTable({
-			scrollY:"969px",
-			scrollX:true,
-			scrollCollapse:true,
-			paging:false,
-			processing: true,
-			//serverSide: true,
-			ajax: {
-				url : '{!! route('marksheet.data') !!}',
-				type : 'get',
+		function data() {
+			$('#marksheet-table').DataTable({
+                processing: true,
+                //serverSide: true,
+                searching: true,
+                ajax:{
+                	url:'{!! route('marksheet-view.alldata') !!}',
+                type : 'get',
 				data : function(d){
 					d.batch = $('#batch').val();
 					d.standard = $('#standard').val();
 					d.medium = $('#medium').val();
 					d.subject = $('#subject').val();
-				}
-			},
-			columns: [
-			{data: 'stu_name', name: 'stu_name'},
-			{data: 'sub_name', name: 'subjects.sub_name'},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{}/*,
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{},
-			{}*/
-			],
-			columnDefs: [{
-				'width': '5%',
-				'targets': 2,
-				'render': function (data, type, full, meta){
-					return full.mark_test_1;
-				}
-			},{
-				'width': '5%',
-				'targets': 3,
-				'render': function (data, type, full, meta){
-					return full.mark_test_2;
-				}
-			},{
-				'width': '5%',
-				'targets': 4,
-				'render': function (data, type, full, meta){
-					return full.mark_test_4;
-				}
-			},{
-				'width': '5%',
-				'targets': 5,
-				'render': function (data, type, full, meta){
-					return full.mark_test_4;
-				}
-			},{
-				'width': '5%',
-				'targets': 6,
-				'render': function (data, type, full, meta){
-					return full.mark_test_5;
-				}
-			},{
-				'width': '5%',
-				'targets': 7,
-				'render': function (data, type, full, meta){
-					return full.mark_test_6;
-				}
-			},{
-				'width': '5%',
-				'targets': 8,
-				'render': function (data, type, full, meta){
-					return full.mark_test_7;
-				}
-			},{
-				'width': '5%',
-				'targets': 9,
-				'render': function (data, type, full, meta){
-					return full.mark_test_8;
-				}
-			/*},{
-				'width': '5%',
-				'targets': 22,
-				'render': function (data, type, full, meta){
-					return full.mark_test_9;
-				}
-			},{
-				'width': '5%',
-				'targets':11,
-				'render': function (data, type, full, meta){
-					return full.mark_test_10;
-				}
-			},{
-				'width': '5%',
-				'targets': 12,
-				'render': function (data, type, full, meta){
-					return full.mark_test_11;
-				}
-			},{
-				'width': '5%',
-				'targets': 13,
-				'render': function (data, type, full, meta){
-					return full.mark_test_12;
-				}
-			},{
-				'width': '5%',
-				'targets': 14,
-				'render': function (data, type, full, meta){
-					return full.mark_test_13;
-				}
-			},{
-				'width': '5%',
-				'targets': 15,
-				'render': function (data, type, full, meta){
-					return full.mark_test_14;
-				}
-			},{
-				'width': '5%',
-				'targets': 16,
-				'render': function (data, type, full, meta){
-					return full.mark_test_15;
-				}
-			},{
-				'width': '5%',
-				'targets': 17,
-				'render': function (data, type, full, meta){
-					return full.mark_test_16;
-				}
-			},{
-				'width': '5%',
-				'targets': 18,
-				'render': function (data, type, full, meta){
-					return full.mark_test_17;
-				}
-			},{
-				'width': '5%',
-				'targets': 19,
-				'render': function (data, type, full, meta){
-					return full.mark_test_18;
-				}
-			},{
-				'width': '5%',
-				'targets': 20,
-				'render': function (data, type, full, meta){
-					return full.mark_test_19;
-				}
-			},{
-				'width': '5%',
-				'targets': 21,
-				'render': function (data, type, full, meta){
-					return full.mark_test_20;
-				}*/
-			},{
-				'width': '5%',
-				'targets': 10,
-				'render': function (data, type, full, meta){
-					return full.mark_total;
-				}
-			}
-			],fixedColumns: true,
-			dom: 'Bfrtip',
-			buttons: [
-			{
-				text: 'Print',
-				extend: 'pdfHtml5',
-				message: '',
-				orientation: 'Landscape',
-				exportOptions: {
-					columns: ':visible'
+					d.test_name = $('#test_name').val();
 				},
-
-				title : '{{ env('class_name') }} - All Marksheet',
-				customize: function (doc) {
-
-			        doc.defaultStyle.fontSize = 12;
-			        doc.styles.tableHeader.fontSize = 12;
-			        doc.styles.title.fontSize = 12;
-
-			        // // Remove spaces around page title
-			        doc.content[0].text = doc.content[0].text.trim();
-
-			        // Styling the table: create style object
-
-			    }
-			}
-			]
-		});
-	}
+			},
+                columns: [
+                {data : 'stu_name' , name : 'stu_name'},
+                {data : 'sub_name' , name : 'sub_name'},
+                {data: 'test_name', name: 'test_name'},
+                {data: 'mark_total', name: 'mark_total'}
+                ]
+            });
+		}
 	$('#standard').on({
 		'change' : function(){
-			getSubject(this.value);
+			getTest(this.value);
 		}
 	});
-	function getSubject(id){
+	$('#batch, #standard, #medium,#test_name').on({
+		'change' : function(){
+			if(	 $('#test_name').val()!='-1' &&
+			 	$('#standard').val()!='-1'&& $('#medium').val()!='-1' &&
+			 	 $('#batch').val()!='-1'){
+				var test_name=$('#test_name').val();
+				var standard=$('#standard').val();
+				var medium=$('#medium').val();
+				var subject=$('#subject').val();
+				var batch=$('#batch').val();
+				var url=$('#base_url').val()+'/download-all?batch='+batch+'&standard='+standard+'&test_medium='+medium+'&test_name='+test_name;
+				$('#print-report').attr('href',url);
+				$('#print-report-div').show();
+			}else{
+				$('#print-report').attr('href','');
+				$('#print-report-div').hide();
+			}
+			// getTest(this.value);
+		}
+	});
+
+	function getTest(id){
+		$('#tests-name').hide();
+		$('#fetch-data').hide();
 		$.ajax({
-			url : '{{ route('subject-data') }}',
-			type : 'post',
-			data : {id : id},
+			url : '{{ route('test-name-data') }}',
+			type : 'get',
+			data : {standard : id},
 			success : function(d){
 				var val = [];
 				if(d.length > 0){
 					val.push('<option value="-1">--Select--</option>');
 					$.each(d, function(k,v){
-						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
-					});
-					$('#subject').html(val);
-				}
-			}
+					val.push('<option value="'+v.id+'">'+v.test_name+'</option>');
 		});
+					// $('#test_name').html(val);
+					// $('#tests-name').show();
+					// $('#btn_print').show();
+	}else{
+		// val.push('<option value="-1">--Select--</option>');
+					// $('#test_name').html(val);
+					// $('#tests-name').show();
 	}
+	console.log(val);
+}
+});
+}
+function printData () {
+
+}
 
 	// updateAttendance(id, val);
 </script>

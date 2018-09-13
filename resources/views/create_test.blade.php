@@ -105,13 +105,13 @@ $ID = 'test';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-6" id="subject_div" style="display:none;">
 							<div class="form-group">
 								<label class="form-label">Subjects Offered<span style="color:red;">*</span>:</label>
-								<div class="controls">
-									<select class="form-control" name="subject" id = "subject">
+								<div class="controls" id="subject">
+<!-- 									<select class="form-control" name="subject" id = "subject">
 										<option value="">--Select--</option>
-									</select>
+									</select> -->
 								</div>
 							</div>
 						</div>
@@ -242,12 +242,18 @@ $ID = 'test';
 			type : 'post',
 			data : {id : id},
 			success : function(d){
+				$('#subject_div').show();
 				var val = [];
 				if(d.length > 0){
-					val.push('<option value="">--Select--</option>');
+					// val.push('<option value="">--Select--</option>');
 					$.each(d, function(k,v){
-						val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
+						// val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
+						val.push('&nbsp<input type="checkbox" id="subject" name="subject[]"  value="'+v.sub_id+'">'+v.sub_name+'&nbsp');
 					});
+					$('#subject' ).html(val);
+				}else{
+					$('#subject').html('');
+					val.push('<b>No Subjects available for this standard</b>');
 					$('#subject').html(val);
 				}
 			}

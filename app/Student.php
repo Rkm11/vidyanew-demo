@@ -52,6 +52,7 @@ class Student extends Eloquent {
 		'stu_mobile',
 		'stu_alt_mobile',
 		'stu_parent',
+		'stu_bio_id',
 		'stu_dob',
 		'stu_gender',
 		'stu_address',
