@@ -16,15 +16,11 @@ $ID = 'settings';
     </p>
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            User List
-        </div>
-
         <div class="panel-body table-responsive">
             <table class="table table-bordered table-striped {{ count($users) > 0 ? 'datatable' : '' }} dt-select">
                 <thead>
                     <tr>
-                        <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
+                        <th style="text-align:center;">ID</th>
 
                         <th>Name</th>
                         <th>Email Id</th>
@@ -35,14 +31,23 @@ $ID = 'settings';
 
                 <tbody>
                     @if (count($users) > 0)
+                        @php $i=1;  @endphp
                         @foreach ($users as $user)
                             <tr data-entry-id="{{ $user->id }}">
-                                <td></td>
+                                <td>{{ $i }}</td>
+                                @php $i++ @endphp
 
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <a href="{{ route('users.edit',[$user->id]) }}" class="btn btn-xs btn-info">Edit</a>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('Are you sure?');",
+                                        'route' => ['users.destroy', $user->id])) !!}
+                                    {!! Form::submit('Delete', array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
 
                                 </td>
 

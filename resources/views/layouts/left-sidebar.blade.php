@@ -178,7 +178,7 @@
                     {{--</li>--}}
                 {{--</ul>--}}
             {{--</li>--}}
-            @elseif(Auth::user()->role)
+            @elseif(Auth::user()->role==2)
                 <li>
                 <a href="javascript:;">
                     <i class="fa fa-columns" style="color:#ffffff;"></i>
@@ -188,6 +188,9 @@
                 <ul class="sub-menu" style="background-color: #424a5d;" >
                     <li>
                         <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('test.create') }}" style="color:#ffffff;">Test</a>
                     </li>
                     <li>
                         <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
@@ -203,6 +206,9 @@
                 <ul class="sub-menu" style="background-color: #424a5d;" >
                      <li>
                         <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('test.index') }}" style="color:#ffffff;">Tests</a>
                     </li>
                     <li>
                         <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
