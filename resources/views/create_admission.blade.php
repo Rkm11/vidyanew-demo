@@ -332,7 +332,7 @@ $ID3 = 'relative';
 						<button type="submit" onclick="validateSubject('validate')" id='save-admission' class="btn btn-warning">Save</button>
 						<button type="button" class="btn btn-primary" id = "otherBtn" style="display: none;" onclick="form_hide();">Other Information
 						</button>
-						<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" style="display: none;">Finish</a>
+						<!-- <a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" style="display: none;">Finish</a> -->
 					</div>
 			</form>
 	</section>

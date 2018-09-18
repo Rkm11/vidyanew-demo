@@ -318,7 +318,7 @@ $ID3 = 'relative';
 						<div class="" align="center" id="buttons">
 							<button type="submit" id = "saveBtn" class="btn btn-warning">Save</button>
 							<button type="button" class="btn btn-primary" id = "otherBtn"  onclick="form_hide();">Other Information</button>
-							<a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" >Finish</a>
+							<!-- <a href = "{{ route('admission.index') }}" id = "finishBtn" class="btn btn-warning" >Finish</a> -->
 						</div>
 					</div>
 				</div>
@@ -376,7 +376,7 @@ $ID3 = 'relative';
 					<div class="col-xs-12">
 						<div class="text-center">
 							<button type="submit" class="btn btn-primary">Save</button> |
-							<a href = "{{ route('admission.index') }}" class="btn btn-success">Finish</a>
+							<!-- <a href = "{{ route('admission.index') }}" class="btn btn-success">Finish</a> -->
 						</div>
 					</div>
 				</div>
