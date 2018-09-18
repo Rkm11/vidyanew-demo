@@ -14,9 +14,18 @@ $ID2 = 'previous';
 <div class="pull-left">
 	Create {{ ucfirst($ID) }}
 </div>
+
+<div class="pull-right row hidden-xs hidden-sm">
+	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+</div>
+
+
+<div class="btn row hidden-md hidden-lg" style="background-color:#9ddac0; ">
 <div class="pull-right">
 	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
 </div>
+</div>
+
 
 @endsection
 
@@ -63,7 +72,7 @@ $ID2 = 'previous';
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Email:</label>
 
@@ -72,7 +81,7 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Mobile<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -80,11 +89,8 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
+
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Parent Name<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -92,8 +98,13 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12">
 
-						<div class="col-sm-6">
+
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Parent Number 1<small>(optional)</small><span style="color:red;"></span>:</label>
 								<div class="controls">
@@ -101,12 +112,8 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Parent Number 2<small>(optional)</small><span style="color:red;"></span>:</label>
 								<div class="controls">
@@ -114,27 +121,7 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Standard
-									<span style="color:red;">*</span>:
-								</label>
-								<div class="controls">
-									<select class="form-control" id = "standard" name="ad[standard]" required>
-										<option value="">--Select--</option>
-										@forelse (App\Models\Standard::get() as $s)
-										<option value = "{{ $s->std_id }}">{{ $s->std_name }}</option>
-										@empty
-										@endforelse
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Batch
@@ -151,6 +138,33 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 ">
+
+
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Standard
+									<span style="color:red;">*</span>:
+								</label>
+								<div class="controls">
+									<select class="form-control" id = "standard" name="ad[standard]" required>
+										<option value="">--Select--</option>
+										@forelse (App\Models\Standard::get() as $s)
+										<option value = "{{ $s->std_id }}">{{ $s->std_name }}</option>
+										@empty
+										@endforelse
+									</select>
+								</div>
+							</div>
+						</div>
+
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Medium
@@ -207,11 +221,12 @@ $ID2 = 'previous';
 							<span style="color:red;">*</span>:
 						</label>
 						<div class="controls">
-							<textarea title="Enter Address" cols="3" rows="4" class="form-control" name="stu[address]" required ></textarea>
+							<textarea placeholder="Enter your address here" title="Enter Address" cols="3" rows="4" class="form-control" name="stu[address]" required ></textarea>
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-6 col-sm-6 ">
+				<div class="col-xs-12 col-sm-12 ">
+					<div class="col-sm-6">
 					<div class="form-group">
 						<label class="form-label">Who refer you?:
 						</label>
@@ -220,7 +235,7 @@ $ID2 = 'previous';
 						</div>
 					</div>
 				</div>
-								<div class="col-xs-6 col-sm-6 ">
+								<div class="col-sm-6 ">
 					<div class="form-group">
 						<label class="form-label">Preferred batch timing:
 						</label>
@@ -228,14 +243,16 @@ $ID2 = 'previous';
 							<input type="text" title="Preferred batch timing" name="ad[preffered_batches]" class="form-control" placeholder="Preferred batch timing">
 						</div>
 					</div>
+					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-10 col-sm-12">
+					<div class="col-xs-12 col-sm-12">
 						<div class="text-center">
 							<button type="submit" class="btn btn-warning">Save</button>
 						</div>
 					</div>
 				</div>
+
 			</form>
 		</div>
 

@@ -3,13 +3,64 @@
 View Invocies
 @endsection
 
+
+@push('header')
+
+<style type="text/css">
+.table-responsive,
+.table .table-striped .table-bordered .w-auto{-sm|-md|-lg|-xl overflow-x:auto;
+margin-top:10px}
+/*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: left;
+text-align: left;
+position: fixed;
+top: 150px;
+/*left: 330px;*/
+/*width: 30px;
+right: 220px;
+
+
+
+
+
+}*/*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+}
+.dataTables_wrapper .dataTables_length {
+float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: left;
+
+}
+
+/*@media screen and (max-width: 640px){
+ .dataTables_wrapper .dataTables_filter ,.dataTables_wrapper .dataTables_filter input-sm {
+    float:center;
+    text-align:left;
+}
+}
+*/
+
+</style>
+@endpush
+
 @section('content')
-<div class="col-lg-12">
+<div class="container-fluid">
+<!-- <div class="col-lg-12">
 	<section class="box ">
-		<br>
+
 		<div class="content-body" style="background-color:#9ddac0;">
 			<div class="row">
-				<div class="col-xs-12">
+				<div class="col-xs-12"> -->
 					<div class="table-responsive">
 						<table class="table table-striped table-bordered" id="enquiry-table" >
 							<thead style="background-color:#fff;">
@@ -32,10 +83,10 @@ View Invocies
 							</tbody>
 						</table>
 					</div>
-				</div>
+				<!-- </div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 </div>
 
 
@@ -90,8 +141,11 @@ View Invocies
 <script type="text/javascript">
 	$(function(){
 
+
+
 		$('#enquiry-table').DataTable({
 			processing: true,
+			lengthChange : false,
 			//serverSide: true,
 			ajax: '{!! route('invoice.data') !!}',
 			columns: [
@@ -131,7 +185,7 @@ View Invocies
 					if(full.ad_remaining_fees == 0){
 						return '-';
 					}else{
-						return '<button class = "btn btn-warning">'+full.ad_remaining_fees+'</button>';
+						return '<h5 style="font-weight:bold;font-size:18px;font-style:italic;">'+full.ad_remaining_fees+'</h5>';
 					}
 				}
 			},{
@@ -139,7 +193,7 @@ View Invocies
 				'width' : '220px',
 				'render': function (data, type, full, meta){
 					rm();
-					return '<div id = "in-'+full.stu_id+'"><a class="btn btn-warning" href = "'+redA(full.stu_id)+'">Admission fees</a></div><br><button class = "btn btn-success" onclick = "installData('+full.stu_id+');">Add installment</button>';
+					return '<div id = "in-'+full.stu_id+'"><a class="btn btn-warning" href = "'+redA(full.stu_id)+'"> fees</a><button class = "btn btn-success" onclick = "installData('+full.stu_id+');">installment</button></div>';
 				}
 			},{
 				'targets':8,
@@ -194,6 +248,7 @@ View Invocies
 		$('#installment-table').DataTable({
 			processing: true,
 			serverSide: true,
+			lengthChange:false,
 			ajax: {
 				url : '{!! route('installment.data') !!}',
 				type : 'get',
@@ -253,7 +308,7 @@ View Invocies
 				'render': function (data, type, full, meta){
 					if(full.install_status == 0){
 
-						return '<a href = "'+u1(full.install_student,full.install_id,'2')+'" class = "btn btn-warning col-sm-offset-2 col-sm-8">Pay Now</a><br><a href = "'+u3(full.install_student,full.install_id)+'" class = "btn btn-warning col-sm-offset-2 col-sm-8">Edit</a>';
+						return '<div style="display:flex;"><a href = "'+u1(full.install_student,full.install_id,'2')+'" class = "btn btn-warning  col-sm-6">PayNow</a><a href = "'+u3(full.install_student,full.install_id)+'" class = "btn btn-info  col-sm-6">Edit</a></div>';
 					}else{
 						return '<a class="btn btn-warning" onclick = "l();" href = "'+pr2(full.install_invoice)+'">Print</a>';
 					}

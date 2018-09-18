@@ -7,13 +7,13 @@ View Students
 <div class="col-lg-12">
 	<section class="box ">
 		<br>
-		<div class="content-body" style="background-color:#9ddac0;">    
+		<div class="content-body" style="background-color:#9ddac0;">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="table-responsive">		
+					<div class="table-responsive">
 						<table class="table table-striped table-bordered" id="enquiry-table" >
 							<thead>
-								<tr>									
+								<tr>
 									<th>Name</th>
 									<th>Mobile</th>
 									<th>Parent</th>
@@ -27,7 +27,7 @@ View Students
 								</tr>
 							</thead>
 							<tbody>
-								
+
 							</tbody>
 						</table>
 					</div>
@@ -78,7 +78,7 @@ View Students
 			</div>
 		</div>
 	</div>
-</div>	
+</div>
 <!-- modal end -->
 
 <!-- General section box modal start -->
@@ -120,7 +120,7 @@ View Students
 			</div>
 		</div>
 	</div>
-</div>	
+</div>
 <!-- modal end -->
 <!-- END CONTAINER -->
 @endsection
@@ -133,7 +133,7 @@ View Students
 			processing: true,
 			//serverSide: true,
 			ajax: '{!! route('student.data') !!}',
-			columns: [			
+			columns: [
 			{},
 			{data: 'stu_mobile', name: 'stu_mobile'},
 			{data: 'parent_first_name', name: 'parent_first_name'},
@@ -148,18 +148,18 @@ View Students
 			columnDefs: [{
 				'targets': 0,
 
-				'render': function (data, type, full, meta){					
+				'render': function (data, type, full, meta){
 					return full.stu_first_name+' '+full.stu_last_name;
 				}
 			},{
 				'targets': 7,
 
-				'render': function (data, type, full, meta){					
+				'render': function (data, type, full, meta){
 					if(full.ad_remaining_fees == 0){
 						return full.ad_fees;
 					}else{
 						return '<button class = "btn btn-warning" onclick = "installData('+full.stu_id+');">'+full.ad_remaining_fees+'</button>';
-					}					
+					}
 				}
 			},{
 				'targets': 8,
@@ -182,10 +182,10 @@ View Students
 		});
 	});
 	var v = '{{ url('invoice/') }}';
-	function redA(id){		
+	function redA(id){
 		return v+'/'+id+'/edit';
 	}
-	function u2(id,ins){		
+	function u2(id,ins){
 		return v+'/'+id+'/edit?install='+ins;
 	}
 	function getTestData(id){
@@ -193,7 +193,7 @@ View Students
 			url : '{{ route('marksheet-get') }}',
 			type : 'post',
 			data : {'id' : id},
-			success : function(d){				
+			success : function(d){
 				var val = [];
 				if(d.length > 0){
 
@@ -209,12 +209,12 @@ View Students
 				$('#testModal tbody').html(val);
 			}
 		});
-	}		
+	}
 	function installData(id){
 		$('#installModal').modal('toggle');
 		data(id);
 	}
-	function data(id) {		
+	function data(id) {
 		$('#installment-table').DataTable().destroy();
 
 		$('#installment-table').DataTable({
@@ -224,9 +224,9 @@ View Students
 				url : '{!! route('installment.data') !!}',
 				type : 'get',
 				data : function(d){
-					d.student = id;					
+					d.student = id;
 				}
-			},			
+			},
 			columns: [
 			{data: 'install_type', name: 'install_type'},
 			{},
@@ -238,19 +238,19 @@ View Students
 			{}
 			],
 			columnDefs: [{
-				'targets': 1,				
-				'render': function (data, type, full, meta){					
-					
-					return full.install_due_date.replace(' 00:00:00','');					
+				'targets': 1,
+				'render': function (data, type, full, meta){
+
+					return full.install_due_date.replace(' 00:00:00','');
 				}
 			},{
-				'targets': 4,				
-				'render': function (data, type, full, meta){					
-					return full.install_pdc_date.replace(' 00:00:00','');					
+				'targets': 4,
+				'render': function (data, type, full, meta){
+					return full.install_pdc_date.replace(' 00:00:00','');
 				}
 			},{
-				'targets': 6,				
-				'render': function (data, type, full, meta){					
+				'targets': 6,
+				'render': function (data, type, full, meta){
 					if(full.install_status == 1){
 						return '<span>Not Paid</span>';
 					}else{
@@ -258,9 +258,9 @@ View Students
 					}
 				}
 			},{
-				'targets': 7,				
+				'targets': 7,
 				'render': function (data, type, full, meta){
-					if(full.install_status == 1){					
+					if(full.install_status == 1){
 						return '<a href = "'+u2(full.install_student,full.install_id)+'" class = "btn btn-success">Pay Now</a>';
 					}else{
 						return '-';

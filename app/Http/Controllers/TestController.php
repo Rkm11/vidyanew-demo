@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
 use App\Models\Marksheet;
-use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Test;
 use DataTables;
@@ -53,11 +52,35 @@ class TestController extends Controller {
 	public function store(Request $r) {
 		$data = [];
 		$data['msg'] = 'successU';
+		$n = $this->changeKeys($this->pre, $r->all());
+		if (!empty($r->test_id)) {
+			$test = Test::where('id', $r->test_id)->first();
+			if (!empty($test->id)) {
+				if (!empty($n['test_subject'])) {
+					$arrSelectedSubjects = $n['test_subject'];
+					$n['test_subjects'] = implode(',', $arrSelectedSubjects);
+				} else {
 
-		if (!Test::where($this->pre . 'name', $r->name)->first()) {
-			$n = $this->changeKeys($this->pre, $r->all());
+					return 'error';
+				}
+
+				$old_name = $test->name;
+				$old_name = explode('-', $old_name);
+				$testDetails['test_name'] = $n['test_name'] . '-' . $old_name[0];
+				$testDetails['test_date'] = $n['test_date'];
+				$testDetails['test_outof'] = $n['test_outof'];
+				$testDetails['test_batch'] = $n['test_batch'];
+				$testDetails['test_medium'] = $n['test_medium'];
+				$testDetails['test_standard'] = $n['test_standard'];
+				$testDetails['test_subjects'] = $n['test_subjects'];
+
+				Test::where('id', $r->test_id)->update($testDetails);
+				return 'successU';
+			} else {
+				return 'error';
+			}
+		} else {
 			$n['test_name'] = $n['test_name'] . '-' . strtotime(date('Y-m-d H:i:s'));
-			// dd($n);
 			$stu = Student::select(['students.stu_id', 'admission_details.ad_subjects'])
 				->leftJoin('admission_details', 'admission_details.ad_student', '=', 'students.stu_id')
 				->where('admission_details.ad_batch', $n['test_batch'])
@@ -88,9 +111,9 @@ class TestController extends Controller {
 			} else {
 				return 'error';
 			}
-		} else {
-			return 'exist';
 		}
+		// dd($n);
+
 	}
 
 	/**
@@ -110,7 +133,8 @@ class TestController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-		//
+		$test = Test::where('id', $id)->first();
+		return view('edit_test')->with(['test' => $test]);
 	}
 
 	public function getData(Request $r) {
@@ -155,16 +179,17 @@ class TestController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
+		dd($id);
 		//
 	}
+	public function deleteData($id) {
+		if (Marksheet::where('mark_testid', $id)->get()) {
+			Marksheet::where('mark_testid', $id)->delete();
+		}
+		if (Test::where('id', $id)->get()) {
+			Test::where('id', $id)->delete();
+		}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy($id) {
-		//
+		return redirect()->route('test.index');
 	}
 }

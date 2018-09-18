@@ -13,14 +13,14 @@ $IDSub = 'subject';
 	IDM = '{{ $IDM }}';
 	IDSub = '{{ $IDSub }}';
 </script>
-<style type="text/css">
+<!-- <style type="text/css">
 .margin-top-10{
 	margin-top: 10px;
 }
 .margin-top-5{
 	margin-top: 5px;
 }
-</style>
+</style> -->
 @endpush
 
 @section('page-title')
@@ -36,19 +36,22 @@ $IDSub = 'subject';
 
 <div class="col-lg-12">
 	<section class="box ">
-		<br/>
-		<div class="content-body" >
+
+		<div class="content-body" style="background-color: #9ddac0;">
 			<form id="{{ $ID }}Form">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="form-group">
-							<div class="col-md-2 text-right margin-top-10">
+							<div class="col-md-2 text-right margin-top-10 row hidden-xs hidden-sm">
 								<label class="form-label">Batch Title<span style="color:red;">*</span>:</label>
 							</div>
-							<div class="col-md-8 controls">
+							<div class="col-md-2 text-left  row hidden-md hidden-lg">
+								<label class="form-label">Batch Title<span style="color:red;">*</span>:</label>
+							</div>
+							<div class="col-md-8  controls">
 								<input type="text" class="form-control" name="name" placeholder="e.g. Morning" required>
 							</div>
-							<div class="col-md-2 margin-top-5">
+							<div class="col-md-2  margin-top-5">
 								<button type="submit" class="btn btn-success">Create</button>
 							</div>
 						</div>
@@ -57,13 +60,15 @@ $IDSub = 'subject';
 				<div id = "{{ $ID }}Msg" class="text-center">
 				</div>
 			</form>
-		</div>
-		<div class="content-body">
+
 			<form id="{{ $IDM }}Form">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="form-group">
-							<div class="col-md-2 text-right margin-top-10">
+							<div class="col-md-2 text-right margin-top-10 row hidden-xs hidden-sm">
+								<label class="form-label">Medium Title<span style="color:red;">*</span>:</label>
+							</div>
+							<div class="col-md-2 text-left  row hidden-md hidden-lg">
 								<label class="form-label">Medium Title<span style="color:red;">*</span>:</label>
 							</div>
 							<div class="col-md-8 controls">
@@ -78,13 +83,16 @@ $IDSub = 'subject';
 				<div id = "{{ $IDM }}Msg" class="text-center">
 				</div>
 			</form>
-		</div>
-		<div class="content-body">
+
+
 			<form id="{{ $IDSt }}Form">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="form-group">
-							<div class="col-md-2 text-right margin-top-10">
+							<div class="col-md-2 text-right margin-top-10 row hidden-xs hidden-sm">
+								<label class="form-label">Standard Title<span style="color:red;">*</span>:</label>
+							</div>
+							<div class="col-md-2 text-left  row hidden-md hidden-lg">
 								<label class="form-label">Standard Title<span style="color:red;">*</span>:</label>
 							</div>
 							<div class="col-md-8 controls">
@@ -100,6 +108,12 @@ $IDSub = 'subject';
 				</div>
 			</form>
 		</div>
+		<!-- <div class="content-body" style="background-color: #9ddac0;">
+
+		</div> -->
+		<!-- <div class="content-body" style="background-color: #9ddac0;">
+
+		</div> -->
 		<!-- <div class="content-body">
 			<form id="{{ $IDSt }}Form">
 				<div class="row">
@@ -122,8 +136,8 @@ $IDSub = 'subject';
 			</form>
 		</div> -->
 	</section>
-	<section class="box ">
-		<br/>
+	<section class="box " style="background-color: #9ddac0;">
+
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 ">
 				<form id = "{{ $IDSub }}Form">
@@ -164,7 +178,7 @@ $IDSub = 'subject';
 					<div id = "{{ $IDSub }}Msg" class="text-center"></div>
 				</form>
 			</div>
-			<div class="col-md-offset-2 col-xs-8 col-sm-8 ">
+			<div class="col-xs-12 col-sm-12 ">
 				<div id = "subject-table-box"  style="display: none;" class="content-body">
 					<div class="row">
 						<div class="table-responsive">
@@ -208,6 +222,8 @@ $IDSub = 'subject';
 		$('#subject-table').DataTable({
 			processing: true,
 			serverSide: true,
+			lengthChange:false,
+
 			ajax: {
 				url : '{!! route('subject-get') !!}',
 				type : 'post',

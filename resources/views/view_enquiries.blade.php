@@ -2,6 +2,51 @@
 @section('page-title')
 View Enquiries
 @endsection
+@push('header')
+<style type="text/css">
+.table-responsive,
+.table .table-striped .table-bordered .w-auto{-sm|-md|-lg|-xl overflow-x:auto;
+}
+/*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: left;
+text-align: left;
+position: fixed;
+top: 150px;
+/*left: 330px;*/
+/*width: 30px;
+right: 220px;
+
+
+
+
+
+
+}*/
+
+
+
+*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+}
+.dataTables_wrapper .dataTables_length {
+float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: left;
+}
+/*.dataTables_wrapper .dataTables_paginate{float: left;} */
+
+
+</style>
+@endpush
 
 @section('content')
 <div class="modal" id="testModal" tabindex="-1" role="dialog" aria-hidden="true" >
@@ -26,18 +71,18 @@ View Enquiries
 
                               <thead>
                                 <tr>
-       <th>
-       	<label>follow1</label>
-          <textarea id="follow1" name="follow1" class="form-control"></textarea><br></th>
-         <th>
-        <label>follow2</label>
-          <textarea id="follow2" name="follow2" class="form-control"></textarea><br></th>
-          <th>
-        <label>follow3</label>
-            <textarea id="follow3" name="follow3" class="form-control"></textarea><br></th>
-        <th><label>follow4</label>
-             <textarea id="follow4" name="follow4" class="form-control"></textarea>
-                   <br></th>
+							       <th>
+							       	<label>follow1</label>
+							          <textarea id="follow1" name="follow1" class="form-control"></textarea><br></th>
+							         <th>
+							        <label>follow2</label>
+							          <textarea id="follow2" name="follow2" class="form-control"></textarea><br></th>
+							          <th>
+							        <label>follow3</label>
+							            <textarea id="follow3" name="follow3" class="form-control"></textarea><br></th>
+							        <th><label>follow4</label>
+							             <textarea id="follow4" name="follow4" class="form-control"></textarea>
+							                   <br></th>
 
                                     </tr>
                                     </thead>
@@ -63,13 +108,18 @@ View Enquiries
                 </div>
             </div>
         </div>
-        <input type="hidden" name="follow-id" id="follow-id" value="">
-<div class="col-lg-12">
-	<section class="box ">
-		<br>
-		<div class="content-body" style="background-color:#9ddac0;">
-			<div class="row">
-				<div class="col-xs-12">
+
+
+
+ <input type="hidden" name="follow-id" id="follow-id" value="">
+ <div class="container-fluid">
+
+<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> -->
+	<!-- <section class="box"> -->
+
+		<!-- <div class="content-body" style="background-color:#9ddac0;"> -->
+			<!-- <div class="row"> -->
+				<!-- <div class="col-xs-12"> -->
 					<div class="table-responsive">
 						<table class="table table-striped table-bordered" id="enquiry-table" >
 							<thead style="background-color:#fff;">
@@ -92,10 +142,11 @@ View Enquiries
 							</tbody>
 						</table>
 					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+				<!-- </div> -->
+			<!-- </div> -->
+		<!-- </div> -->
+	<!-- </section> -->
+<!-- </div> -->
 </div>
 
 </div>
@@ -107,9 +158,19 @@ View Enquiries
 	$(function(){
 
 		$('#enquiry-table').DataTable({
+
 			processing: true,
 			//serverSide: true,
 			searching: true,
+
+			lengthChange: false,
+
+
+			// // stateSave : true,
+			// scrollX : true,
+
+			// scrollY: true,
+			 // responsive: true,
 			//destroy:true,
 			ajax : '{!! route('enquiry.data') !!}',
 			columns: [
@@ -150,6 +211,9 @@ View Enquiries
 
 // &nbsp;&nbsp;<a class="btn btn-warning" href = "'+edit1(full.enq_id)+'">folloup</a>
 			],"order": [[ 7, "desc" ]]
+
+
+
 		});
 	});
 	// var v = '{{ url('admission/') }}',

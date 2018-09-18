@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('header')
-	
+
 @endpush
 @section('page-title')
 Dashboard
@@ -9,10 +9,10 @@ Dashboard
 @section('content')
 <div class="col-lg-12">
 	<section class="box nobox marginBottom0">
-		<div class="content-body">    
+		<div class="content-body">
 			<div class="row">
 			<form method="GET" action="{{ route('enquiry.e_cout') }}">
-			
+
 			<div class="col-lg-3 col-sm-6 col-xs-12">
 				<div class="r4_counter db_box">
 					<i class='pull-left fa fa-thumbs-up icon-md icon-rounded icon-primary'></i>
@@ -48,9 +48,9 @@ Dashboard
 						<span>Telecallings</span>
 					</div>
 				</div>
-			</div>	
+			</div>
 			</form>
-		</div> <!-- End .row -->    
+		</div> <!-- End .row -->
 	</div>
 </section></div>
 <!-- <div class="col-xs-12">
@@ -68,7 +68,7 @@ Dashboard
 				<div class="chart-container">
 					<div class="chart has-fixed-height" style="height:200px" id="page_views_today_bar"></div>
 				</div>
-			</div>      
+			</div>
 		</div> End .row
 	</div>
 </section></div> -->
@@ -86,17 +86,17 @@ Dashboard
 </script>
 <!--/End For Active Class -->
 
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 <script src="assets/plugins/echarts/echarts-all.js" type="text/javascript"></script>
 <script src="assets/js/chart-echarts.js" type="text/javascript"></script>
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 
 <script src="assets/plugins/jvectormap/jquery-jvectormap-2.0.1.min.js" type="text/javascript"></script>
 <script src="assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
 <script src="assets/js/dashboard.js" type="text/javascript"></script>
 <script src="assets/plugins/echarts/echarts-custom-for-dashboard.js" type="text/javascript"></script>
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
 @endpush

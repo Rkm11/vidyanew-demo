@@ -13,16 +13,30 @@ $ID = 'payment';
 <div class="pull-left">
 	Create {{ ucfirst($ID) }}
 </div>
+
+
+
+
+<div class="pull-right row hidden-xs hidden-sm">
+	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+</div>
+
+
+<div class="btn row hidden-md hidden-lg" style="background-color:#9ddac0; ">
 <div class="pull-right">
 	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
 </div>
+</div>
+<!-- <div class="pull-right">
+	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+</div> -->
 
 @endsection
 
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form id="{{ $ID }}Form">
 				<div class="row">

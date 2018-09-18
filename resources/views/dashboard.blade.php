@@ -11,14 +11,6 @@ Dashboard
 	<section class="box nobox marginBottom0">
 		<div class="content-body">
 			<div class="row">
-			<div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
-				<div class="col-md-offset-4 col-sm-offset-4 col-xs-offset-4">
-					<h1 style="color: #fff">Welcome   {{Auth::user()->name}}</h1>
-				</div>
-			</div>
-		</div>
-		@if(Auth::user()->role==1)
-			<div class="row">
 			<form method="GET" action="{{ route('enquiry.e_cout') }}">
 
 			<div class="col-lg-4 col-sm-6 col-xs-12">
@@ -85,9 +77,14 @@ Dashboard
 			{!! $chart->script() !!}
 
 			<div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
-				<div class="col-md-offset-4 col-sm-offset-4 col-xs-offset-4">
+				<div class="col-md-offset-4 col-sm-offset-4 col-xs-offset-4 row hidden-sm hidden-xs">
 					<h5 style="color: #fff">Students whose fees due date is tomorrow</h5>
 				</div>
+
+				<div class=" row hidden-md hidden-lg">
+					<h5 style="color: #fff;text-align: center;">Students whose fees due date is tomorrow</h5>
+				</div>
+				<div  style="overflow-x:auto;overflow-y:auto;">
 				<table class="table table-striped table-hover table-condensed">
 					<tr>
 						<th>id</th>
@@ -112,17 +109,15 @@ Dashboard
 					</tr>
 					@endforeach
 				</table>
+				</div>
 			</div>
 
 
 
 			</form>
-		</div>
-		@endif
-
+		</div> <!-- End .row -->
 	</div>
-</section>
-</div>
+</section></div>
 <!-- <div class="col-xs-12">
 	<section class="box ">
 		<header class="panel_header">

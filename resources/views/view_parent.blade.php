@@ -7,13 +7,13 @@ View Parents
 <div class="col-lg-12">
 	<section class="box ">
 		<br>
-		<div class="content-body" style="background-color:#9ddac0;">    
+		<div class="content-body" style="background-color:#9ddac0;">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="table-responsive">		
+					<div class="table-responsive">
 						<table class="table table-striped table-bordered" id="enquiry-table" >
 							<thead style="background-color:#fff;">
-								<tr>									
+								<tr>
 									<th>UID</th>
 									<th>Name</th>
 									<th>Mobile</th>
@@ -26,7 +26,7 @@ View Parents
 								</tr>
 							</thead>
 							<tbody>
-								
+
 							</tbody>
 						</table>
 					</div>
@@ -46,8 +46,8 @@ View Parents
 			processing: true,
 			//serverSide: true,
 			ajax: '{!! route('admission.data') !!}',
-			columns: [			
-			{data : 'stu_uid', name : 'stu_uid'},			
+			columns: [
+			{data : 'stu_uid', name : 'stu_uid'},
 			{data: 'stu_name', name: 'stu_name'},
 			{},
 			{data: 'parent_first_name', name: 'parent_details.parent_first_name'},
@@ -58,8 +58,8 @@ View Parents
 			{}
 			],
 			columnDefs: [{
-				'targets': 2,				
-				'render': function (data, type, full, meta){					
+				'targets': 2,
+				'render': function (data, type, full, meta){
 					if(full.stu_mobile == 0){
 						return '-';
 					}else{
@@ -67,8 +67,8 @@ View Parents
 					}
 				}
 			},{
-				'targets': 4,				
-				'render': function (data, type, full, meta){					
+				'targets': 4,
+				'render': function (data, type, full, meta){
 					if(full.parent_mobile == 0){
 						return '-';
 					}else{
@@ -96,9 +96,9 @@ View Parents
 		});
 	});
 	var v = '{{ url('parent/') }}';
-	
-	function redA(id, s){		
+
+	function redA(id, s){
 		return v+'/'+id+'/edit?stu='+s;
-	}	
+	}
 </script>
 @endpush

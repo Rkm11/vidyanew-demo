@@ -16,9 +16,9 @@ View Tests
 								<tr>
 									<th>Name</th>
 									<th>Date</th>
-									<!-- <th>Subject</th> -->
 									<th>Batch</th>
-									<th>Standard</th>>
+									<th>Standard</th>
+									<th>Action</th>
 
 								</tr>
 							</thead>
@@ -50,13 +50,27 @@ View Tests
 			columns: [
 			{data : 'test_name' , name : 'test_name'},
 			{data: 'test_date', name: 'test_date'},
-			// {data: 'sub_name', name: 'sub_name'},
 			{data: 'batch_name', name: 'batch_name'},
-			{data: 'std_name', name: 'std_name'}
+			{data: 'std_name', name: 'std_name'},
+			{}
+			],
+			columnDefs: [
+			{
+				'targets': 4,
+				'render': function (data, type, full, meta){
+					return '<a class="btn btn-warning"  href = "'+pr1(full.id)+'">Edit</a>'+' '+'<a class="btn btn-danger"  href = "'+pr(full.id)+'">Delete</a>';
+				}
+			}
 			],
 			"order": [[ 1, "desc" ]]
 		});
 	});
+	function pr(id){
+		return "test/delete/"+id;
+	}
+		function pr1(id){
+		return "test/edit/"+id;
+	}
 	// var v = '{{ url('admission/') }}',
 	// e = '{{ url('enquiry') }}';
 	// function redA(id){

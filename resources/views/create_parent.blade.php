@@ -8,7 +8,7 @@ $ID = 'parent';
 @endphp
 @push('header')
 <script>
-	ID = '{{ $ID }}';	
+	ID = '{{ $ID }}';
 </script>
 @endpush
 
@@ -105,10 +105,10 @@ $ID = 'parent';
 							</div>
 						</div>
 					</div>
-				</div>	
+				</div>
 				<div class="clearfix"></div>
 
-				<div class="row">	
+				<div class="row">
 					<div class="col-xs-12">
 						<div class="text-center ">
 							<button type="submit" class="btn btn-success">Save</button>
@@ -118,15 +118,15 @@ $ID = 'parent';
 
 			</form>
 		</div>
-		<div id = "{{ $ID }}EMsg" class="text-center"></div>				
+		<div id = "{{ $ID }}EMsg" class="text-center"></div>
 
 	</section>
 </div>
 @endsection
-@push('footer')		
+@push('footer')
 
 <script>
 	var en = '{{ route('parent.index') }}';
-	CRUD.formSubmission("{{ route($ID.'.index') }}", 2, {});	
+	CRUD.formSubmission("{{ route($ID.'.index') }}", 2, {});
 </script>
 @endpush

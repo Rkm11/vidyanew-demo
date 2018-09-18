@@ -162,7 +162,7 @@ $ID = 'enquiry';
 										<option value = "{{ $med->med_id }}" {{ ($en->ad_medium != '')?(($en->ad_medium == $med->med_id) ? 'selected' : '') : '' }}>{{ $med->med_name }}</option>
 										@empty
 										@endforelse
-									
+
 									</select>
 								</div>
 							</div>

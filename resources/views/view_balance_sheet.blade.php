@@ -13,7 +13,7 @@ Balance Sheet
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+
 		<div class="content-body" style="background-color:#9ddac0;">
 			<div class="row">
 				<div class="col-xs-12">
@@ -199,6 +199,7 @@ Balance Sheet
 		var table = $('#balance-table').DataTable({
 			select: true,
 			processing: true,
+			// scrollX:true,
 			//serverSide: true,
 			ajax: {
 					url :'{!! route('balance.data') !!}',

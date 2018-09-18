@@ -12,7 +12,11 @@ $ID = 'installment';
 <div class="pull-left">
 	Create {{ ucfirst($ID) }}
 </div>
-<div class="pull-right">
+<div class="pull-right row hidden-sm hidden-xs">
+	<a href = "{{ route('invoice.index') }}" class="btn btn-danger">Back</a>
+</div>
+
+<div class="pull-left row hidden-md hidden-lg" style="margin-top: 5px;">
 	<a href = "{{ route('invoice.index') }}" class="btn btn-danger">Back</a>
 </div>
 
@@ -20,11 +24,11 @@ $ID = 'installment';
 
 @section('content')
 <div class="col-lg-12">
-	<section class="box ">
-		<header class="panel_header">
+	<section class="box " style="background-color:#9ddac0;">
+		<header class="panel_header" style="background-color:#9ddac0;">
 			<h2 class="title pull-left">Fees Installments for {{ $stu->stu_first_name.' '.$stu->stu_last_name }}</h2>
 		</header>
-		<div class="content-body" style="background-color:#9ddac0";>
+		<div class="content-body" style="background-color:#9ddac0;">
 
 			<form id = "{{ $ID }}Form">
 				<input type="hidden" name="student" value = "{{ $stu->stu_id }}">

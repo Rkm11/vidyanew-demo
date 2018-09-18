@@ -4,16 +4,58 @@ View Admissions
 @endsection
 @push('header')
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<style type="text/css">
+.table-responsive,
+.table .table-striped .table-bordered .w-auto{-sm|-md|-lg|-xl overflow-x:auto;
+}
+/*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: left;
+text-align: left;
+position: fixed;
+top: 150px;
+/*left: 330px;*/
+/*width: 30px;
+right: 220px;
+
+
+
+
+
+}*/*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+}
+.dataTables_wrapper .dataTables_length {
+float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: left;
+}
+
+.enquiry-table{ overflow-x: auto; }
+
+
+
+
+</style>
 @endpush
 @section('content')
-<div class="col-lg-12">
-	<section class="box ">
-		<br>
+<div class="container-fluid">
+<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> -->
+	<!-- <section class="box">
+
 		<div class="content-body" style="background-color:#9ddac0;">
 			<div class="row">
-				<div class="col-xs-12">
+				<div class="col-xs-12"> -->
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered" id="enquiry-table" >
+						<table class="table table-striped table-bordered " id="enquiry-table" >
 							<thead style="background-color:#fff;">
 								<tr>
 									<th>ID</th>
@@ -33,13 +75,15 @@ View Admissions
 							</tbody>
 						</table>
 					</div>
-				</div>
+			<!-- 	</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
+<!-- </div> -->
 </div>
 
-</div>
+
+
 <!-- END CONTAINER -->
 @endsection
 
@@ -61,9 +105,19 @@ View Admissions
 		 $('#enquiry-table').DataTable({
 
 			processing: true,
-			searching: true,
+
 			paging: false,
     	Filter: false,
+    	search:true,
+
+
+
+
+
+
+
+    	 // scrollX:true,
+
 			//serverSide: true,
 			ajax: '{!! route('admission.data') !!}',
 			columns: [

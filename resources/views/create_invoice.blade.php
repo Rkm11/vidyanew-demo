@@ -21,7 +21,7 @@ $ID = 'invoice';
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+
 		<div class="content-body" style="background-color:#9ddac0";>
 			<form id="{{ $ID }}Form">
 				@if ($install != '')

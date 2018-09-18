@@ -25,64 +25,24 @@ $ID3 = 'relative';
 <div class="pull-left">
 	Create {{ ucfirst($ID) }}
 </div>
+<div class="pull-right row hidden-xs hidden-sm">
+	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+</div>
+
+<div class="btn row hidden-md hidden-lg" style="background-color:#9ddac0; ">
 <div class="pull-right">
 	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+</div>
 </div>
 @endsection
 @section('content')
 <div class="col-lg-12">
 	<section class="box "  style="background-color:#9ddac0;">
-		<br>
+
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form id = "{{ $ID }}Form">
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Batch No
-									<span style="color:red;">*</span>:
-								</label>
-								<span class="desc">&nbsp;</span>
-								<div class="controls">
-									<select  class="form-control" name="ad[batch_year]" required>
-										<option value="">--Select--</option>
-										@for ($i = 14; $i < 24; $i++)
-										@php
-										$v = '20'.$i.'-'.(++$i);
-										@endphp
-										<option value="{{ $v }}">{{ $v }}</option>
-										@php
-										--$i;
-										@endphp
-										@endfor
-									</select>
-								</div>
-							</div>
-						</div>
-						{{-- <div class="col-sm-4">
-							<div class="form-group">
-								<label class="form-label">ID
-									<span style="color:red;">*</span>:
-								</label>
-								<span class="desc">&nbsp;</span>
-								<div class="controls">
-									<input type="text" class="form-control" name="stu[uid]" placeholder="ID" >
-								</div>
-							</div>
-						</div> --}}
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Date
-									<span style="color:red;">*</span>:
-								</label>
-								<span class="desc">&nbsp;</span>
-								<div class="controls">
-									<input type="text" class="form-control datepicker" name="ad[date]" data-format="dd-mm-yyyy" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" placeholder="Date" required>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+
+
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-4">
@@ -118,7 +78,7 @@ $ID3 = 'relative';
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Email
 								</label>
@@ -127,7 +87,7 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Mobile
 									<span style="color:red;">*</span>:
@@ -137,11 +97,8 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
+
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">DOB
 									<span style="color:red;">*</span>:
@@ -151,7 +108,56 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-xs-12 col-sm-12 ">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Batch No
+									<span style="color:red;">*</span>:
+								</label>
+								<span class="desc">&nbsp;</span>
+								<div class="controls">
+									<select  class="form-control" name="ad[batch_year]" required>
+										<option value="">--Select--</option>
+										@for ($i = 14; $i < 24; $i++)
+										@php
+										$v = '20'.$i.'-'.(++$i);
+										@endphp
+										<option value="{{ $v }}">{{ $v }}</option>
+										@php
+										--$i;
+										@endphp
+										@endfor
+									</select>
+								</div>
+							</div>
+						</div>
+						{{-- <div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">ID
+									<span style="color:red;">*</span>:
+								</label>
+								<span class="desc">&nbsp;</span>
+								<div class="controls">
+									<input type="text" class="form-control" name="stu[uid]" placeholder="ID" >
+								</div>
+							</div>
+						</div> --}}
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Date
+									<span style="color:red;">*</span>:
+								</label>
+								<span class="desc">&nbsp;</span>
+								<div class="controls">
+									<input type="text" class="form-control datepicker" name="ad[date]" data-format="dd-mm-yyyy" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" placeholder="Date" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
 							<label class="form-label">Gender
 								<span style="color:red;">*</span>:
 							</label>
@@ -172,22 +178,16 @@ $ID3 = 'relative';
 									</li>
 								</ul>
 							</div>
-						</div>
 					</div>
 				</div>
+			</div>
+
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Parent Mobile Number
-									<span style="color:red;"></span>:
-								</label>
-								<div class="controls">
-									<input type="text" title="Enter Parent Number" class="form-control" name="stu[alt_mobile]" placeholder="Phone Number 1" maxlength="10" pattern="[0-9]{10}">
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6">
+
+
+
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Standard
 									<span style="color:red;">*</span>:
@@ -199,6 +199,38 @@ $ID3 = 'relative';
 										<option  value = "{{ $s->std_id }}" >{{ $s->std_name }}</option>
 										@empty
 										{{-- empty expr --}}
+										@endforelse
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Medium
+									<span style="color:red;">*</span>:
+								</label>
+								<div class="controls">
+									<select class="form-control" name="ad[medium]" required>
+										<option value="">--Select--</option>
+										@forelse (App\Models\Medium::get() as $med)
+										<option value = "{{ $med->med_id }}"  >{{ $med->med_name }}</option>
+										@empty
+										@endforelse
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Batch
+									<span style="color:red;">*</span>:
+								</label>
+								<div class="controls">
+									<select class="form-control" name="ad[batch]" required>
+										<option value="" \>--Select--</option>
+										@forelse (App\Models\Batch::get() as $b)
+										<option value = "{{ $b->batch_id }}" >{{ $b->batch_name }}</option>
+										@empty
 										@endforelse
 									</select>
 								</div>
@@ -217,35 +249,38 @@ $ID3 = 'relative';
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
+
+						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Batch
-									<span style="color:red;">*</span>:
+								<label class="form-label">Parent Mobile Number
+									<span style="color:red;"></span>:
 								</label>
 								<div class="controls">
-									<select class="form-control" name="ad[batch]" required>
-										<option value="" \>--Select--</option>
-										@forelse (App\Models\Batch::get() as $b)
-										<option value = "{{ $b->batch_id }}" >{{ $b->batch_name }}</option>
-										@empty
-										@endforelse
-									</select>
+									<input type="text" title="Enter Parent Number" class="form-control" name="stu[alt_mobile]" placeholder="Phone Number 1" maxlength="10" pattern="[0-9]{10}">
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+
+
+						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Medium
+								<label class="form-label">Total Fees
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
-									<select class="form-control" name="ad[medium]" required>
-										<option value="">--Select--</option>
-										@forelse (App\Models\Medium::get() as $med)
-										<option value = "{{ $med->med_id }}"  >{{ $med->med_name }}</option>
-										@empty
-										@endforelse
-									</select>
+									<input type="text" title="Enter Total Fees In Digit " class="form-control" name="ad[fees]" placeholder="Total Fees" pattern="[0-9]+" required>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Previous Year %
+									<!-- <span style="color:red;">*</span>: -->
+								</label>
+								<div class="controls">
+									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]"   placeholder="Previous Year" id = "previousYear">
 								</div>
 							</div>
 						</div>
@@ -272,7 +307,7 @@ $ID3 = 'relative';
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
-									<textarea cols="3" rows="4" class="form-control" name="stu[address]" required></textarea>
+									<textarea placeholder="Enter your address here" cols="3" rows="4" class="form-control" name="stu[address]" required></textarea>
 								</div>
 							</div>
 						</div>
@@ -291,29 +326,7 @@ $ID3 = 'relative';
 					</div>
 				</div>
 				<div id = "{{ $ID }}Msg" class="text-center"></div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Total Fees
-									<span style="color:red;">*</span>:
-								</label>
-								<div class="controls">
-									<input type="text" title="Enter Total Fees In Digit " class="form-control" name="ad[fees]" placeholder="Total Fees" pattern="[0-9]+" required>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Previous Year %
-									<!-- <span style="color:red;">*</span>: -->
-								</label>
-								<div class="controls">
-									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]"   placeholder="Previous Year" id = "previousYear">
-								</div>
-							</div>
-						</div>
-					</div>
+
 				</div>
 					<div class="text-center">
 						<button type="submit" onclick="validateSubject('validate')" id='save-admission' class="btn btn-warning">Save</button>
@@ -324,13 +337,13 @@ $ID3 = 'relative';
 			</form>
 	</section>
 <!--code-->
-<div id="show_otherinfo" class="col-lg-12" style="display: none;">
-	<section class="box">
+<div id="show_otherinfo" class="col-lg-12" style="display: none;background-color:#9ddac0;">
+	<section class="box"  style="background-color:#9ddac0;">
 		<!-- <div class="pull-right">
 			<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
 		</div>
 		<br> -->
-		<div class="content-body">
+		<div class="content-body"  style="background-color:#9ddac0;">
 			<form id="{{ $ID3 }}Form">
 				<input type="hidden" id = "studentA" name="student">
 				<div class="row">
