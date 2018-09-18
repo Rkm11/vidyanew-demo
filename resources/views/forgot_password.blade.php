@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @php
 $ID = 'admission';
@@ -22,9 +22,9 @@ $ID3 = 'relative';
 </div>
 @endsection
 @section('content')
-@if (session('error'))
+@if (session('Error'))
 <div class="alert alert-danger">
-{{ session('error') }}
+{{ session('Error') }}
 </div>
 @endif
 @if (session('success'))
@@ -34,20 +34,27 @@ $ID3 = 'relative';
 @endif
 <section class="box "  style="background-color:#9ddac0;">
 		<br>
+		@if ($errors->any())
+        {{ implode('', $errors->all('<div>:message</div>')) }}
+@endif
+
 		<div class="content-body" style="background-color:#9ddac0;">
-<form id="changep" class="form-horizontal" method="POST" action="{{ route('changepassword') }}">
+<form id="changep" class="form-horizontal" method="POST" action="{{ route('forgot-password') }}">
 {{ csrf_field() }}
 
+<div class="form-group">
+<label for="password" class="col-md-4 control-label">Email Id<span style="color:red;">*</span>:</label>
+<div class="col-md-6">
+	<input id="email" type="email" class="form-control"   name="email" required>
+</div>
+</div>
 <div class="form-group">
 <label for="password" class="col-md-4 control-label">Select Question<span style="color:red;">*</span>:</label>
 <div class="col-md-6">
 	<select id="question" name="question" required="" class="form-control">
 		<option value="">Select Question</option>
 		@forelse (App\Models\Question::get() as $question)
-		@php
-		$bChk = ($question->id == Auth::user()->question_id) ? 'selected' : '';
-		@endphp
-			<option  value = "{{ $question->id }}" {{$bChk}} >{{ $question->question_name }}</option>
+			<option  value = "{{ $question->id }}" >{{ $question->question_name }}</option>
 		@empty
 			{{-- empty expr --}}
 		@endforelse
@@ -59,22 +66,10 @@ $ID3 = 'relative';
 <div class="form-group">
 <label for="password" class="col-md-4 control-label">Answer<span style="color:red;">*</span>:</label>
 <div class="col-md-6">
-	<input id="answer" type="text" class="form-control" value="{{Auth::user()->answer}}"  name="answer" required>
+	<input id="answer" type="text" class="form-control"   name="answer" required>
 </div>
 </div>
 
-
-<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-<label for="password" class="col-md-4 control-label">Current Password<span style="color:red;">*</span>:</label>
-<div class="col-md-6">
-<input id="password" type="password" class="form-control" name="password" required>
-@if ($errors->has('password'))
-<span class="help-block">
-<strong>{{ $errors->first('password') }}</strong>
-</span>
-@endif
-</div>
-</div>
 <div class="form-group{{ $errors->has('password1') ? ' has-error' : '' }}">
 <label for="password1" class="col-md-4 control-label">New Password<span style="color:red;">*</span>:</label>
 <div class="col-md-6">
@@ -97,6 +92,7 @@ $ID3 = 'relative';
 <button type="submit" class="btn btn-danger">
 Change Password
 </button>
+&nbsp;&nbsp;<a  style="font-weight: 500;font-size: 20px;text-decoration:underline;" href="{{route('login')}}">Login</a>
 </div>
 </div>
 </form>

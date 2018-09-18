@@ -45,6 +45,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
+                                <br>
+                                <a href="{{route('forgot-password')}}">Forgot Password</a>
                                 <br />
                                 <br />
                                  <a href="http://www.softianstech.com/">&copy;2018 All copyrights reserved by Softians Technologies | Developed by Softians Technologies</a>

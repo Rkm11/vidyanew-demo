@@ -10,7 +10,9 @@ Dashboard
 <div class="col-lg-12">
 	<section class="box nobox marginBottom0">
 		<div class="content-body">
+						<h3>Welcome {{Auth::user()->name}}</h3>
 			<div class="row">
+							@if(Auth::user()->role==1)
 			<form method="GET" action="{{ route('enquiry.e_cout') }}">
 
 			<div class="col-lg-4 col-sm-6 col-xs-12">
@@ -115,6 +117,7 @@ Dashboard
 
 
 			</form>
+			@endif
 		</div> <!-- End .row -->
 	</div>
 </section></div>
