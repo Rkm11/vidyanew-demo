@@ -11,6 +11,14 @@ Dashboard
 	<section class="box nobox marginBottom0">
 		<div class="content-body">
 			<div class="row">
+			<div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+				<div class="col-md-offset-4 col-sm-offset-4 col-xs-offset-4">
+					<h1 style="color: #fff">Welcome   {{Auth::user()->name}}</h1>
+				</div>
+			</div>
+		</div>
+		@if(Auth::user()->role==1)
+			<div class="row">
 			<form method="GET" action="{{ route('enquiry.e_cout') }}">
 
 			<div class="col-lg-4 col-sm-6 col-xs-12">
@@ -109,9 +117,12 @@ Dashboard
 
 
 			</form>
-		</div> <!-- End .row -->
+		</div>
+		@endif
+
 	</div>
-</section></div>
+</section>
+</div>
 <!-- <div class="col-xs-12">
 	<section class="box ">
 		<header class="panel_header">

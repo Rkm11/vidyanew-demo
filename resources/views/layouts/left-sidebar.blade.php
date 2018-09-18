@@ -33,10 +33,18 @@
         <ul class='wraplist'>
 
             <li class='menusection' style="color:#ffffff;">Main</li>
+
            <li class="open">
                 <a href="{{ url('/') }}">
                     <i class="fa fa-dashboard" style="color:#ffffff;"></i>
                     <span class="title" style="color:#ffffff;">Home</span>
+                </a>
+            </li>
+            @if(Auth::user()->role==1)
+            <li class="open">
+                <a href="{{ route('users.index') }}">
+                    <i class="fa fa-user" style="color:#ffffff;"></i>
+                    <span class="title" style="color:#ffffff;">Manage Users</span>
                 </a>
             </li>
             <li>
@@ -170,7 +178,40 @@
                     {{--</li>--}}
                 {{--</ul>--}}
             {{--</li>--}}
+            @elseif(Auth::user()->role)
+                <li>
+                <a href="javascript:;">
+                    <i class="fa fa-columns" style="color:#ffffff;"></i>
+                    <span class="title"style="color:#ffffff;">Add</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu" style="background-color: #424a5d;" >
+                    <li>
+                        <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="fa fa-columns" style="color:#ffffff;"></i>
+                    <span class="title"style="color:#ffffff;">View</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu" style="background-color: #424a5d;" >
+                     <li>
+                        <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
+                    </li>
+                </ul>
+            </li>
 
+            @endif
+        </ul>
           <!--  <li>
                 <a href="sms_sending.php">
                     <i class="fa fa-table" style="color:#ffffff;"></i>

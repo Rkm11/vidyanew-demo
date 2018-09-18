@@ -85,5 +85,7 @@ Route::post('/changepassword', 'ChangePasswordController@changepassword')->name(
 Route::get('/changesetting', 'ChangeSettingController@showchangesetting');
 
 Route::post('/changesetting', 'ChangePasswordController@changesetting')->name('changesetting');
+// Route::get('users', 'UsersController');
+Route::resource('users', 'UsersController');
 
 Auth::routes();
