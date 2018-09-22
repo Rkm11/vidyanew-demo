@@ -5,11 +5,54 @@ All Attendances
 @push('header')
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<style type="text/css">
+.table-responsive,
+.table .table-striped .table-bordered .w-auto{-sm|-md|-lg|-xl overflow-x:auto;
+}
+/*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: left;
+text-align: left;
+position: fixed;
+top: 150px;
+/*left: 330px;*/
+/*width: 30px;
+right: 220px;
+
+
+
+
+
+
+}*/
+
+
+
+*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+}
+.dataTables_wrapper .dataTables_length {
+float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: left;
+}
+/*.dataTables_wrapper .dataTables_paginate{float: left;} */
+
+
+</style>
 @endpush
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+		
 		<div class="content-body" style="background-color:#9ddac0">
 			<input type="hidden" name="base_url" id="base_url"  value="<?php echo url('/'); ?>">
 				<div class="row">
@@ -95,7 +138,7 @@ All Attendances
 						</div>
 						</div>
 						</div>
-						<form id="file-upload" method="post"  enctype="multipart/form-data" name="file-upload">
+						<!-- <form id="file-upload" method="post"  enctype="multipart/form-data" name="file-upload">
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Upload Attendance Report:</label>
@@ -104,7 +147,7 @@ All Attendances
 						</div>
 						</div>
 						</div>
-					</form>
+					</form> -->
 					</div>
 					</div>
 
@@ -267,6 +310,7 @@ $('#import_file').on('change', function (){
 	function data() {
 		$('#attendance-table').DataTable({
 			processing: true,
+			lengthChange: false,
 			//serverSide: true,
 
 			ajax: {
