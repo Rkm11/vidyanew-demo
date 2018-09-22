@@ -20,8 +20,8 @@ $ID = 'batch';
 @section('content')
 
 <div class="col-lg-12">
-	<section class="box ">
-		<br/>
+	
+		
 
 		<div class="content-body" style="background-color:rgb(84, 173, 197));>
 			<form id="{{ $ID }}Form">
@@ -49,7 +49,7 @@ $ID = 'batch';
 				</div>
 			</form>
 		</div>
-	</section>
+	
 </div>
 <!-- END CONTAINER -->
 
