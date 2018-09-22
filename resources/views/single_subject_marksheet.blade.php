@@ -4,24 +4,17 @@ View Marksheets
 @endsection
 
 @push('header')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
 <style type="text/css">
-#marksheet-table input{
-	width: 51px!important;
-}
-#marksheet-table th{
-	width: 80px!important;
-}
-.dataTable{
-	width: 969px!important;
-}
+.table-responsive,
+.table .table-striped .table-bordered .w-auto{-sm|-md|-lg|-xl overflow-x:auto;
+} 
 </style>
 @endpush
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+		
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form>
 			 <div class="row">
@@ -162,6 +155,8 @@ View Marksheets
                 processing: true,
                 //serverSide: true,
                 searching: true,
+                paging:false,
+
                 ajax:{
                 	url:'{!! route('marksheet-view.alldata') !!}',
                 type : 'get',
