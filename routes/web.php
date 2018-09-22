@@ -23,6 +23,8 @@ Route::resource('installment', 'InstallmentController');
 Route::resource('test', 'TestController');
 Route::resource('settings', 'ChangeSettingController');
 
+Route::get('forgot-password', 'ForgotPasswordController@forgotPassword')->name('forgot-password');
+
 Route::resource('telecalling', 'TelecallingController', ['name' => ['update' => 'telecalling.update'], ['store' => 'telecalling.store']]);
 Route::get('telecalling-data', 'TelecallingController@getdata')->name('enquiry.data');
 Route::resource('viewcall', 'ViewTelecallingController');
@@ -32,6 +34,8 @@ Route::get('others/create', function () {
 })->name('others');
 Route::get('installment-data', 'InstallmentController@data')->name('installment.data');
 Route::get('test.data', 'TestController@data')->name('test.data');
+Route::get('test/delete/{id}', 'TestController@deleteData');
+Route::get('test/edit/{id}', 'TestController@edit')->name('test/edit');
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
 
 Route::get('generate-att-report', 'AttendanceController@generateReport')->name('generate-att-report');
@@ -79,12 +83,13 @@ Route::get('download-all', 'MarksheetController@allPDF')->name('d-all-mark');
 Route::get('admission/confirm/{id}', 'AdmissionController@confirm');
 
 Route::get('/changepassword', 'ChangePasswordController@showchangepassword');
-
 Route::post('/changepassword', 'ChangePasswordController@changepassword')->name('changepassword');
 
 Route::get('/changesetting', 'ChangeSettingController@showchangesetting');
 
 Route::post('/changesetting', 'ChangePasswordController@changesetting')->name('changesetting');
+
+Route::post('/forgot-password', 'ForgotPasswordController@resetpassword');
 // Route::get('users', 'UsersController');
 Route::resource('users', 'UsersController');
 
