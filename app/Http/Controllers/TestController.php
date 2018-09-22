@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
 use App\Models\Marksheet;
+use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Test;
 use DataTables;
