@@ -9,7 +9,6 @@ namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
-
 /**
  * Class AdmissionDetail
  *
