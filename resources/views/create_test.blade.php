@@ -26,39 +26,39 @@ $ID = 'test';
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+		
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form id = "{{ $ID }}Form">
 				<div class="row">
 						<div class="col-sm-12">
-						<div class="col-sm-3">
+						<div class="col-sm-4">
 
 							<div class="form-group">
 								<label class="form-label">Test Name<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text"   placeholder="Test Name" id="name" name="name" required>
+									<input type="text" class="form-control"   placeholder="Test Name" id="name" name="name" required>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" readonly="" class="datepicker" placeholder="dd-mm-yy" id="date" name="date" required>
+									<input type="text" class="form-control" readonly="" class="datepicker" placeholder="dd-mm-yy" id="date" name="date" required>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Out Of Mark<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" title=" Mark 0-100" name="outof" id="outtmark" placeholder="e.g  out of 100" maxlength="100" required>
+									<input type="text" class="form-control" title=" Mark 0-100" name="outof" id="outtmark" placeholder="e.g  out of 100" maxlength="100" required>
 								</div>
 							</div>
 						</div>
 						</div>
 					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Batch<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -73,7 +73,7 @@ $ID = 'test';
 							</div>
 						</div>
 
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Medium<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -86,12 +86,28 @@ $ID = 'test';
 									</select>
 								</div>
 							</div>
+
+
 						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
+								<div class="controls">
+									<select class="form-control" required="" name="standard" id = "standard">
+										<option value="">--Select--</option>
+										@forelse (App\Models\Standard::get() as $st)
+										<option value = "{{ $st->std_id }}">{{ $st->std_name }}</option>
+										@empty
+										@endforelse
+									</select>
+								</div>
+							</div>
+						</di
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
 								<div class="controls">
