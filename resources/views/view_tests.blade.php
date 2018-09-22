@@ -2,11 +2,56 @@
 @section('page-title')
 View Tests
 @endsection
+@push('header')
+<style type="text/css">
+.table-responsive,
+.table .table-striped .table-bordered .w-auto{-sm|-md|-lg|-xl overflow-x:auto;
+}
+/*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: left;
+text-align: left;
+position: fixed;
+top: 150px;
+/*left: 330px;*/
+/*width: 30px;
+right: 220px;
+
+
+
+
+
+
+}*/
+
+
+
+*.dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+}
+.dataTables_wrapper .dataTables_length {
+float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: left;
+}
+/*.dataTables_wrapper .dataTables_paginate{float: left;} */
+
+
+</style>
+@endpush
 
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+		
 		<div class="content-body" style="background-color:#9ddac0;">
 			<div class="row">
 				<div class="col-xs-12">
@@ -45,6 +90,7 @@ View Tests
 			processing: true,
 			//serverSide: true,
 			searching: true,
+			lengthChange: false,
 			//destroy:true,
 			ajax : '{!! route('test.data') !!}',
 			columns: [
