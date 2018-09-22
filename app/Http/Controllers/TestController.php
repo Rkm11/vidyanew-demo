@@ -108,7 +108,7 @@ class TestController extends Controller {
 			}
 			if ($data->id) {
 				$data['test'] = Test::all();
-				return $data;
+				return 'success';
 			} else {
 				return 'error';
 			}
