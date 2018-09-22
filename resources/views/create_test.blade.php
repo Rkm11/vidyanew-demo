@@ -77,7 +77,7 @@ $ID = 'test';
 							<div class="form-group">
 								<label class="form-label">Medium<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<select class="form-control" name="medium" id = "medium">
+									<select class="form-control" required="" name="medium" id = "medium">
 										<option value="">--Select--</option>
 										@forelse (App\Models\Medium::get() as $m)
 										<option value = "{{ $m->med_id }}">{{ $m->med_name }}</option>
@@ -95,7 +95,7 @@ $ID = 'test';
 							<div class="form-group">
 								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<select class="form-control" name="standard" id = "standard">
+									<select class="form-control" required="" name="standard" id = "standard">
 										<option value="">--Select--</option>
 										@forelse (App\Models\Standard::get() as $st)
 										<option value = "{{ $st->std_id }}">{{ $st->std_name }}</option>
@@ -121,7 +121,8 @@ $ID = 'test';
 				<div class="row">
 					<div class="col-xs-10 col-sm-12">
 						<div class="text-center">
-							<button type="submit" class="btn btn-success">Create</button>
+						<input type="hidden" id="validate_subject" name="validate_subject">
+							<button type="submit" class="btn btn-success" onclick="validateSubject('validate')">Create</button>
 						</div>
 					</div>
 				</div>
