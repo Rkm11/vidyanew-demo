@@ -14,7 +14,9 @@
         "maatwebsite/excel": "~2.1.0",
         "reliese/laravel": "^0.0.13",
         "yajra/laravel-datatables-oracle": "^8.3",
-	"laravelcollective/html": "~5.0"
+	"laravelcollective/html": "~5.0",
+	"doctrine/common": "2.7.0",
+	"doctrine/dbal": "2.5.13"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
