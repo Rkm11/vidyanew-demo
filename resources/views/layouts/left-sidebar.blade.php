@@ -15,7 +15,7 @@
             <div class="profile-details col-xs-8">
 
                 <h3>
-                    {{-- <a href="ui-profile.html" style="color:#ffffff;">VBC Admin</a> --}}
+                    {{-- <a href="ui-profile.html" style="color:#ffffff;"> Admin</a> --}}
 
                     <!-- Available statuses: online, idle, busy, away and offline -->
                     <span class="profile-status online"></span>
@@ -33,18 +33,10 @@
         <ul class='wraplist'>
 
             <li class='menusection' style="color:#ffffff;">Main</li>
-
            <li class="open">
                 <a href="{{ url('/') }}">
                     <i class="fa fa-dashboard" style="color:#ffffff;"></i>
                     <span class="title" style="color:#ffffff;">Home</span>
-                </a>
-            </li>
-            @if(Auth::user()->role==1)
-            <li class="open">
-                <a href="{{ route('users.index') }}">
-                    <i class="fa fa-user" style="color:#ffffff;"></i>
-                    <span class="title" style="color:#ffffff;">Manage Users</span>
                 </a>
             </li>
             <li>
@@ -118,11 +110,8 @@
                     <li>
                         <a href="{{ route('marksheet.all') }}" style="color:#ffffff;">Marksheet</a>
                     </li>
-                   <li>
+                    <li>
                         <a href="{{ route('marksheet.index') }}" style="color:#ffffff;">All Student Marksheet</a>
-                    </li>
-                     <li>
-                        <a href="{{ route('test.index') }}" style="color:#ffffff;">Tests</a>
                     </li>
                     <li>
                         <a href="{{ route('balance-sheet.index') }}" style="color:#ffffff;">Balance Sheet</a>
@@ -178,46 +167,7 @@
                     {{--</li>--}}
                 {{--</ul>--}}
             {{--</li>--}}
-            @elseif(Auth::user()->role==2)
-                <li>
-                <a href="javascript:;">
-                    <i class="fa fa-columns" style="color:#ffffff;"></i>
-                    <span class="title"style="color:#ffffff;">Add</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu" style="background-color: #424a5d;" >
-                    <li>
-                        <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('test.create') }}" style="color:#ffffff;">Test</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="fa fa-columns" style="color:#ffffff;"></i>
-                    <span class="title"style="color:#ffffff;">View</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu" style="background-color: #424a5d;" >
-                     <li>
-                        <a href="{{ route('attendance.create') }}" style="color:#ffffff;">Attendance</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('test.index') }}" style="color:#ffffff;">Tests</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('marksheet.create') }}" style="color:#ffffff;">Marksheet</a>
-                    </li>
-                </ul>
-            </li>
 
-            @endif
-        </ul>
           <!--  <li>
                 <a href="sms_sending.php">
                     <i class="fa fa-table" style="color:#ffffff;"></i>

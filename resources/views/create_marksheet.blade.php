@@ -4,7 +4,7 @@ Create Marksheet
 @endsection
 
 @push('header')
-<style type="text/css">
+<!-- <style type="text/css">
 #marksheet-table input{
 	width: 51px!important;
 }
@@ -15,13 +15,13 @@ Create Marksheet
 	width: 969px!important;
 }
 
-</style>
+</style> -->
 
 @endpush
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+		
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form>
 				<div class="row">
@@ -45,7 +45,7 @@ Create Marksheet
 							<div class="form-group">
 								<label class="form-label">Test Date:</label>
 								<div class="controls">
-									<input type="text"   readonly="" placeholder="dd-mm-yy" id="exam_date" name="exam_date" required>
+									<input type="text" class="form-control datepicker"   readonly="" placeholder="dd-mm-yy" id="exam_date" name="exam_date" required>
 								</div>
 							</div>
 						</div>
@@ -53,7 +53,7 @@ Create Marksheet
 							<div class="form-group">
 								<label class="form-label">Out Of Mark:</label>
 								<div class="controls">
-									<input type="text" title=" Mark 0-100" readonly="" name="outtmark" id="outtmark" placeholder="e.g  out of 100" maxlenght="100" pattern="[0-9]{100}" required>
+									<input type="text" class="form-control" title=" Mark 0-100" readonly="" name="outtmark" id="outtmark" placeholder="e.g  out of 100" maxlenght="100" pattern="[0-9]{100}" required>
 								</div>
 							</div>
 						</div>
@@ -61,7 +61,7 @@ Create Marksheet
 							<div class="form-group">
 								<label class="form-label">Subject:</label>
 								<div class="controls">
-									<select name="subject" id="subject">
+									<select name="subject" class="form-control" id="subject">
 										<option value="-1">Select</option>
 									</select>
 								</div>
@@ -73,7 +73,7 @@ Create Marksheet
 							<div class="form-group">
 								<label class="form-label">Batch<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" placeholder="Batch" name="batch_name" id="batch_name" readonly="" >
+									<input type="text" class="form-control" placeholder="Batch" name="batch_name" id="batch_name" readonly="" >
 									<input type="hidden" placeholder="Batch" name="batch" id="batch" readonly="" >
 								</div>
 							</div>
@@ -83,7 +83,7 @@ Create Marksheet
 							<div class="form-group">
 								<label class="form-label">Medium<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" placeholder="Medium" name="medium_name" id="medium_name" readonly="">
+									<input type="text" class="form-control" placeholder="Medium" name="medium_name" id="medium_name" readonly="">
 									<input type="hidden" placeholder="Medium" name="medium" id="medium" readonly="">
 								</div>
 							</div>
@@ -92,28 +92,34 @@ Create Marksheet
 							<div class="form-group">
 								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" placeholder="Standard" name="standard_name" id="standard_name" readonly="">
+									<input type="text" class="form-control" placeholder="Standard" name="standard_name" id="standard_name" readonly="">
 									<input type="hidden" placeholder="Standard" name="standard" id="standard" readonly="">
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-12">
-						<BUTTON  type="button" class="btn btn-primary pull-right" onclick="fetchStudents()">Fetch Students</BUTTON>
-					</div>
+					
 				</div>
+
+				<div class="container-fliud">
+					<div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+						<BUTTON  type="button"  class="btn btn-primary"  onclick="fetchStudents()">Fetch Students</BUTTON>
+					</div>
+					</div>
 
 				<header class="panel_header" style="background-color:#9ddac0;">
 					<h2 class="col-sm-4 title pull-left" style="padding-left: 0px;">Create Marksheet Sheet</h2>
 					<div class="col-sm-6 save" id = "msg"></div>
 				</header>
+
 				<div class="row">
+
 					<div class="col-sm-12 col-xs-12">
 						<div class="table-responsive">
 							<table id="marksheet-table" class="table table-striped display">
 								<thead style="background-color:#fff;">
 
-									<tr >
+									<tr>
 										<th>Student Name</th>
 										<th>Obt_mark</th>
 									</tr>
@@ -150,12 +156,13 @@ Create Marksheet
 	}
 	function data() {
 		$('#marksheet-table').removeAttr('width').DataTable({
-			scrollY:"969px",
-			scrollX:true,
-			scrollCollapse:true,
+			
+			// scrollCollapse:true,
 			paging:false,
 			processing: true,
-			//serverSide: true,
+			serverSide: true,
+			lengthChange:false,
+
 			ajax: {
 				url : '{!! route('marksheet.data') !!}',
 				type : 'get',

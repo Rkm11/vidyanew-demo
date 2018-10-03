@@ -32,13 +32,17 @@ $ID3 = 'relative';
 {{ session('success') }}
 </div>
 @endif
-<section class="box "  style="background-color:#9ddac0;">
-		<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+
+		
 		@if ($errors->any())
         {{ implode('', $errors->all('<div>:message</div>')) }}
 @endif
 
-		<div class="content-body" style="background-color:#9ddac0;">
+		<div class="panel-body" style="padding:30px">
 <form id="changep" class="form-horizontal" method="POST" action="{{ route('forgot-password') }}">
 {{ csrf_field() }}
 
@@ -102,6 +106,7 @@ Change Password
 </div>
 </div>
 </div>
+
 </section>
 @endsection
 

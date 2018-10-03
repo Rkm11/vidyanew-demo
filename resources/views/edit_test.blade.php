@@ -26,7 +26,8 @@ $ID = 'test';
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
+	
+	 
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form id = "{{ $ID }}Form">
 				<div class="row">
@@ -40,7 +41,7 @@ $ID = 'test';
 									$test_name=explode('-',$test->test_name);
 									$test_name=$test_name[0];
 									@endphp
-									<input type="text" value="{{$test_name}}"   placeholder="Test Name" id="name" name="name" required>
+									<input type="text" class="form-control" value="{{$test_name}}"   placeholder="Test Name" id="name" name="name" required>
 									<input type="hidden" value="{{$test->id}}"   placeholder="Test Name" id="test_id" name="test_id" required>
 								</div>
 							</div>
@@ -49,7 +50,7 @@ $ID = 'test';
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" readonly="" class="datepicker" placeholder="dd-mm-yy" id="date" name="date" value="{{$test->test_date}}" required>
+									<input type="text" class="form-control" readonly="" class="datepicker" placeholder="dd-mm-yy" id="date" name="date" value="{{$test->test_date}}" required>
 								</div>
 							</div>
 						</div>
@@ -57,7 +58,7 @@ $ID = 'test';
 							<div class="form-group">
 								<label class="form-label">Out Of Mark<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" title=" Mark 0-100" name="outof" id="outtmark" placeholder="e.g  out of 100" maxlength="100" value="{{$test->test_outof}}" required>
+									<input type="text" class="form-control" title=" Mark 0-100" name="outof" id="outtmark" placeholder="e.g  out of 100" maxlength="100" value="{{$test->test_outof}}" required>
 								</div>
 							</div>
 						</div>

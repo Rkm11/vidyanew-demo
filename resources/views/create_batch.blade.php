@@ -21,8 +21,6 @@ $ID = 'batch';
 
 <div class="col-lg-12">
 
-
-
 		<div class="content-body" style="background-color:rgb(84, 173, 197));>
 			<form id="{{ $ID }}Form">
 				<div class="row">
@@ -49,7 +47,11 @@ $ID = 'batch';
 				</div>
 			</form>
 		</div>
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> c163562a514f266637b079789680768cdaf97bb6
 </div>
 <!-- END CONTAINER -->
 
