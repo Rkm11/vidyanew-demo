@@ -11,6 +11,7 @@ use App\Models\ParentDetail;
 use App\Models\Payment;
 use App\Models\Student;
 use App\Telecalling;
+use Auth;
 use Charts;
 use DataTables;
 use DB;
@@ -29,49 +30,54 @@ class EnquiryController extends Controller {
 		return view('view_enquiries');
 	}
 	public function e_cout() {
-		$ecout = Enquiry::join('admission_details', 'enquiries.enq_student', '=', 'admission_details.ad_student')
-			->where('ad_status', '=', 0)->count();
-		$acout = AdmissionDetail::where('ad_status', '=', 1)->count();
-		$pcout = Payment::sum('pay_amount');
-		$icout = Invoice::sum('in_paid_amount');
-		$r_bal = $icout - $pcout;
-		$tcout = Telecalling::count();
+		if (Auth::user()->role == 3) {
+			return view('front.dashboard');
+		} else if (Auth::user()->role == 1) {
+			$ecout = Enquiry::join('admission_details', 'enquiries.enq_student', '=', 'admission_details.ad_student')
+				->where('ad_status', '=', 0)->count();
+			$acout = AdmissionDetail::where('ad_status', '=', 1)->count();
+			$pcout = Payment::sum('pay_amount');
+			$icout = Invoice::sum('in_paid_amount');
+			$r_bal = $icout - $pcout;
+			$tcout = Telecalling::count();
 
-		$enquiry = Enquiry::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))->get();
-		$admission = AdmissionDetail::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))->get();
+			$enquiry = Enquiry::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))->get();
+			$admission = AdmissionDetail::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))->get();
 
-		// $chart = Charts::database($enquiry,'bar', 'highcharts')
-		//                 ->colors(['#ff0000', '#00ff00', '#0000ff'])
-		//                 ->title("Monthly Enquiry")
-		//                 ->elementLabel("Total Enquiry")
-		//                 ->dimensions(200,200)
-		//                 ->responsive(true)
-		//                 ->groupByMonth(date('Y'), true);
+			// $chart = Charts::database($enquiry,'bar', 'highcharts')
+			//                 ->colors(['#ff0000', '#00ff00', '#0000ff'])
+			//                 ->title("Monthly Enquiry")
+			//                 ->elementLabel("Total Enquiry")
+			//                 ->dimensions(200,200)
+			//                 ->responsive(true)
+			//                 ->groupByMonth(date('Y'), true);
 
-		$chart = Charts::multiDatabase('bar', 'material')
-			->dataset('Enquiry', AdmissionDetail::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))
-					->where('admission_details.ad_status', '=', 0)
-					->get())
+			$chart = Charts::multiDatabase('bar', 'material')
+				->dataset('Enquiry', AdmissionDetail::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))
+						->where('admission_details.ad_status', '=', 0)
+						->get())
 
-			->dataset('Admissions', AdmissionDetail::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))
-					->where('admission_details.ad_status', '=', 1)
-					->get())
-			->colors(['#ff0000', '#00ff00', '#0000ff'])
-			->title("Monthly Enquiry & Admissions")
-		// ->dimensions(600,200)
-			->responsive(true)
-			->groupByMonth(date('Y'), true);
+				->dataset('Admissions', AdmissionDetail::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))
+						->where('admission_details.ad_status', '=', 1)
+						->get())
+				->colors(['#ff0000', '#00ff00', '#0000ff'])
+				->title("Monthly Enquiry & Admissions")
+			// ->dimensions(600,200)
+				->responsive(true)
+				->groupByMonth(date('Y'), true);
 
-		$tomorrow = date('d-m-Y');
-		$tomorrow = date('d-m-Y', strtotime($tomorrow . ' +1 day'));
-		$installment_list = Installment::select(['students.stu_first_name', 'install_id', 'students.stu_last_name', 'stu_mobile', 'install_type',
-			'install_due_date', 'install_amount', 'install_status', 'install_student'])
-			->join('students', 'installments.install_student', '=', 'students.stu_id')
-			->where('installments.install_due_date', '=', $tomorrow)
-			->where('installments.install_status', '=', 0)
-			->get();
-		// dd($installment_list);
-		return view('dashboard', compact('ecout', 'acout', 'pcout', 'tcout', 'r_bal', 'icout', 'chart', 'installment_list'));
+			$tomorrow = date('d-m-Y');
+			$tomorrow = date('d-m-Y', strtotime($tomorrow . ' +1 day'));
+			$installment_list = Installment::select(['students.stu_first_name', 'install_id', 'students.stu_last_name', 'stu_mobile', 'install_type',
+				'install_due_date', 'install_amount', 'install_status', 'install_student'])
+				->join('students', 'installments.install_student', '=', 'students.stu_id')
+				->where('installments.install_due_date', '=', $tomorrow)
+				->where('installments.install_status', '=', 0)
+				->get();
+			// dd($installment_list);
+			return view('dashboard', compact('ecout', 'acout', 'pcout', 'tcout', 'r_bal', 'icout', 'chart', 'installment_list'));
+		}
+
 		// return view('dashboard')->with(compact('ecout','acout','pcout','tcout','r_bal','icout','chart','installment_list'));
 	}
 

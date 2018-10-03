@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
 use App\Models\Marksheet;
+use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Test;
 use DataTables;
@@ -107,7 +108,7 @@ class TestController extends Controller {
 			}
 			if ($data->id) {
 				$data['test'] = Test::all();
-				return $data;
+				return 'success';
 			} else {
 				return 'error';
 			}

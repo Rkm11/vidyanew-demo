@@ -52,5 +52,22 @@ class ChangePasswordController extends Controller {
 	public function forgotPassword() {
 		return view('forgot_password');
 	}
+	public function changePass() {
+		return view('front.change_password');
+	}
+	public function FrontchangePass(Request $request) {
+		if (!(Hash::check($request->get('currentPassword'), Auth::user()->password))) {
+			// The passwords matches
+			return 'Not Match';
+		}
+		$users = Auth::user();
+		$users->password = bcrypt($request->get('password'));
+		// $users->question_id = strtolower($request->get('question'));
+		$users->question_id = 0;
+		// $users->answer = strtolower($request->get('answer'));
+		$users->save();
+		return "success";
+
+	}
 
 }

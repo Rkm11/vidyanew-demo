@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Traits\GetData;
 use App\Models\BalanceSheet;
 use App\Models\Payment;
+use App\Models\Student;
+use Auth;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller {
@@ -86,5 +88,13 @@ class PaymentController extends Controller {
 	 */
 	public function destroy($id) {
 		//
+	}
+
+	public function fronPaymentdetails() {
+		$emailID = Auth::user()->email;
+		$paymentDetails = Student::where('stu_email', $emailID)
+			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+			->first();
+		return view('front.view_payments', compact('paymentDetails'));
 	}
 }

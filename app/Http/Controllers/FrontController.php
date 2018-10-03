@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller {
+class FrontController extends Controller {
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
 	public function __construct() {
-		// $this->middleware('auth');
+		$this->middleware('auth');
 	}
 
 	/**
@@ -18,9 +19,10 @@ class HomeController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		return view('home');
-	}
-	public function frontLogin() {
-		return view('front.login');
+		if (Auth::user()->role == 3) {
+			return view('front.dashboard');
+		} else if (Auth::user()->role == 1) {
+			return view('dashboard');
+		}
 	}
 }

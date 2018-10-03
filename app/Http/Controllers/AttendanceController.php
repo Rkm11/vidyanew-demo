@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Traits\GetData;
 use App\Models\Attendance;
 use App\Models\Student;
+use App\Models\Subject;
+use Auth;
 use Carbon\Carbon;
 use DataTables;
 use DB;
@@ -284,5 +286,60 @@ class AttendanceController extends Controller {
 		// $reader = Excel::load($url, function ($reader) {})->get();
 		// // $reader = \Excel::load($url)->toArray();
 		// return redirect()->back()->with('reader', $reader);
+	}
+
+	public function frontAttendancedetails() {
+		$attendanceDetails = null;
+		$subjectDetails = [];
+		$emailID = Auth::user()->email;
+		$studentDetails = Student::where('stu_email', $emailID)
+			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+			->first();
+		$marksDetails = null;
+		if (!empty($studentDetails) && !empty($studentDetails->stu_id)) {
+			$subjectIds = explode(',', $studentDetails->ad_subjects);
+			$subjectDetails = subject::whereIn('sub_id', $subjectIds)->get();
+			$attendanceDetails = Attendance::where('attendances.att_student', $studentDetails->stu_id)
+				->where('attendances.att_subject', $subjectIds[0])
+				->get();
+			$selectedId = $subjectIds[0];
+		}
+		return view('front.view_attendance', compact('attendanceDetails', 'subjectDetails', 'selectedId'));
+	}
+	public function frontAjaxAttendancedetails(Request $r) {
+
+		$attendanceDetails = null;
+		$subjectDetails = [];
+		$emailID = Auth::user()->email;
+		$studentDetails = Student::where('stu_email', $emailID)
+			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+			->first();
+		$marksDetails = null;
+		$startDate = (!empty($r->startDate)) ? date('d-m-Y', strtotime($r->startDate)) : null;
+		$endDate = (!empty($r->endDate)) ? date('d-m-Y', strtotime($r->endDate)) : null;
+		if (!empty($studentDetails) && !empty($studentDetails->stu_id)) {
+			$subjectIds = explode(',', $studentDetails->ad_subjects);
+			$subjectDetails = subject::whereIn('sub_id', $subjectIds)->get();
+			$attendanceDetails = Attendance::where('attendances.att_student', $studentDetails->stu_id);
+			if (!empty($r->subject_id)) {
+				$attendanceDetails->where('attendances.att_subject', $r->subject_id);
+			} else {
+				$attendanceDetails->where('attendances.att_subject', $subjectIds[0]);
+			}
+			if (!empty($endDate)) {
+				$attendanceDetails->where('attendances.att_added', '<=', $endDate);
+			}
+			if (!empty($startDate)) {
+				$attendanceDetails->where('attendances.att_added', '>=', $startDate);
+			}
+			$attendanceDetails = $attendanceDetails->get();
+		}
+		return view('front.ajax_attendance', compact('attendanceDetails'));
+	}
+	public function frontLogout(Request $request) {
+		Auth::logout();
+		$request->session()->flush();
+		$request->session()->regenerate();
+		return redirect()->guest(route('front-login'));
 	}
 }

@@ -8,6 +8,7 @@ use App\Models\Marksheet;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Test;
+use Auth;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -444,5 +445,61 @@ class MarksheetController extends Controller {
 
 		}
 		return view('reports.marksheet', compact('i', 'marks'));
+	}
+
+	public function frontMarksdetails() {
+		$emailID = Auth::user()->email;
+		$studentDetails = Student::where('stu_email', $emailID)
+			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+			->first();
+		$marksDetails = null;
+		if (!empty($studentDetails) && !empty($studentDetails->stu_id)) {
+			$subjectIds = explode(',', $studentDetails->ad_subjects);
+			$marksDetails = Marksheet::join('tests', 'marksheets.mark_testid', '=', 'tests.id')
+				->join('subjects', 'subjects.sub_id', '=', 'marksheets.mark_subject')
+				->where('marksheets.mark_student', $studentDetails->stu_id)
+				->get();
+			$subjectDetails = subject::whereIn('sub_id', $subjectIds)->get();
+			if (!empty($marksDetails)) {
+				//rekey subject wise
+				$tempData = $marksDetails;
+				$marksDetails = [];
+				foreach ($tempData as $key => $value) {
+					$marksDetails[$value->sub_name][] = $value;
+				}
+
+			}
+		}
+		return view('front.view_marksheet', compact('marksDetails', 'subjectDetails'));
+	}
+
+	public function frontAjaxMarksdetails(Request $r) {
+		$marksDetails = null;
+		if ($r->subject_id) {
+			$emailID = Auth::user()->email;
+
+			$studentDetails = Student::where('stu_email', $emailID)
+				->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+				->first();
+			if (!empty($studentDetails) && !empty($studentDetails->stu_id)) {
+				$subjectIds = explode(',', $studentDetails->ad_subjects);
+				$marksDetails = Marksheet::join('tests', 'marksheets.mark_testid', '=', 'tests.id')
+					->join('subjects', 'subjects.sub_id', '=', 'marksheets.mark_subject')
+					->where('marksheets.mark_student', $studentDetails->stu_id)
+					->where('marksheets.mark_subject', $r->subject_id)
+					->get();
+				$subjectDetails = subject::whereIn('sub_id', $subjectIds)->get();
+				if (!empty($marksDetails)) {
+					//rekey subject wise
+					$tempData = $marksDetails;
+					$marksDetails = [];
+					foreach ($tempData as $key => $value) {
+						$marksDetails[$value->sub_name][] = $value;
+					}
+
+				}
+			}
+		}
+		return view('front.ajax_marksheet', compact('marksDetails'));
 	}
 }

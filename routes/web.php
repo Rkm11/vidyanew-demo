@@ -1,7 +1,5 @@
 <?php
-Route::get('/', function () {
-	return view('dashboard');
-});
+Route::get('home', 'EnquiryController@e_cout')->name('home');
 
 Route::resource('enquiry', 'EnquiryController');
 Route::resource('admission', 'AdmissionController');
@@ -23,6 +21,8 @@ Route::resource('installment', 'InstallmentController');
 Route::resource('test', 'TestController');
 Route::resource('settings', 'ChangeSettingController');
 
+Route::get('forgot-password', 'ForgotPasswordController@forgotPassword')->name('forgot-password');
+
 Route::resource('telecalling', 'TelecallingController', ['name' => ['update' => 'telecalling.update'], ['store' => 'telecalling.store']]);
 Route::get('telecalling-data', 'TelecallingController@getdata')->name('enquiry.data');
 Route::resource('viewcall', 'ViewTelecallingController');
@@ -31,7 +31,11 @@ Route::get('others/create', function () {
 	return view('create_others');
 })->name('others');
 Route::get('installment-data', 'InstallmentController@data')->name('installment.data');
+Route::get('dashboard', 'FrontController@index')->name('dashboard');
+Route::get('front-login', 'HomeController@frontLogin')->name('front-login');
 Route::get('test.data', 'TestController@data')->name('test.data');
+Route::get('test/delete/{id}', 'TestController@deleteData');
+Route::get('test/edit/{id}', 'TestController@edit')->name('test/edit');
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
 
 Route::get('generate-att-report', 'AttendanceController@generateReport')->name('generate-att-report');
@@ -79,13 +83,23 @@ Route::get('download-all', 'MarksheetController@allPDF')->name('d-all-mark');
 Route::get('admission/confirm/{id}', 'AdmissionController@confirm');
 
 Route::get('/changepassword', 'ChangePasswordController@showchangepassword');
-
 Route::post('/changepassword', 'ChangePasswordController@changepassword')->name('changepassword');
 
 Route::get('/changesetting', 'ChangeSettingController@showchangesetting');
 
 Route::post('/changesetting', 'ChangePasswordController@changesetting')->name('changesetting');
+
+Route::post('/forgot-password', 'ForgotPasswordController@resetpassword');
 // Route::get('users', 'UsersController');
 Route::resource('users', 'UsersController');
+//Front Routes
+Route::get('view-marksheet', 'MarksheetController@frontMarksdetails')->name('view-marksheet');
+Route::get('ajax-marksheet', 'MarksheetController@frontAjaxMarksdetails')->name('ajax-marksheet');
+Route::get('view-attendance', 'AttendanceController@frontAttendancedetails')->name('view-attendance');
+Route::get('ajax-attendance', 'AttendanceController@frontAjaxAttendancedetails')->name('ajax-attendance');
+Route::get('view-fees', 'PaymentController@fronPaymentdetails')->name('view-fees');
+Route::get('change-password', 'ChangePasswordController@changePass')->name('change-password');
+Route::get('front-change-password', 'ChangePasswordController@FrontchangePass')->name('front-change-password');
+Route::get('front-logout', 'AttendanceController@frontLogout')->name('front-logout');
 
 Auth::routes();
