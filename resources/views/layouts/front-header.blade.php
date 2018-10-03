@@ -67,8 +67,8 @@ $classDetais=Setting::first();
   <a href="{{url('/view-attendance')}}">Attendance</a>
   <a href="{{url('/')}}">Noticeboard</a>
   <a href="{{url('/view-fees')}}">Payment</a>
-  <a href="{{url('/change-password')}}">PwdChange</a>
-  <a href="{{url('/change-password')}}">Profile</a>
+  <a href="{{url('/change-password')}}">Change Password</a>
+  <a href="{{url('/view-profile')}}">Profile</a>
   <a href="{{url('/front-logout')}}">Logout</a>
 
   </div>

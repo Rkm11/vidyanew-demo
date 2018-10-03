@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
@@ -8,6 +7,9 @@ use App\Models\AdmissionDetail;
 use App\Models\ParentDetail;
 use App\Models\Student;
 use App\Models\StudentRelative;
+use App\Models\Subject;
+use App\Models\User;
+use Auth;
 use Carbon\Carbon;
 use DataTables;
 use DB;
@@ -71,6 +73,16 @@ class AdmissionController extends Controller {
 		$father_picture = '';
 		$mother_picture = '';
 		$d = $this->changeKeys('ad_', $ad);
+		//Add User if email Id Exist
+		// dd($s['email']);
+		if (!empty($s['email'])) {
+			$user['email'] = $s['email'];
+			$user['name'] = $s['first_name'] . ' ' . $s['middle_name'] . ' ' . $s['last_name'];
+			$user['password'] = bcrypt('123456');
+			$user['question_id'] = 0;
+			$user['role'] = 3;
+			User::Create($user);
+		}
 		// return $r->all();
 		if ($r->hasFile('father_img')) {
 			$r->file('father_img')->move($path, 'f-' . $new);
@@ -248,5 +260,22 @@ class AdmissionController extends Controller {
 
 		// return $pdf->download('admission.pdf');
 		// return view('view_admissions');
+	}
+
+	public function frontProfile() {
+		$emailID = Auth::user()->email;
+		$studentDetails = Student::where('stu_email', $emailID)
+			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+			->join('batches', 'admission_details.ad_batch', '=', 'batches.batch_id')
+			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+			->first();
+		$subjects = Subject::select(['sub_name'])->whereIn('sub_id', explode(',', $studentDetails->ad_subjects))->get();
+		$strSubject = array();
+		foreach ($subjects as $key => $value) {
+			$strSubject[] = $value->sub_name;
+		}
+		$strSubject = implode(',', $strSubject);
+		return view('front.view_profile', compact('studentDetails', 'strSubject'));
 	}
 }
