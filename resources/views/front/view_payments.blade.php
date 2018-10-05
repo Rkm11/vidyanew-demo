@@ -34,7 +34,8 @@ $classDetais=Setting::first();
  <div class="col-md-8">
   <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>Addmission Fees</b></label><br>
   <label><b>Total Amount Rs. :50000/_</b></label><br>
-  <label><b>Paid Amount Rs. :30000/_</b></label><br>
+  <label><b>Status:Paid</b></label><br>
+  <label><b>Due Date &nbsp;:03-12-2012</b></label><br>
   <label><b>Paid Date &nbsp;:03-12-2012</b></label><br>
 
 
@@ -55,10 +56,11 @@ $classDetais=Setting::first();
 
 <div class="col-md-8">
 
-  <label style="margin-left: 105px;color: #78ab4c;font-size: 15px;"><b>Installment-I</b></label><br>
+  <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>Addmission Fees</b></label><br>
   <label><b>Total Amount Rs. :50000/_</b></label><br>
-  <label><b>Paid Amount Rs. :30000/_</b></label><br>
-  <label><b>Paid Date &nbsp;:03-12-2017</b></label><br>
+  <label><b>Status:Paid</b></label><br>
+  <label><b>Due Date &nbsp;:03-12-2012</b></label><br>
+  <label><b>Paid Date &nbsp;:03-12-2012</b></label><br>
 
 <button class="btn-success" style="float: right;" onclick=""><i class="fa fa-download"></i><b>PDF</b></button>
 <br>
@@ -77,10 +79,11 @@ $classDetais=Setting::first();
 
 <div class="col-md-8">
 
-  <label style="margin-left: 105px;color: #78ab4c;font-size: 15px;"><b>Installment-II</b></label><br>
+  <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>Addmission Fees</b></label><br>
   <label><b>Total Amount Rs. :50000/_</b></label><br>
-  <label><b>Paid Amount Rs. :30000/_</b></label><br>
-  <label style="background-color: #78ab47;"><b>Due Date &nbsp;:03-03-2018</b></label><br>
+  <label><b>Status:Paid</b></label><br>
+  <label><b>Due Date &nbsp;:03-12-2012</b></label><br>
+  <label><b>Paid Date &nbsp;:03-12-2012</b></label><br>
 
 <!-- <button class="btn-success" style="float: right;" onclick=""><i class="fa fa-download"></i><b>PDF</b></button>
  --><br>
