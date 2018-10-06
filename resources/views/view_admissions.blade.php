@@ -144,7 +144,7 @@ text-align: left;
 			},{
 				'targets': 4,
 				'render': function (data, type, full, meta){
-					if(full.parent_mobile == null){
+					if(full.parent_mobile == null || full.parent_mobile ==0){
 						return '-';
 					}else{
 						return full.parent_mobile;

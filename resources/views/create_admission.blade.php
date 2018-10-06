@@ -26,12 +26,12 @@ $ID3 = 'relative';
 	Create {{ ucfirst($ID) }}
 </div>
 <div class="pull-right row hidden-xs hidden-sm">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 
 <div class="btn row hidden-md hidden-lg" style="background-color:#9ddac0; ">
 <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 </div>
 @endsection
@@ -93,7 +93,7 @@ $ID3 = 'relative';
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
-									<input type="text" title="Enter Your Number" class="form-control" name="stu[mobile]" placeholder="Mobile Number"  maxlength="10"  pattern="[0-9]{10}" required>
+									<input type="text" title="Enter Your Number" class="form-control" name="stu[mobile]" placeholder="Mobile Number"  maxlength="10"  pattern="^[789]\d{9}$" required>
 								</div>
 							</div>
 						</div>
@@ -340,7 +340,7 @@ $ID3 = 'relative';
 <div id="show_otherinfo" class="col-lg-12" style="display: none;background-color:#9ddac0;">
 	<section class="box"  style="background-color:#9ddac0;">
 		<!-- <div class="pull-right">
-			<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+			<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 		</div>
 		<br> -->
 		<div class="content-body"  style="background-color:#9ddac0;">

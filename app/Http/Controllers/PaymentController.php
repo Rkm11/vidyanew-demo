@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\GetData;
 use App\Models\BalanceSheet;
+use App\Models\Installment;
 use App\Models\Payment;
 use App\Models\Student;
 use Auth;
@@ -92,9 +93,12 @@ class PaymentController extends Controller {
 
 	public function fronPaymentdetails() {
 		$emailID = Auth::user()->email;
-		$paymentDetails = Student::where('stu_email', $emailID)
+		$invoice = Student::where('stu_email', $emailID)
 			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
 			->first();
-		return view('front.view_payments', compact('paymentDetails'));
+		$ins = Installment::where('install_student', $invoice->ad_student)->first();
+		// $ins = Installment::where('install_student', $invoice->ad_student)->get();
+		// dd($ins);
+		return view('front.view_payments', compact('invoice', 'ins'));
 	}
 }

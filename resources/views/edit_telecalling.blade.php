@@ -34,7 +34,7 @@ Update Follow-Up
 						  	<div class="form-group">
 						    	<label for="add-mobile" class="col-sm-2 control-label">Mobile</label>
 						    	<div class="col-sm-10">
-						      		<input type="mobile" title="Enter Your Number" class="form-control" id="mobile" name="mobile" placeholder="Mobile number" value="{{$tcall->mobile}}" pattern="[0-9]+">
+						      		<input type="mobile" title="Enter Your Number" class="form-control" id="mobile" name="mobile" placeholder="Mobile number" value="{{$tcall->mobile}}" pattern="^[789]\d{9}$">
 						    	</div>
 						  	</div>
 

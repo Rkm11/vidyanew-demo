@@ -47,6 +47,7 @@
                      <span class="title" style="color:#ffffff;">Manage Users</span>
                  </a>
              </li>
+             <li>
                 <a href="javascript:;">
                     <i class="fa fa-columns" style="color:#ffffff;"></i>
                     <span class="title"style="color:#ffffff;">Add</span>

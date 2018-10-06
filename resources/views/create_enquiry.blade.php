@@ -16,13 +16,13 @@ $ID2 = 'previous';
 </div>
 
 <div class="pull-right row hidden-xs hidden-sm">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 
 
 <div class="btn row hidden-md hidden-lg" style="background-color:#9ddac0; ">
 <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 </div>
 
@@ -85,16 +85,16 @@ $ID2 = 'previous';
 							<div class="form-group">
 								<label class="form-label">Mobile<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" title="Enter your number" class="form-control" name="stu[mobile]" placeholder = "Mobile Number" maxlength="10"  pattern="[0-9]{10}" required>
+									<input type="text" title="Enter your number" class="form-control" name="stu[mobile]" placeholder = "Mobile Number" maxlength="10"  pattern="^[789]\d{9}$" required>
 								</div>
 							</div>
 						</div>
 
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Parent Name<span style="color:red;">*</span>:</label>
+								<label class="form-label">Parent Name:</label>
 								<div class="controls">
-									<input type="text" title="Enter Your Parent Name" class="form-control" name="p[first_name]" placeholder="Parent Name" pattern="[a-z A-Z]+" required>
+									<input type="text" title="Enter Your Parent Name" class="form-control" name="p[first_name]" placeholder="Parent Name" pattern="[a-z A-Z]+" >
 								</div>
 							</div>
 						</div>

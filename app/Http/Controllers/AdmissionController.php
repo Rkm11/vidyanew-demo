@@ -76,6 +76,10 @@ class AdmissionController extends Controller {
 		//Add User if email Id Exist
 		// dd($s['email']);
 		if (!empty($s['email'])) {
+			$stuEmailId = User::where('email', $s['email'])->first();
+			if (!empty($stuEmailId)) {
+				return 'EmailExist';
+			}
 			$user['email'] = $s['email'];
 			$user['name'] = $s['first_name'] . ' ' . $s['middle_name'] . ' ' . $s['last_name'];
 			$user['password'] = bcrypt('123456');
@@ -103,12 +107,12 @@ class AdmissionController extends Controller {
 		// return $r->all();
 		// return $s;
 		$cur = Carbon::now()->format('d-m-Y');
-		// dd($cur);die;
+		$n = $this->changeKeys('stu_', $s);
 		$parent = ParentDetail::create([
 			'parent_first_name' => $s['middle_name'],
 			'parent_last_name' => $s['last_name'],
 			'parent_email' => '',
-			'parent_mobile' => 0,
+			'parent_mobile' => $n['stu_alt_mobile'],
 			'parent_alt_mobile' => 0,
 			'parent_education' => '',
 			'parent_father_picture' => $father_picture,
@@ -116,7 +120,6 @@ class AdmissionController extends Controller {
 		])->parent_id;
 
 		if ($parent) {
-			$n = $this->changeKeys('stu_', $s);
 
 			$n['stu_parent'] = $parent;
 			if (isset($ad['batch'])) {
@@ -165,7 +168,10 @@ class AdmissionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-		$ad = AdmissionDetail::join('students', 'students.stu_id', '=', 'admission_details.ad_student')->find($id);
+		$ad = AdmissionDetail::join('students', 'students.stu_id', '=', 'admission_details.ad_student')
+			->join('parent_details', 'students.stu_parent', '=', 'parent_details.parent_id')
+			->find($id);
+		// dd($ad);
 		return view('edit_admission')->with(['a' => $ad]);
 	}
 	public function confirm($id) {
@@ -185,6 +191,7 @@ class AdmissionController extends Controller {
 		$new = uniqid() . ".jpeg";
 		$s = $r->all()['stu'];
 		$ad = $r->all()['ad'];
+		$pr = $r->all()['pr'];
 		$father_picture = '';
 		$mother_picture = '';
 		// return $r->all();
@@ -211,13 +218,15 @@ class AdmissionController extends Controller {
 		$adm['ad_remaining_fees'] = $adm['ad_fees'];
 		$st = $this->changeKeys('stu_', $s);
 		// $par = $this->changeKeys('parent_', $p);
-
+		// dd($st);
 		$student = AdmissionDetail::find($id)->ad_student;
 
 		if (AdmissionDetail::where('ad_id', $id)->update($adm)) {
 			ParentDetail::where('parent_id', Student::find($student)->stu_parent)->update([
 				'parent_first_name' => $st['stu_middle_name'],
 				'parent_last_name' => $st['stu_last_name'],
+				'parent_last_name' => $st['stu_last_name'],
+				'parent_mobile' => $pr['parent_mobile'],
 				'parent_father_picture' => $father_picture,
 				'parent_mother_picture' => $mother_picture,
 			]);

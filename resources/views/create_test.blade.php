@@ -24,9 +24,12 @@ $ID = 'test';
 	ID = '{{ $ID }}';
 	</script>
 @section('content')
+<div class="pull-right">
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
+</div>
 <div class="col-lg-12">
 	<section class="box ">
-		
+
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form id = "{{ $ID }}Form">
 				<div class="row">
@@ -103,35 +106,6 @@ $ID = 'test';
 								</div>
 							</div>
 						</di
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
-								<div class="controls">
-									<select class="form-control" required="" name="standard" id = "standard">
-										<option value="">--Select--</option>
-										@forelse (App\Models\Standard::get() as $st)
-										<option value = "{{ $st->std_id }}">{{ $st->std_name }}</option>
-										@empty
-										@endforelse
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6" id="subject_div" style="display:none;">
-							<div class="form-group">
-								<label class="form-label">Subjects Offered<span style="color:red;">*</span>:</label>
-								<div class="controls" id="subject">
-<!-- 									<select class="form-control" name="subject" id = "subject">
-										<option value="">--Select--</option>
-									</select> -->
-								</div>
-							</div>
-						</div>
-
 					</div>
 				</div>
 				<div class="row">

@@ -22,33 +22,43 @@ $classDetais=Setting::first();
         </div>
       </div>
 
-
+@if(!empty($invoice->invoices()->first()))
 <!-----------------------------------------------FORM 1------------------------------------------------------------------>
 
 <div class="element-box lined-primary shadow" style="margin-bottom: 10px;">
 
 <form action="#" class="form m-b" method="post" accept-charset="utf-8" >
 
-  <h5 style="margin-left: 55px;color:#2d3e50;"><b>TOTAL PENDING FEES </b></h5><br>
+  <!-- <h5 style="margin-left: 55px;color:#2d3e50;"><b>TOTAL PENDING FEES </b></h5><br> -->
 
  <div class="col-md-8">
   <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>Addmission Fees</b></label><br>
-  <label><b>Total Amount Rs. :50000/_</b></label><br>
-  <label><b>Status:Paid</b></label><br>
-  <label><b>Due Date &nbsp;:03-12-2012</b></label><br>
-  <label><b>Paid Date &nbsp;:03-12-2012</b></label><br>
+  <label><b>Total Amount Rs. : {{ $invoice->invoices()->first()->in_paid_amount }}/_</b></label><br>
+  <label><b>Status: Paid</b></label><br>
+  <label><b>Paid Date &nbsp;: {{ Carbon\Carbon::parse($invoice->invoices()->first()->in_add_date)->format('d/m/y') }}</b></label><br>
 
-
-<button class="btn-success" style="float: right;" onclick=""><i class="fa fa-download"></i><b>PDF</b></button>
+@if(!empty($ins))
+<a class="btn-success" style="float: right;" href="<?php echo 'download-receipt/' . $ins->install_invoice; ?>" ><i class="fa fa-download"></i><b>PDF</b></a>
+@endif
 <br>
 </div>
 </form>
 
 </div>
+@else
+<div class="element-box lined-primary shadow" style="margin-bottom: 10px;">
+  <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>No Record Found</b></label>
+  </div>
+@endif
 
 <!-- ------------------------------------------END FORM 1-------------------------------------------- -->
 <!-- ----------------------------FORM 2---------------------------------------------------------------------------------- -->
 
+@if(!empty($invoice->installments()->get()))
+@foreach($invoice->installments()->get() as $installment)
+@php
+$i=1;
+@endphp
 <div class="element-box lined-primary shadow" style="margin-bottom: 10px;">
 
   <form action="#" class="form m-b" method="post" accept-charset="utf-8" >
@@ -56,44 +66,31 @@ $classDetais=Setting::first();
 
 <div class="col-md-8">
 
-  <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>Addmission Fees</b></label><br>
-  <label><b>Total Amount Rs. :50000/_</b></label><br>
-  <label><b>Status:Paid</b></label><br>
-  <label><b>Due Date &nbsp;:03-12-2012</b></label><br>
-  <label><b>Paid Date &nbsp;:03-12-2012</b></label><br>
+  <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>{{$installment->install_type}}</b></label><br>
+  <label><b>Total Amount Rs. : {{$installment->install_amount}}/_</b></label><br>
+  <label><b>Status: {{($installment->install_status==1)?'Paid':'Not Paid'}}</b></label><br>
+  <label><b>Due Date &nbsp;: {{$installment->install_due_date}}</b></label><br>
 
-<button class="btn-success" style="float: right;" onclick=""><i class="fa fa-download"></i><b>PDF</b></button>
 <br>
 
 </div>
 </form>
-
 </div>
-<!-- -----------------------------------------------END FORM 2---------------------------------------- -->
-<!-- -----------------------------------------------FORM 3----------------------------------------------------- -->
-
-   <div class="element-box lined-primary shadow" style="margin-bottom: 10px;">
+@endforeach
+@else
+<div class="element-box lined-primary shadow" style="margin-bottom: 10px;">
 
   <form action="#" class="form m-b" method="post" accept-charset="utf-8" >
 
 
 <div class="col-md-8">
 
-  <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>Addmission Fees</b></label><br>
-  <label><b>Total Amount Rs. :50000/_</b></label><br>
-  <label><b>Status:Paid</b></label><br>
-  <label><b>Due Date &nbsp;:03-12-2012</b></label><br>
-  <label><b>Paid Date &nbsp;:03-12-2012</b></label><br>
-
-<!-- <button class="btn-success" style="float: right;" onclick=""><i class="fa fa-download"></i><b>PDF</b></button>
- --><br>
-<br>
-</div>
+  <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>Installments</b></label><br>
+  <label style="margin-left: 85px;color: #78ab4c;font-size: 15px;"><b>No Records Found</b></label>
+  </div>
 </form>
-
 </div>
-
-
+@endif
 
 
 <!---------------------------------------END FORM 3-------------------------------------------------------------->

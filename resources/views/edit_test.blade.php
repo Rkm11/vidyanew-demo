@@ -24,10 +24,13 @@ $ID = 'test';
 	ID = '{{ $ID }}';
 	</script>
 @section('content')
+<div class="pull-right">
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
+</div>
 <div class="col-lg-12">
 	<section class="box ">
-	
-	 
+
+
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form id = "{{ $ID }}Form">
 				<div class="row">

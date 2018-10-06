@@ -13,7 +13,7 @@ $ID = 'batch';
 	Create {{ ucfirst($ID) }}
 </div>
 <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 
 @endsection

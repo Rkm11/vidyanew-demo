@@ -101,5 +101,6 @@ Route::get('view-fees', 'PaymentController@fronPaymentdetails')->name('view-fees
 Route::get('change-password', 'ChangePasswordController@changePass')->name('change-password');
 Route::get('front-change-password', 'ChangePasswordController@FrontchangePass')->name('front-change-password');
 Route::get('front-logout', 'AttendanceController@frontLogout')->name('front-logout');
+Route::get('view-profile', 'AdmissionController@frontProfile')->name('view-profile');
 
 Auth::routes();

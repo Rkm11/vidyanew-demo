@@ -13,7 +13,7 @@ $ID = 'standard';
 	Create {{ ucfirst($ID) }}
 </div>
 <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 
 @endsection
@@ -35,17 +35,17 @@ $ID = 'standard';
 									<input type="text" class="form-control" name="name" placeholder="e.g. 7th" rquired>
 								</div>
 							</div>
-						</div>						
+						</div>
 					</div>
 				</div>
-				<div class="row">	
+				<div class="row">
 					<div class="col-xs-10 col-sm-12">
 						<div class="text-center">
 							<button type="submit" class="btn btn-success">Create</button>
 						</div>
 					</div>
 				</div>
-				<div id = "{{ $ID }}Msg" class="text-center">						
+				<div id = "{{ $ID }}Msg" class="text-center">
 				</div>
 			</form>
 		</div>
@@ -56,7 +56,7 @@ $ID = 'standard';
 @endsection
 
 @push('footer')
-<script>	
-	CRUD.formSubmission("{{ route($ID.'.store') }}", 0,{'empty' : 'name'});	
+<script>
+	CRUD.formSubmission("{{ route($ID.'.store') }}", 0,{'empty' : 'name'});
 </script>
 @endpush

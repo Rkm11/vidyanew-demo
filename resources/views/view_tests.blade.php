@@ -85,7 +85,7 @@ text-align: left;
 @push('footer')
 <script type="text/javascript">
 	$(function(){
-
+		mesg="Are you sure you want to delete this test?";
 		$('#test-table').DataTable({
 			processing: true,
 			//serverSide: true,
@@ -104,15 +104,19 @@ text-align: left;
 			{
 				'targets': 4,
 				'render': function (data, type, full, meta){
-					return '<a class="btn btn-warning"  href = "'+pr1(full.id)+'">Edit</a>'+' '+'<a class="btn btn-danger"  href = "'+pr(full.id)+'">Delete</a>';
+					return '<a class="btn btn-warning"   href = "'+pr1(full.id)+'">Edit</a>'+' '+'<a class="btn btn-danger" onclick="pr('+full.id+')"  href = "javascript:void(0);">Delete</a>';
 				}
 			}
 			],
 			"order": [[ 1, "desc" ]]
 		});
 	});
+
 	function pr(id){
-		return "test/delete/"+id;
+		if(confirm('Are you sure delete test?')){
+		window.location.href ="test/delete/"+id;
+		}
+		// return "test/delete/"+id;
 	}
 		function pr1(id){
 		return "test/edit/"+id;

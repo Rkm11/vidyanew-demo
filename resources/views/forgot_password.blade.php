@@ -18,7 +18,7 @@ $ID3 = 'relative';
 	Change Password
 </div>
 <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 @endsection
 @section('content')
@@ -37,7 +37,7 @@ $ID3 = 'relative';
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
 
-		
+
 		@if ($errors->any())
         {{ implode('', $errors->all('<div>:message</div>')) }}
 @endif

@@ -40,6 +40,7 @@ class UsersController extends Controller {
 		$d['name'] = $request->name;
 		$d['email'] = $request->email;
 		$d['role'] = 2;
+		$d['question_id'] = 0;
 		$d['password'] = bcrypt($request->password);
 		// dd($d);
 		$user = User::create($d);

@@ -67,7 +67,7 @@ class TestController extends Controller {
 
 				$old_name = $test->name;
 				$old_name = explode('-', $old_name);
-				$testDetails['test_name'] = $n['test_name'] . '-' . $old_name[0];
+				$testDetails['test_name'] = $n['test_name'] . '-' . strtotime(date('Y-m-d H:i:s'));
 				$testDetails['test_date'] = $n['test_date'];
 				$testDetails['test_outof'] = $n['test_outof'];
 				$testDetails['test_batch'] = $n['test_batch'];

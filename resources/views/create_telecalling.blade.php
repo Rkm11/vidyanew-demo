@@ -33,7 +33,7 @@ Add New
 						  	<div class="form-group">
 						    	<label for="add-mobile" class="col-sm-2 form-label">Mobile<span style="color:red;">*</span>:</label>
 						    	<div class="col-sm-9">
-						      		<input type="mobile" class="form-control" id="mobile" name="mobile" maxlength="10" pattern="[0-9]{10}" placeholder="Mobile number" value="" required>
+						      		<input type="mobile" class="form-control" id="mobile" name="mobile" maxlength="10" pattern="^[789]\d{9}$" placeholder="Mobile number" value="" required>
 						    	</div>
 						  	</div>
 

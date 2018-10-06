@@ -28,7 +28,7 @@ $IDSub = 'subject';
 	Create Other Details
 </div>
 {{-- <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 --}}
 @endsection
@@ -99,7 +99,7 @@ $IDSub = 'subject';
 								<input type="text" class="form-control" name="name" placeholder="e.g. 7th" required>
 							</div>
 							<div class="col-md-2 margin-top-5">
-								<button type="submit" class="btn btn-success">Create</button>
+								<button type="submit" onclick="" class="btn btn-success">Create</button>
 							</div>
 						</div>
 					</div>

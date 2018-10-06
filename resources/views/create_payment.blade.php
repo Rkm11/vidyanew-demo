@@ -18,17 +18,17 @@ $ID = 'payment';
 
 
 <div class="pull-right row hidden-xs hidden-sm">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 
 
 <div class="btn row hidden-md hidden-lg" style="background-color:#9ddac0; ">
 <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 </div>
 <!-- <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div> -->
 
 @endsection
@@ -130,7 +130,7 @@ $ID = 'payment';
 							<div class="form-group">
 								<label class="form-label">Dated:</label>
 								<div class="controls">
-									<input type="text" name="cheque_date" class="form-control datepicker" data-format="dd-mm-YYYY" value="" >
+									<input type="text" name="cheque_date" class="form-control datepicker" data-format="dd-mm-YYYY" placeholder="dd-mm-YYYY" value="" >
 								</div>
 							</div>
 						</div>

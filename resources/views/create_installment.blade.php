@@ -13,11 +13,11 @@ $ID = 'installment';
 	Create {{ ucfirst($ID) }}
 </div>
 <div class="pull-right row hidden-sm hidden-xs">
-	<a href = "{{ route('invoice.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 
 <div class="pull-left row hidden-md hidden-lg" style="margin-top: 5px;">
-	<a href = "{{ route('invoice.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 
 @endsection

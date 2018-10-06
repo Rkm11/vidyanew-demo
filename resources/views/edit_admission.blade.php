@@ -21,13 +21,12 @@ $ID3 = 'relative';
 	Complete {{ ucfirst($ID) }} of {{ $a->stu_first_name. ' '. $a->stu_last_name }}
 </div>
 <div class="pull-right">
-	<a href = "{{ route($ID.'.index') }}" class="btn btn-danger">Back</a>
+	<a href = "javascript:void(0);" onclick="window.history.back()" class="btn btn-danger">Back</a>
 </div>
 @endsection
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		<br>
 		<div class="content-body" style="background-color:#9ddac0;">
 			<form id = "{{ $ID }}EForm">
 				<input type="hidden" name="sid" value="{{ $a->ad_id }}">
@@ -131,7 +130,7 @@ $ID3 = 'relative';
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="stu[mobile]" placeholder="Mobile Number" value = "{{ chkN($a->stu_mobile) }}" maxlength="10" pattern="[0-9]{10}" required>
+									<input type="text" class="form-control" name="stu[mobile]" placeholder="Mobile Number" value = "{{ chkN($a->stu_mobile) }}" maxlength="10" pattern="^[789]\d{9}$" required>
 								</div>
 							</div>
 						</div>
@@ -157,7 +156,7 @@ $ID3 = 'relative';
 							<div class="col-sm-4">
 								<ul class="list-unstyled">
 									<li>
-										<input tabindex="5" type="radio" id="square-radio-1" name="stu[gender]" class="skin-square-green" required value = "1" {{ ($a->stu_gender) ? 'checked' : ''}}>
+										<input tabindex="5" type="radio" id="square-radio-1" name="stu[gender]" class="skin-square-green" required value = "1" {{ ($a->stu_gender==1) ? 'checked' : ''}}>
 										<label class="iradio-label form-label" for="square-radio-1">Male</label>
 									</li>
 								</ul>
@@ -165,7 +164,7 @@ $ID3 = 'relative';
 							<div class="col-sm-4">
 								<ul class="list-unstyled">
 									<li>
-										<input tabindex="5" type="radio" id="square-radio-1" name="stu[gender]" class="skin-square-green" value = "0" {{ ($a->stu_gender) ? '' : ''}}>
+										<input tabindex="5" type="radio" id="square-radio-1" name="stu[gender]" class="skin-square-green" value = "0" {{ ($a->stu_gender==0) ? 'checked' : ''}}>
 										<label class="iradio-label form-label" for="square-radio-1">Female</label>
 									</li>
 								</ul>
@@ -181,7 +180,7 @@ $ID3 = 'relative';
 									<span style="color:red;"></span>:
 								</label>
 								<div class="controls">
-									<input type="text" title="Enter Parent Number" class="form-control" name="stu[alt_mobile]" placeholder="Phone Number 1" value = "{{ chkN($a->stu_alt_mobile) }}" maxlength="10" pattern="[0-9]{10}">
+									<input type="text" title="Enter Parent Number" class="form-control" name="pr[parent_mobile]" placeholder="Phone Number 1" value = "{{ chkN($a->parent_mobile) }}" maxlength="10" pattern="[0-9]{10}">
 								</div>
 							</div>
 						</div>
