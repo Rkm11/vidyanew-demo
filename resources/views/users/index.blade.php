@@ -41,13 +41,10 @@ $ID = 'settings';
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <a href="{{ route('users.edit',[$user->id]) }}" class="btn btn-xs btn-info">Edit</a>
-                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('Are you sure?');",
-                                        'route' => ['users.destroy', $user->id])) !!}
-                                    {!! Form::submit('Delete', array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
+                                    @php
+                                    $url=url('user/delete/').'/'.$user->id;
+                                    @endphp
+                                    <a onclick="confDelete('{{$url}}')" href="javascript:void(0);" class="btn btn-xs btn-info">Delete</a>
 
                                 </td>
 
@@ -63,7 +60,11 @@ $ID = 'settings';
         </div>
     </div>
 @stop
+<script type="text/javascript">
 
-@section('javascript')
-
-@endsection
+function confDelete(url){
+    if(confirm('Are you sure ?')){
+        window.location.href =url;
+        }
+}
+</script>

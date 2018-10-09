@@ -92,6 +92,11 @@ Route::post('/changesetting', 'ChangePasswordController@changesetting')->name('c
 Route::post('/forgot-password', 'ForgotPasswordController@resetpassword');
 // Route::get('users', 'UsersController');
 Route::resource('users', 'UsersController');
+// Route::post('users/insert', 'UsersController@store')->name('users/insert');
+Route::get('/insert-data', 'EnquiryController@addUserData')->name('insert-data');
+Route::get('/update-data', 'EnquiryController@updateUserData')->name('update-data');
+Route::get('user/delete/{id}', 'EnquiryController@deleteUser');
+// Route::get('users/create', 'UsersController@create')->name('users/create');
 //Front Routes
 Route::get('view-marksheet', 'MarksheetController@frontMarksdetails')->name('view-marksheet');
 Route::get('ajax-marksheet', 'MarksheetController@frontAjaxMarksdetails')->name('ajax-marksheet');

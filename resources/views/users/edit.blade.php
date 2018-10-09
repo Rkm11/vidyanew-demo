@@ -3,51 +3,51 @@
 @section('content')
     <h3 class="page-title">Update User Details</h3>
 
-    {!! Form::model($user, ['method' => 'PUT', 'route' => ['users.update', $user->id]]) !!}
-
+     <form  id="Form" action="{{url('/update-data')}}" method="get">
     <div class="panel panel-default">
+
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('name', 'Name*', ['class' => 'control-label']) !!}
-                    {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    <label class ="control-label">Name*</label>
+                    <input type="text" name="uname" value="{{$user->name}}" class="form-control" placeholder="Name" required="">
                     <p class="help-block"></p>
-                    @if($errors->has('name'))
+                    @if($errors->has('uname'))
                         <p class="help-block">
-                            {{ $errors->first('name') }}
+                            {{ $errors->first('uname') }}
                         </p>
                     @endif
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('email', 'Email*', ['class' => 'control-label']) !!}
-                    {!! Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    <label class ="control-label">Email*</label>
+                    <input type="email" name="emailId" value="{{$user->email}}" class="form-control" placeholder="Email Id" required="">
                     <p class="help-block"></p>
-                    @if($errors->has('email'))
+                    @if($errors->has('emailId'))
                         <p class="help-block">
-                            {{ $errors->first('email') }}
+                            {{ $errors->first('emailId') }}
                         </p>
                     @endif
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}
-                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => '']) !!}
+                    <label></label>
+                    <label class ="control-label">Password</label>
+                    <input type="password" name="pwd" class="form-control" placeholder="Password" >
+                    <input type="hidden" name="uid" value="{{$user->id}}"  >
                     <p class="help-block"></p>
-                    @if($errors->has('password'))
+                    @if($errors->has('pwd'))
                         <p class="help-block">
-                            {{ $errors->first('password') }}
+                            {{ $errors->first('pwd') }}
                         </p>
                     @endif
                 </div>
-            </div>
             </div>
 
         </div>
-
-    {!! Form::submit('Update', ['class' => 'btn btn-danger']) !!}
-    {!! Form::close() !!}
+    </div>
+    <input type="submit" name="submit" class="btn btn-danger">
 @stop
 

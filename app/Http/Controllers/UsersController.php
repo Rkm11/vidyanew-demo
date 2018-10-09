@@ -48,6 +48,16 @@ class UsersController extends Controller {
 		return redirect()->route('users.index');
 	}
 
+	public function addData(request $request) {
+		$d['name'] = $request->uname;
+		$d['email'] = $request->emailId;
+		$d['role'] = 2;
+		$d['question_id'] = 0;
+		$d['password'] = bcrypt($request->pwd);
+		// dd($d);
+		return redirect()->route('users.index');
+	}
+
 	/**
 	 * Show the form for editing User.
 	 *

@@ -10,6 +10,7 @@ use App\Models\Invoice;
 use App\Models\ParentDetail;
 use App\Models\Payment;
 use App\Models\Student;
+use App\Models\User;
 use App\Telecalling;
 use Auth;
 use Charts;
@@ -173,5 +174,34 @@ class EnquiryController extends Controller {
 
 	public function destroy($id) {
 		//
+	}
+	public function addUserData(request $request) {
+		$d['name'] = $request->uname;
+		$d['email'] = $request->emailId;
+		$d['role'] = 2;
+		$d['question_id'] = 0;
+		$d['password'] = bcrypt($request->pwd);
+		$user = User::create($d);
+		return redirect()->route('users.index');
+	}
+
+	public function updateUserData(request $request) {
+		$id = $request->uid;
+		$user = User::findOrFail($id);
+		$d['name'] = $request->uname;
+		$d['email'] = $request->emailId;
+		if (!empty($request->pwd)) {
+			$d['password'] = bcrypt($request->pwd);
+		}
+		$user->update($d);
+		return redirect()->route('users.index');
+
+	}
+
+	public function deleteUser($id) {
+		$user = User::findOrFail($id);
+		$user->delete();
+
+		return redirect()->route('users.index');
 	}
 }
