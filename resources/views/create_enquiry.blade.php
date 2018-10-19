@@ -82,7 +82,7 @@ $ID2 = 'previous';
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
@@ -102,9 +102,9 @@ $ID2 = 'previous';
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-6">
 							<div class="form-group">
@@ -114,7 +114,7 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
-						<!-- <div class="col-sm-6">
+						 <div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard
 									<span style="color:red;">*</span>:
@@ -129,9 +129,9 @@ $ID2 = 'previous';
 									</select>
 								</div>
 							</div>
-						</div> -->
+						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
@@ -167,16 +167,15 @@ $ID2 = 'previous';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-4">
+<!-- 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Previous Year %
-									<!-- <span style="color:red;">*</span>: -->
 								</label>
 								<div class="controls">
 									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]" placeholder="Previous Year" id = "previousYear">
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="row" id = "subject-box" >
