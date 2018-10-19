@@ -38,7 +38,7 @@ class LoginController extends Controller {
 	}
 
 	protected function authenticated(Request $request, $user) {
-		if (Auth::user()->role == '1' || Auth::user()->role == '3') {
+		if (Auth::user()->role == '1' || Auth::user()->role == '3' || Auth::user()->role == '2') {
 			return redirect()->route('home');
 		}
 	}
