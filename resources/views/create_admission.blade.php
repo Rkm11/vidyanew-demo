@@ -279,8 +279,8 @@ $ID3 = 'relative';
 								</label>
 								<div class="controls">
 									<input type="file" class="form-control" name="student_img" style="margin-bottom: 1px;" >
-									<input type="file" class="form-control" name="father_img" style="margin-bottom: 1px;">
-									<input type="file" class="form-control" name="mother_img">
+									<!-- <input type="file" class="form-control" name="father_img" style="margin-bottom: 1px;"> -->
+									<!-- <input type="file" class="form-control" name="mother_img"> -->
 								</div>
 							</div>
 						</div>
