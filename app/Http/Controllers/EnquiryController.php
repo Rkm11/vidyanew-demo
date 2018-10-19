@@ -106,10 +106,10 @@ class EnquiryController extends Controller {
 
 	public function store(Request $r) {
 		$s = $r->all()['stu'];
-		$p = $r->all()['p'];
+		// $p = $r->all()['p'];
 		$ad = $r->all()['ad'];
-		$p['parent_last_name'] = $s['last_name'];
-		$parent = ParentDetail::create($this->changeKeys('parent_', $p))->parent_id;
+		$p['parent_last_name'] = 'null';
+		$parent = ParentDetail::create($p)->parent_id;
 		if ($parent) {
 			$n = $this->changeKeys('stu_', $s);
 			$n['stu_parent'] = $parent;
@@ -155,15 +155,15 @@ class EnquiryController extends Controller {
 
 		$s = $r->all()['stu'];
 		$ad = $r->all()['ad'];
-		$p = $r->all()['p'];
+		// $p = $r->all()['p'];
 		$adm = $this->changeKeys('ad_', $ad);
 		if ($r->subjects) {
 			$adm['ad_subjects'] = implode(',', $r->all()['subjects']);
 		}
 		$st = $this->changeKeys('stu_', $s);
-		$par = $this->changeKeys('parent_', $p);
+		// $par = $this->changeKeys('parent_', $p);
 		Student::where('stu_id', $enq->enq_student)->update($st);
-		ParentDetail::where('parent_id', $enq->enq_parent)->update($par);
+		// ParentDetail::where('parent_id', $enq->enq_parent)->update($par);
 		return (AdmissionDetail::where('ad_id', $enq->enq_admission)->update($adm)) ? 'successU' : 'error';
 	}
 
