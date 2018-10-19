@@ -21,7 +21,15 @@ $classDetais=Setting::first();
           </ul>
         </div>
       </div>
-
+<div class="os-tabs-w menu-shad">
+        <div class="os-tabs-controls">
+          <ul class="nav nav-tabs upper">
+            <li class="nav-item">
+              <span><b>Total Fees:{{$invoice->ad_fees}}</b></span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
 @if(!empty($invoice->invoices()->first()))
 <!-----------------------------------------------FORM 1------------------------------------------------------------------>
 
