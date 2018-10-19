@@ -142,14 +142,14 @@ while ($tNow <= $tEnd) {
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-10 col-sm-12">
+						<div class="col-sm-3">
+							<label class="form-label">&nbsp;</label>
+							<div class="controls">
 						<div class="text-center">
-						<input type="hidden" id="validate_subject" name="validate_subject">
-							<button type="submit" class="btn btn-success" onclick="validateSubject('validate')">Create</button>
+							<button type="submit" class="btn btn-success" >Create</button>
 						</div>
+					</div>
+					</div>
 					</div>
 				</div>
 				<div id = "{{ $ID }}Msg" class="text-center">
@@ -160,7 +160,9 @@ while ($tNow <= $tEnd) {
 		</div>
 	</section>
 </div>
-<div class="col-lg-12">
+<h1><center>View Timetable</center></h1>
+<hr>
+<div class="col-lg-13">
 	<section class="box ">
 
 		<div class="content-body" style="background-color:#9ddac0;">
@@ -275,53 +277,6 @@ while ($tNow <= $tEnd) {
 	CRUD.formSubmission("{{ route($ID.'.store') }}", 0,{}, ID);
 </script>
 <script type="text/javascript">
-	function c(v) {
-		return (v == null) ? 0 : v;
-	}
-	$('#batch, #standard, #medium, #subject, #test').on({
-		'change' : function(){
-			if($('#subject').val() != ''){
-				$('#marksheet-table').DataTable().destroy();
-				data();
-			}
-		}
-	});
-	function data() {
-		$('#marksheet-table').removeAttr('width').DataTable({
-			scrollY:"969px",
-			scrollX:true,
-			scrollCollapse:true,
-			paging:false,
-			processing: true,
-			//serverSide: true,
-			ajax: {
-				url : '{!! route('marksheet.data') !!}',
-				type : 'get',
-				data : function(d){
-					d.batch = $('#batch').val();
-					d.subject = $('#subject').val();
-					d.standard = $('#standard').val();
-					d.medium = $('#medium').val();
-				}
-			},
-			columns: [
-			{width: '12px', data: 'stu_name', name: 'stu_name'},
-			{}
-			],
-			columnDefs: [{
-
-				'targets': 1,
-				'searchable': false,
-				'orderable': false,
-				'render': function (data, type, full, meta){
-					// var t = c(full.mark_test_1);
-					return '  <input  type="text" class="form-control" onkeyup = "updateAttendance('+full.stu_id+',this.value, 1);" value = "'+c(full.mark_test_1)+'">';
-
-				}
-			}
-			],fixedColumns: true
-		});
-	}
 
 	function updateAttendance(id, val, test){
 		if($('#subject').val()=='' ||$('#batch').val()=='' ||$('#date').val()=='' ||$('#medium').val()==''
@@ -397,14 +352,14 @@ while ($tNow <= $tEnd) {
 	}
 </script>
 <script type="text/javascript">
-	$('#batches, #standard, #medium, #subject, #startDate,#endDate').on({
+	$('#batches, #standard, #medium, #subjects, #startDate,#endDate').on({
 		'change' : function(){
 			$('#timetable-table').DataTable().destroy()
-			data();
+			timetableData();
 		}
 	});
-	data();
-	function data(){
+	timetableData();
+	function timetableData(){
 		mesg="Are you sure you want to delete this test?";
 		$('#timetable-table').DataTable({
 			processing: true,
