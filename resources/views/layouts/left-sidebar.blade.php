@@ -69,6 +69,9 @@
                     <li>
                         <a href="{{ route('test.create') }}" style="color:#ffffff;">Test</a>
                     </li>
+                    <li>
+                        <a href="{{ route('timetable.create') }}" style="color:#ffffff;">Timetable</a>
+                    </li>
                 <!--    <li>
                         <a href="{{ route('parent.index') }}" style="color:#ffffff;">Parent Registration</a>
                     </li>  -->

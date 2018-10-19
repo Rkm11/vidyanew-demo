@@ -20,6 +20,7 @@ Route::resource('student', 'StudentController');
 Route::resource('installment', 'InstallmentController');
 Route::resource('test', 'TestController');
 Route::resource('settings', 'ChangeSettingController');
+Route::resource('timetable', 'TimetableController');
 
 Route::get('forgot-password', 'ForgotPasswordController@forgotPassword')->name('forgot-password');
 
@@ -34,6 +35,7 @@ Route::get('installment-data', 'InstallmentController@data')->name('installment.
 Route::get('dashboard', 'FrontController@index')->name('dashboard');
 Route::get('front-login', 'HomeController@frontLogin')->name('front-login');
 Route::get('test.data', 'TestController@data')->name('test.data');
+Route::get('timetable.data', 'TimetableController@data')->name('timetable.data');
 Route::get('test/delete/{id}', 'TestController@deleteData');
 Route::get('test/edit/{id}', 'TestController@edit')->name('test/edit');
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
