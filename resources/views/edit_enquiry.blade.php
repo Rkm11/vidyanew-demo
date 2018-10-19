@@ -81,7 +81,7 @@ $ID = 'enquiry';
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
@@ -101,9 +101,9 @@ $ID = 'enquiry';
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-6">
 							<div class="form-group">
@@ -113,7 +113,7 @@ $ID = 'enquiry';
 								</div>
 							</div>
 						</div>
-						<!-- <div class="col-sm-6">
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard
 									<span style="color:red;">*</span>:
@@ -128,9 +128,9 @@ $ID = 'enquiry';
 									</select>
 								</div>
 							</div>
-						</div> -->
+						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
