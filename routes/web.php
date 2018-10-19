@@ -79,6 +79,7 @@ Route::get('download-marksheet/{id}', 'MarksheetController@downloadPDF')->name('
 Route::get('download-all/{id}', 'MarksheetController@allPDF')->name('d-all-mark');
 Route::get('admission/confirm/{id}', 'AdmissionController@confirm');
 Route::get('certification/print/{id}', 'CertificationController@print');
+Route::get('print-certification', 'CertificationController@printAll');
 
 Route::get('/changepassword', 'ChangePasswordController@showchangepassword');
 
