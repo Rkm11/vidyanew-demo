@@ -154,7 +154,7 @@ text-align: left;
 				'targets': 6,
 				'render': function (data, type, full, meta){
 					if(full.in_paid_amount){
-						return '<span class="btn btn-primary">Paid</span>';
+						return '<span class="" ><h4><b><i>Paid</i></b></h4></span>';
 					}else{
 						return '<a class="btn btn-warning" href = "'+redAFees(full.stu_id)+'">Admission Fees</a>';
 					}
