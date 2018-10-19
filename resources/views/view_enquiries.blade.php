@@ -205,10 +205,9 @@ text-align: left;
 				'searchable': false,
 				'orderable': false,
 				'render': function (data, type, full, meta){
-					return '<a class="btn btn-warning" href = "'+edit(full.enq_id)+'">Edit</a>';
+					return '<a class="btn btn-warning" href = "'+edit(full.enq_id)+'">Edit</a>&nbsp;<a class="btn btn-warning" href = "'+print(full.enq_id)+'">Print</a>';
 				}
 			}
-
 // &nbsp;&nbsp;<a class="btn btn-warning" href = "'+edit1(full.enq_id)+'">folloup</a>
 			],"order": [[ 7, "desc" ]]
 
@@ -229,6 +228,9 @@ text-align: left;
 
 		function edit(id){
 		return e+'/'+id+'/edit';
+	}
+	function print(id){
+		return e+'/print/'+id;
 	}
 	//model
 	function follow(id){
