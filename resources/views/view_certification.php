@@ -1,8 +1,30 @@
+@php
+use App\Models\Certification;
+$ID = 'certification';
+@endphp
 @extends('layouts.master')
 @section('page-title')
 All Student Certification
 @endsection
 @push('header')
+<style type="text/css">
+.status  text-center {
+
+    font-weight: 600;
+}
+.status.text-center.success{
+	font-weight: 600;
+	color: green;
+	}
+	.status.text-center.error{
+	font-weight: 600;
+	color: red;
+	}
+	.status.text-center.wait{
+	font-weight: 600;
+	color: yellow;
+	}
+</style>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
 @endpush
@@ -14,26 +36,11 @@ All Student Certification
 			<input type="hidden" name="base_url" id="base_url"  value="<?php echo url('/'); ?>">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Batch<span style="color:red;">*</span>:</label>
+								<label class="form-label">Educational Qualification:</label>
 								<div class="controls">
-									<select class="form-control" name="batch" id = "batch">
-										<option value="-1">--Select--</option>
-										@forelse (App\Models\Batch::get() as $b)
-										<option value = "{{ $b->batch_id }}">{{ $b->batch_name }}</option>
-										@empty
-										@endforelse
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="form-label">Medium<span style="color:red;">*</span>:</label>
-								<div class="controls">
-									<select class="form-control" name="medium" id = "medium">
+									<select class="form-control" name="medium" onchange="data()" id = "medium">
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Medium::get() as $m)
 										<option value = "{{ $m->med_id }}">{{ $m->med_name }}</option>
@@ -43,15 +50,12 @@ All Student Certification
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 ">
+
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Standard<span style="color:red;">*</span>:</label>
+								<label class="form-label">Course:</label>
 								<div class="controls">
-									<select class="form-control" name="standard" id = "standard">
+									<select onchange="data()" class="form-control" name="standard" id = "standard">
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Standard::get() as $st)
 										<option value = "{{ $st->std_id }}">{{ $st->std_name }}</option>
@@ -63,46 +67,21 @@ All Student Certification
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="form-label">Subjects<span style="color:red;">*</span>:</label>
-								<div class="controls">
-									<select class="form-control" name="subject" id = "subject">
-										<option value="-1">--Select--</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label class="form-label">Start Date<span style="color:red;">*</span>:</label>
-								<div class="controls">
-									<input type="text" placeholder="dd-mm-yyyy" name="startDate" id="startDate" class="form-control datepicker">
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label class="form-label">End Date<span style="color:red;">*</span>:</label>
-								<div class="controls">
-									<input type="text" placeholder="dd-mm-yyyy" name="endDate" id="endDate" class="form-control datepicker">
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label class="form-label"></label>
-								<div class="controls">
-							<a href="javascript:void(0);" onclick="generateReport()" class="btn">Generate Report</a>
-						</div>
-						</div>
+							<label class="form-label">&nbsp;</label>
+							<div class="controls">
+					<a class="btn btn-warning" href = "javascript:void(0);" onclick="printAll()">Print</a>
+				</div>
+			</div>
 						</div>
 					</div>
-					</div>
+				</div>
 
 				</div>
+				<div class="status text-center" id="message" style="display: none;">
+					</div>
 				<header class="panel_header"  style="background-color:#9ddac0;">
 					<h2 class="col-sm-4 title pull-left" style="padding-left: 0px;">Certification</h2>
 				</header>
-
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">
 						<div class="table-responsive">
@@ -111,16 +90,34 @@ All Student Certification
 									<tr>
 										<th class="col-sm-3">Name</th>
 										<th class="col-sm-9">Courses</th>
+										<th class="col-sm-9">Action</th>
 									</tr>
 								</thead>
 								<tbody id="cer-data">
-									@php
-									@if (!empty($arrStu))
-									@else
+									<?php if (!empty($stu)) {?>
+									@foreach ($stu as $details)
+									<tr>
+										<td>{{$details->stu_name}}</td>
+										<td>
+										@foreach($details->courses as $courses)
+										<!-- <div class="col-md-4"> -->
+											@php
+											$course = Certification::select(['*'])->where('cer_cid', $courses->std_id)
+											->where('cer_sid', $details->stu_id)->first();
+											$isChecked=(1==$course->cer_issued)?'checked=""':'';
+											@endphp
+											&nbsp;&nbsp;<input {{$isChecked}} type="checkbox" onclick="updateData('{{$courses->std_id}}','{{$details->stu_id}}')" value="{{$courses->std_id}}">&nbsp;&nbsp;{{$courses->std_name}}
+										<!-- </div> -->
+										@endforeach
+										</td>
+										<td><a class="btn btn-warning" href = "{{url('/certification/print/')}}/{{$details->stu_id}}">Print</a></td>
+									</tr>
+									@endforeach
+									<?php } else {?>
 									<tr>
 										<td colspan="2">No Records Found</td>
 									</tr>
-									@endPhp
+									<?php }?>
 								</tbody>
 							</table>
 						</div>
@@ -135,30 +132,64 @@ All Student Certification
 @endsection
 
 @push('footer')
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.flash.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-<script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
 
 <script type="text/javascript">
 
-	$('#batch, #standard, #medium, #subject, #startDate,#endDate').on({
-		'change' : function(){
-			$('#attendance-table').DataTable().destroy()
-			data();
-		}
-	});
-
-    data();
 	function data() {
+		$.ajax({
+			url : '{{ route('filtered-certification-data') }}',
+			type : 'post',
+			data : { standard : $('#standard').val(),medium:$('#medium').val()},
+			success : function(d){
+				console.log(d);
+				$('#cer-data').html('');
+				$('#cer-data').html(d);
+			}
+		});
+	}
+
+	function updateData(course_id,student_id) {
+		$('#message').removeClass();
+		$('#message').addClass('status text-center wait');
+		$('#message').text('Updating record please wait......');
+		$('#message').show();
+		$('.loader').text('Updating record please wait......');
+		$('.loader').show();
 		$.ajax({
 			url : '{{ route('certification.data') }}',
 			type : 'get',
-			data : {},
+			data : {cer_cid:course_id,cer_sid:student_id},
 			success : function(d){
+				$('.loader').hide();
+				if(d=='successU'){
+					$('#message').hide();
+					$('#message').removeClass();
+					$('#message').addClass('status text-center success');
+					$('#message').text('Updated Successfuly...');
+					$('#message').show();
+				}else{
+					$('#message').hide();
+					$('#message').removeClass();
+					$('#message').addClass('status text-center wait');
+					$('#message').text('Something went wrong......');
+					$('#message').show();
+				}
+				 setTimeout(function () {
+                     $('#message').hide();
+                 }, 1000);
 			}
 		});
+	}
+	function print(id){
+		return e+'/print/'+id;
+	}
+
+	function printAll(){
+		url=$("#base_url").val();
+		standard=$('#standard').val();
+		medium=$('#medium').val();
+		// console.log(url+'?standard='+standard+'&medium='+medium);
+		window.open(location.href=url+'/print-certification?standard='+standard+'&medium='+medium, '_blank');
 	}
 
 </script>
