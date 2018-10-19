@@ -328,4 +328,47 @@ class CertificationController extends Controller {
 		$pdf_name = 'Certification-' . date('Y-m-d h:i:s') . '.pdf';
 		return $pdf->download($pdf_name);
 	}
+	public function printAll(Request $r) {
+		$stu = [];
+
+		$stu = Student::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
+			->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
+		if ($r->batch) {
+			if ($r->batch != '-1') {
+				$stu->where('admission_details.ad_batch', $r->batch);
+			}
+		}
+		if ($r->standard) {
+			if ($r->standard != '-1') {
+				$stu->where('admission_details.ad_standard', $r->standard);
+			}
+		}
+		if ($r->medium) {
+			if ($r->medium != '-1') {
+				$stu->where('admission_details.ad_medium', $r->medium);
+			}
+		}
+		if ($r->subject) {
+			if ($r->subject != '-1') {
+				$stu->whereRaw('FIND_IN_SET(' . $r->subject . ',ad_subjects)');
+			}
+		}
+		$stu = $stu->get();
+		foreach ($stu as $key => $data) {
+			$subjects = $data->ad_subjects;
+			$arrSubjects = explode(',', $subjects);
+			$courses = Standard::whereIn('std_id', $arrSubjects)->get();
+			$stu[$key]->courses = !empty($courses) ? $courses : null;
+
+		}
+		$students = $stu;
+		// foreach ($students as $i) {
+		// 	dd($i->stu_middle_name);
+		// }
+		// die;
+		// return view('reports.certification-all-student', compact('students'));
+		$pdf = PDF::loadView('reports.certification-all-student', compact('students'))->setPaper('a4')->setWarnings(false);
+		$pdf_name = 'Certification-' . date('Y-m-d h:i:s') . '.pdf';
+		return $pdf->download($pdf_name);
+	}
 }
