@@ -78,6 +78,7 @@ Route::get('download-alltelecalling/{id}', 'TelecallingController@downloadAllPDF
 Route::get('download-marksheet/{id}', 'MarksheetController@downloadPDF')->name('ad-invoice');
 Route::get('download-all/{id}', 'MarksheetController@allPDF')->name('d-all-mark');
 Route::get('admission/confirm/{id}', 'AdmissionController@confirm');
+Route::get('certification/print/{id}', 'CertificationController@print');
 
 Route::get('/changepassword', 'ChangePasswordController@showchangepassword');
 
