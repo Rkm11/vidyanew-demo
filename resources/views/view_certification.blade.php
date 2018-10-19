@@ -82,6 +82,7 @@ All Student Certification
 									<tr>
 										<th class="col-sm-3">Name</th>
 										<th class="col-sm-9">Courses</th>
+										<th class="col-sm-9">Action</th>
 									</tr>
 								</thead>
 								<tbody id="cer-data">
@@ -101,6 +102,7 @@ All Student Certification
 										<!-- </div> -->
 										@endforeach
 										</td>
+										<td><a class="btn btn-warning" href = "{{url('/certification/print/')}}/{{$details->stu_id}}">Print</a>'</td>
 									</tr>
 									@endforeach
 									<?php } else {?>
@@ -170,6 +172,8 @@ All Student Certification
 			}
 		});
 	}
-
+	function print(id){
+		return e+'/print/'+id;
+	}
 </script>
 @endpush
