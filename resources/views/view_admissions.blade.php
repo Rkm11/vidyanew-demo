@@ -153,10 +153,10 @@ text-align: left;
 			},{
 				'targets': 6,
 				'render': function (data, type, full, meta){
-					if(full.ad_status){
-						return '<span class="btn btn-primary">Confirmed</span>';
+					if(full.in_paid_amount){
+						return '<span class="btn btn-primary">Paid</span>';
 					}else{
-						return '<a class="btn btn-warning" href = "'+redA(full.ad_id)+'">Confirm Now</a>';
+						return '<a class="btn btn-warning" href = "'+redAFees(full.stu_id)+'">Admission Fees</a>';
 					}
 				}
 			},{
@@ -182,6 +182,10 @@ text-align: left;
 	var v = '{{ url('admission/') }}';
 	function redA(id){
 		return v+'/'+id+'/edit';
+	}
+	function redAFees(id){
+		var v = '{{ url('invoice/') }}';
+		return v+'/'+id+'/edit?type=3';
 	}
 	function pr(id){
 		return "download-admission/"+id;
