@@ -307,27 +307,25 @@ class CertificationController extends Controller {
 		//
 	}
 
-	public function readExcel(Request $r) {
-		$data = array(
-			array("SNo." => 1, "Emp Code " => "T25", "" => null, "Name" => "1", "Last Punch" => "13:07", "" => null, "Direction" => null, "Punch Records" => "13:07,", "" => null, "Status" => "Present", "Date" => "20-Aug-2018"),
-			array("SNo." => 2, "Emp Code " => "T30", "" => null, "Name" => "ajay", "Last Punch" => "", "" => null, "Direction" => null, "Punch Records" => "", "" => null, "Status" => "Not Present", "Date" => ""),
-			array("SNo." => 3, "Emp Code " => "T35", "" => null, "Name" => "Test Employee 1", "Last Punch" => "", "" => null, "Direction" => null, "Punch Records" => "", "" => null, "Status" => "Not Present", "Date" => ""));
-		$preAt = Attendance::join('students', 'students.stu_id', '=', 'attendances.att_student')->where('att_added', '=', $r->added)->where('att_student', $r->student)->where('att_subject', $r->subject)->first();
-		// dd($preAt);
-		if (!$preAt) {
-			$d = $this->changeKeys($this->pre, $r->all());
-			return Attendance::create($d) ? 'success' : 'error';
-		} else {
-			if ($preAt->att_result != $r->result) {
-				return Attendance::where('att_student', $r->student)->update(['att_result' => $r->result]) ? 'success' : 'error';
-			}
-		}
-		foreach ($data as $key => $value) {
+	public function print($id) {
+		$stu = [];
+
+		$stu = Student::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
+			->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id')
+			->where('students.stu_id', $id)
+			->get();
+		foreach ($stu as $key => $data) {
+			$subjects = $data->ad_subjects;
+			$arrSubjects = explode(',', $subjects);
+			$courses = Standard::whereIn('std_id', $arrSubjects)->get();
+			$stu[$key]->courses = !empty($courses) ? $courses : null;
 
 		}
-		// $url = 'Employee_Punch_Monitor.xls';
-		// $reader = Excel::load($url, function ($reader) {})->get();
-		// // $reader = \Excel::load($url)->toArray();
-		// return redirect()->back()->with('reader', $reader);
+		$i = $stu[0];
+		// dd($i);
+		// return view('reports.certification', compact('i'));
+		$pdf = PDF::loadView('reports.certification', compact('i'))->setPaper('a4')->setWarnings(false);
+		$pdf_name = 'Certification-' . date('Y-m-d h:i:s') . '.pdf';
+		return $pdf->download($pdf_name);
 	}
 }
