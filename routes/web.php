@@ -76,6 +76,7 @@ Route::get('datatables', 'DatatablesController@getIndex');
 Route::get('data', 'DatatablesController@anyData')->name('datatables.data');
 
 Route::get('download-invoice/{id}', 'InvoiceController@downloadPDF')->name('d-invoice');
+Route::get('enquiry/print/{id}', 'EnquiryController@print')->name('enquiry-print');
 Route::get('download-receipt/{id}', 'InvoiceController@downloadReceipt')->name('d-receipt');
 Route::get('download-admission/{id}', 'AdmissionController@downloadPDF')->name('ad-invoice');
 Route::get('download-telecalling/{id}', 'TelecallingController@downloadPDF')->name('ad-invoice');
