@@ -125,7 +125,7 @@ $ID3 = 'relative';
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
-									<input type="text" class="form-control" name="stu[mobile]" placeholder="Mobile Number" value = "{{ chkN($a->stu_mobile) }}" maxlength="10" pattern="[0-9]{10}" required>
+									<input type="text" class="form-control" name="stu[mobile]" placeholder="Mobile Number" value = "{{ chkN($a->stu_mobile) }}" maxlength="10" pattern="^[789]\d{9}$" required>
 								</div>
 							</div>
 						</div>
@@ -169,16 +169,16 @@ $ID3 = 'relative';
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
-						<div class="col-sm-6">
+						<!--<div class="col-sm-6">
 							<div class="form-group">
 								 <label class="form-label">Parent Mobile Number
 									<span style="color:red;"></span>:
 								</label>
 								<div class="controls">
-									<input type="text" title="Enter Parent Number" class="form-control" name="stu[alt_mobile]" placeholder="Phone Number 1" value = "{{ chkN($a->stu_alt_mobile) }}" maxlength="10" pattern="[0-9]{10}">
+									<input type="text" title="Enter Parent Number" class="form-control" name="stu[alt_mobile]" placeholder="Phone Number 1" value = "{{ chkN($a->stu_alt_mobile) }}" maxlength="10" pattern="^[789]\d{9}$">
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Batch Time
@@ -248,7 +248,7 @@ $ID3 = 'relative';
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
-					<div class="col-sm-6">
+					<!-- <div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label" style="float:left;">Previous Year %
 								</label>
@@ -256,7 +256,7 @@ $ID3 = 'relative';
 									<input type="text" class="form-control" name="ad[pre_percent]" placeholder="Previous Year" id = "previousYear" value = "{{ chkN($a->ad_pre_percent) }}">
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label" style="float:left;">Total Fees
