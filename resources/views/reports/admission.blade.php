@@ -438,20 +438,6 @@ $classDetais=Setting::first();
 			<td>
 				<table>
 					<tr>
-						<td class="pre">
-							<p>6) Previous Year Percentage: </p>
-						</td>
-						<td class="line">
-							<span>{{ $i->ad_pre_percent }} %</span>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr class="details">
-			<td>
-				<table>
-					<tr>
 						<td>
 							<p>7) Other Information:</p>
 						</td>
