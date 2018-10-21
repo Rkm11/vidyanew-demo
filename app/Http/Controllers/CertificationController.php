@@ -40,6 +40,7 @@ class CertificationController extends Controller {
 			$stu[$key]->courses = !empty($courses) ? $courses : null;
 
 		}
+		// dd($stu);
 		return view('view_certification', compact('stu'));
 	}
 
