@@ -75,7 +75,7 @@ $ID = 'enquiry';
 							<div class="form-group">
 								<label class="form-label">Mobile<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" title="Enter Your Mobile Number" class="form-control" value = "{{ $en->stu_mobile }}" name="stu[mobile]" placeholder = "Mobile Number" maxlength="10" pattern="[0-9]{10}">
+									<input type="text" title="Enter Your Mobile Number" class="form-control" value = "{{ $en->stu_mobile }}" name="stu[mobile]" placeholder = "Mobile Number" maxlength="10" pattern="^[789]\d{9}$">
 								</div>
 							</div>
 						</div>
