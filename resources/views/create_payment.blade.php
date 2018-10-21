@@ -39,7 +39,7 @@ $ID = 'payment';
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" name="add_date" class="form-control datepicker" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" required>
+									<input type="text" name="add_date" class="form-control datepicker" placeholder="dd-mm-YYYY" data-format="yyyy-mm-dd" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" required>
 								</div>
 							</div>
 						</div>
