@@ -36,7 +36,7 @@ All Student Certification
 			<input type="hidden" name="base_url" id="base_url"  value="<?php echo url('/'); ?>">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 ">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Educational Qualification:</label>
 								<div class="controls">
@@ -51,7 +51,7 @@ All Student Certification
 							</div>
 						</div>
 
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Course:</label>
 								<div class="controls">
@@ -64,6 +64,14 @@ All Student Certification
 									</select>
 								</div>
 							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+							<label class="form-label">&nbsp;</label>
+							<div class="controls">
+					<a class="btn btn-warning" href = "javascript:void(0);" onclick="printAll()">Print</a>
+				</div>
+			</div>
 						</div>
 					</div>
 				</div>
@@ -96,13 +104,13 @@ All Student Certification
 											@php
 											$course = Certification::select(['*'])->where('cer_cid', $courses->std_id)
 											->where('cer_sid', $details->stu_id)->first();
-											$isChecked=(1==$course->cer_issued)?'checked=""':'';
+											$isChecked=(!empty($course->cer_issued)&&1==$course->cer_issued)?'checked=""':'';
 											@endphp
 											&nbsp;&nbsp;<input {{$isChecked}} type="checkbox" onclick="updateData('{{$courses->std_id}}','{{$details->stu_id}}')" value="{{$courses->std_id}}">&nbsp;&nbsp;{{$courses->std_name}}
 										<!-- </div> -->
 										@endforeach
 										</td>
-										<td><a class="btn btn-warning" href = "{{url('/certification/print/')}}/{{$details->stu_id}}">Print</a>'</td>
+										<td><a class="btn btn-warning" href = "{{url('/certification/print/')}}/{{$details->stu_id}}">Print</a></td>
 									</tr>
 									@endforeach
 									<?php } else {?>
@@ -175,5 +183,14 @@ All Student Certification
 	function print(id){
 		return e+'/print/'+id;
 	}
+
+	function printAll(){
+		url=$("#base_url").val();
+		standard=$('#standard').val();
+		medium=$('#medium').val();
+		// console.log(url+'?standard='+standard+'&medium='+medium);
+		window.open(location.href=url+'/print-certification?standard='+standard+'&medium='+medium, '_blank');
+	}
+
 </script>
 @endpush
