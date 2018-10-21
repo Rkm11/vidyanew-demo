@@ -53,7 +53,7 @@ $ID = 'test';
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" readonly="" class="datepicker" placeholder="dd-mm-yy" id="date" name="date" value="{{$test->test_date}}" required>
+									<input type="text" class="form-control datepicker" placeholder="dd-mm-yy" id="date" name="date" value="{{$test->test_date}}" required>
 								</div>
 							</div>
 						</div>

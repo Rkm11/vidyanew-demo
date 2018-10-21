@@ -31,19 +31,46 @@ class AdmissionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		// $enq = AdmissionDetail::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'standards.std_name', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_school', 'admission_details.created_at', 'invoices.in_paid_amount',
+		// 	DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
+		// 	->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
+		// 	->leftjoin('invoices', 'invoices.in_student', '=', 'admission_details.ad_student')
+		// 	->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+		// 	->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
+		// 	->where('admission_details.ad_status', 1)
+		// 	->get();
+		// foreach ($enq as $key => $value) {
+		// 	if ($value->in_paid_amount != null) {
+		// 		$enq[$key]->in_paid_amount = 1;
+		// 	} else {
+		// 		$enq[$key]->in_paid_amount = 0;
+		// 	}
+		// 	// dd($enq[$key]);
+		// 	# code...
+		// }
+		// return DataTables::of($enq)->make(true);
 		return view('view_admissions');
+		// if($enq)
 	}
 
 	public function data(Request $r) {
-		$enq = AdmissionDetail::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'standards.std_name', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_school', 'admission_details.created_at',
+		$enq = AdmissionDetail::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'standards.std_name', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_school', 'admission_details.created_at', 'invoices.in_paid_amount',
 			DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
-		// ->join('marksheets', 'marksheets.mark_student', '=', 'admission_details.ad_student')
+			->leftjoin('invoices', 'invoices.in_student', '=', 'admission_details.ad_student')
 			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
 			->where('admission_details.ad_status', 1)
-		// ->orderBy('created_at','desc')
 			->get();
+		foreach ($enq as $key => $value) {
+			if ($value->in_paid_amount != null) {
+				$enq[$key]->in_paid_amount = 1;
+			} else {
+				$enq[$key]->in_paid_amount = 0;
+			}
+			// dd($enq[$key]);
+			# code...
+		}
 
 		return DataTables::of($enq)->make(true);
 	}

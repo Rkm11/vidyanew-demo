@@ -98,7 +98,7 @@ class PaymentController extends Controller {
 			->first();
 		$ins = Installment::where('install_student', $invoice->ad_student)->first();
 		// $ins = Installment::where('install_student', $invoice->ad_student)->get();
-		// dd($ins);
+		// dd($invoice);
 		return view('front.view_payments', compact('invoice', 'ins'));
 	}
 }

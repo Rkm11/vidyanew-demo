@@ -17,6 +17,7 @@ use Charts;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use PDF;
 
 class EnquiryController extends Controller {
 	public function __construct() {
@@ -77,6 +78,8 @@ class EnquiryController extends Controller {
 				->get();
 			// dd($installment_list);
 			return view('dashboard', compact('ecout', 'acout', 'pcout', 'tcout', 'r_bal', 'icout', 'chart', 'installment_list'));
+		} else if (Auth::user()->role == 2) {
+			return view('dashboard');
 		}
 
 		// return view('dashboard')->with(compact('ecout','acout','pcout','tcout','r_bal','icout','chart','installment_list'));
@@ -203,5 +206,20 @@ class EnquiryController extends Controller {
 		$user->delete();
 
 		return redirect()->route('users.index');
+	}
+
+	public function print($id) {
+
+		$i = Enquiry::where('enq_id', $id)
+			->join('students', 'students.stu_id', '=', 'enquiries.enq_student')
+			->join('admission_details', 'admission_details.ad_id', '=', 'enquiries.enq_admission')
+			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+			->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
+			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+			->first();
+		// return view('reports.enquiry', compact('i', 'rel'));
+		$pdf = PDF::loadView('reports.enquiry', compact('i', 'rel'))->setPaper('a4')->setWarnings(false);
+		$pdf_name = 'enquiry-' . date('Y-m-d h:i:s') . '.pdf';
+		return $pdf->download($pdf_name);
 	}
 }

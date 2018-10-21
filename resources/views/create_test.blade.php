@@ -47,7 +47,7 @@ $ID = 'test';
 							<div class="form-group">
 								<label class="form-label">Date<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" class="form-control" readonly="" class="datepicker" placeholder="dd-mm-yy" id="date" name="date" required>
+									<input type="text" class="form-control datepicker" placeholder="dd-mm-yy" id="date" name="date" required>
 								</div>
 							</div>
 						</div>
@@ -105,7 +105,14 @@ $ID = 'test';
 									</select>
 								</div>
 							</div>
-						</di
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div id="subject_div" style="display: none;">
+								<label class="form-label">Subjects<span style="color:red;">*</span>:</label>
+							<ul class="list-unstyled" id = "subjectsBox">
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -241,11 +248,11 @@ $ID = 'test';
 						// val.push('<option value="'+v.sub_id+'">'+v.sub_name+'</option>');
 						val.push('&nbsp<input type="checkbox" id="subject" name="subject[]"  value="'+v.sub_id+'">'+v.sub_name+'&nbsp');
 					});
-					$('#subject' ).html(val);
+					$('#subjectsBox' ).html(val);
 				}else{
-					$('#subject').html('');
+					$('#subjectsBox').html('');
 					val.push('<b>No Subjects available for this standard</b>');
-					$('#subject').html(val);
+					$('#subjectsBox').html(val);
 				}
 			}
 		});
