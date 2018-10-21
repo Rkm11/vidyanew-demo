@@ -129,7 +129,7 @@ $ID3 = 'relative';
 									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
-									<input type="text" title="Enter Your Number" class="form-control" name="stu[mobile]" placeholder="Mobile Number"  maxlength="10"  pattern="[0-9]{10}" required>
+									<input type="text" title="Enter Your Number" class="form-control" name="stu[mobile]" placeholder="Mobile Number"  maxlength="10"  pattern="^[789]\d{9}$" required>
 								</div>
 							</div>
 						</div>
@@ -171,7 +171,7 @@ $ID3 = 'relative';
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<!--<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="col-sm-6">
 							<div class="form-group">
@@ -179,11 +179,11 @@ $ID3 = 'relative';
 									<span style="color:red;"></span>:
 								</label>
 								<div class="controls">
-									<input type="text" title="Enter Parent Number" class="form-control" name="stu[alt_mobile]" placeholder="Phone Number 1" maxlength="10" pattern="[0-9]{10}">
+									<input type="text" title="Enter Parent Number" class="form-control" name="stu[alt_mobile]" placeholder="Phone Number 1" maxlength="10" pattern="^[789]\d{9}$">
 								</div>
 							</div>
 						</div>
-						<!-- <div class="col-sm-6">
+						 <div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Standard
 									<span style="color:red;">*</span>:
@@ -199,9 +199,9 @@ $ID3 = 'relative';
 									</select>
 								</div>
 							</div>
-						</div> -->
+						</div>
 					</div>
-				</div>
+				</div>-->
 				<div class="row" id = "subject-box" >
 					<div class="col-xs-12 col-sm-12 ">
 						<div class="col-sm-12">
@@ -299,16 +299,15 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<!-- <div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Previous Year %
-									<!-- <span style="color:red;">*</span>: -->
 								</label>
 								<div class="controls">
 									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]"   placeholder="Previous Year" id = "previousYear">
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 					<div class="text-center">
