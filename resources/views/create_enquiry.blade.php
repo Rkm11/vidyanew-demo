@@ -76,7 +76,7 @@ $ID2 = 'previous';
 							<div class="form-group">
 								<label class="form-label">Mobile<span style="color:red;">*</span>:</label>
 								<div class="controls">
-									<input type="text" title="Enter your number" class="form-control" name="stu[mobile]" placeholder = "Mobile Number" maxlength="10"  pattern="[0-9]{10}" required>
+									<input type="text" title="Enter your number" class="form-control" name="stu[mobile]" placeholder = "Mobile Number" maxlength="10"  pattern="^[789]\d{9}$" required>
 								</div>
 							</div>
 						</div>
