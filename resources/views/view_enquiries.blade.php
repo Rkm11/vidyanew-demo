@@ -76,9 +76,6 @@ View Enquiries
 								<tr>
 									<th>Name</th>
 									<th>Mobile</th>
-									<th>Parent</th>
-									<th>Parent No.</th>
-
 									<th>School</th>
 									<th>Created AT</th>
 									<th>Admission</th>
@@ -115,8 +112,6 @@ View Enquiries
 			columns: [
 			{data : 'stu_name' , name : 'stu_name'},
 			{data: 'stu_mobile', name: 'stu_mobile'},
-			{data: 'parent_first_name', name: 'parent_first_name'},
-			{data: 'parent_mobile', name: 'parent_mobile'},
 			{data: 'ad_school', name: 'ad_school'},
 			{data: 'created_at', name: 'created_at'},
 			{},
@@ -125,14 +120,14 @@ View Enquiries
 			],
 			'columnDefs': [
 			{
-				'targets': 6,
+				'targets': 4,
 				'searchable': false,
 				'orderable': false,
 				'render': function (data, type, full, meta){
 					return '<a class="btn btn-warning" href = "'+redA(full.ad_id)+'">Confirm Now</a>';
 				}
 			},{
-				'targets': 7,
+				'targets': 5,
 				'searchable': false,
 				'orderable': false,
 				'visible' : false,
@@ -140,16 +135,16 @@ View Enquiries
 					return full.created_at;
 				}
 			},{
-				'targets': 8,
+				'targets': 6,
 				'searchable': false,
 				'orderable': false,
 				'render': function (data, type, full, meta){
-					return '<a class="btn btn-warning" href = "'+edit(full.enq_id)+'">Edit</a>';
+					return '<a class="btn btn-warning" href = "'+edit(full.enq_id)+'">Edit</a>&nbsp;<a class="btn btn-warning" href = "'+print(full.enq_id)+'">Print</a>';
 				}
 			}
 
 // &nbsp;&nbsp;<a class="btn btn-warning" href = "'+edit1(full.enq_id)+'">folloup</a>
-			],"order": [[ 7, "desc" ]]
+			],"order": [[ 6, "desc" ]]
 		});
 	});
 	// var v = '{{ url('admission/') }}',
@@ -165,6 +160,9 @@ View Enquiries
 
 		function edit(id){
 		return e+'/'+id+'/edit';
+	}
+	function print(id){
+		return e+'/print/'+id;
 	}
 	//model
 	function follow(id){
