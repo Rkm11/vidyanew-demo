@@ -212,7 +212,7 @@ while ($tNow <= $tEnd) {
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">
+						<!-- <div class="col-sm-3">
 							<div class="form-group">
 								<label class="form-label">Subjects<span style="color:red;">*</span>:</label>
 								<div class="controls">
@@ -221,7 +221,7 @@ while ($tNow <= $tEnd) {
 									</select>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="row">

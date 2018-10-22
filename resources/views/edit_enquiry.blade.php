@@ -96,7 +96,7 @@ $ID = 'enquiry';
 							<div class="form-group">
 								<label class="form-label">Parent Number 1<small>(optional)</small><span style="color:red;"></span>:</label>
 								<div class="controls">
-									<input type="text" title="Enter Number" value = "{{ $en->parent_mobile }}" class="form-control" name="p[mobile]" placeholder="Parent Number" maxlength="10" pattern="[0-9]{10}" >
+									<input type="text" title="Enter Number" value = "{{ $en->parent_mobile }}" class="form-control" name="p[mobile]" placeholder="Parent Number" maxlength="10" pattern="^[789]\d{9}$" >
 								</div>
 							</div>
 						</div>

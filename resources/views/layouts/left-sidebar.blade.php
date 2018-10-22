@@ -1,7 +1,7 @@
 <div class="page-sidebar fixedscroll">
 
     <!-- MAIN MENU - START -->
-    <div class="page-sidebar-wrapper" id="main-menu-wrapper" style="background-color:#5aca9b;">
+    <div class="page-sidebar-wrapper" id="main-menu-wrapper" style="background-color: rgb(90, 202, 155); height: 407px;">
 
         <!-- USER INFO - START -->
         <div class="profile-info row">

@@ -180,7 +180,7 @@ $ID3 = 'relative';
 									<span style="color:red;"></span>:
 								</label>
 								<div class="controls">
-									<input type="text" title="Enter Parent Number" class="form-control" name="pr[parent_mobile]" placeholder="Phone Number 1" value = "{{ chkN($a->parent_mobile) }}" maxlength="10" pattern="[0-9]{10}">
+									<input type="text" title="Enter Parent Number" class="form-control" name="pr[parent_mobile]" placeholder="Phone Number 1" value = "{{ chkN($a->parent_mobile) }}" maxlength="10" pattern="^[789]\d{9}$">
 								</div>
 							</div>
 						</div>
