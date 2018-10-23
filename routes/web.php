@@ -35,6 +35,7 @@ Route::get('installment-data', 'InstallmentController@data')->name('installment.
 Route::post('filtered-certification-data', 'CertificationController@filteredData')->name('filtered-certification-data');
 Route::get('certification-data', 'CertificationController@data')->name('certification.data');
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
+Route::get('enquiry/print/{id}', 'EnquiryController@print')->name('enquiry-print');
 
 Route::get('generate-att-report', 'AttendanceController@generateReport')->name('generate-att-report');
 Route::get('view-marksheet/{id}', 'MarksheetController@viewMarksheet')->name('view-marksheet');
