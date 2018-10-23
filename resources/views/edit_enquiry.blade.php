@@ -167,16 +167,16 @@ $ID = 'enquiry';
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-4">
+						<!-- <div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">Previous Year %
-									<!-- <span style="color:red;">*</span>: -->
+									<span style="color:red;">*</span>:
 								</label>
 								<div class="controls">
 									<input type="text" title="This must be a %" class="form-control" name="ad[pre_percent]" placeholder="Previous Year" id = "previousYear" value = "{{($en->ad_pre_percent) }}">
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="row" id = "subject-box">
