@@ -54,7 +54,7 @@ $classDetais=Setting::first();
 		@php
 			$course = Certification::select(['*'])->where('cer_cid', $courses->std_id)
 			->where('cer_sid', $i->stu_id)->first();
-			$isChecked=(1==$course->cer_issued)?'Issued':'Not Issued';
+			$isChecked=(!empty($course->cer_issued)&&1==$course->cer_issued)?'Issued':'Not Issued';
 		@endphp
 		<b><center>{{$isChecked}}</center></b>
 	</td>
