@@ -15,6 +15,7 @@ use Charts;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use PDF;
 
 class EnquiryController extends Controller {
 	public function __construct() {
@@ -80,7 +81,7 @@ class EnquiryController extends Controller {
 			->join('admission_details', 'admission_details.ad_id', '=', 'enquiries.enq_admission')
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
 		// ->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
-			//->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
+		//->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
 			->orderBy('enquiries.created_at', 'desc')
 			->where('admission_details.ad_status', 0)
 			->get();
@@ -169,5 +170,20 @@ class EnquiryController extends Controller {
 
 	public function destroy($id) {
 		//
+	}
+	public function print($id) {
+
+		$i = Enquiry::where('enq_id', $id)
+			->join('students', 'students.stu_id', '=', 'enquiries.enq_student')
+			->join('admission_details', 'admission_details.ad_id', '=', 'enquiries.enq_admission')
+		// ->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
+		// ->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
+			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+			->first();
+		// dd($i);
+		// return view('reports.enquiry', compact('i', 'rel'));
+		$pdf = PDF::loadView('reports.enquiry', compact('i', 'rel'))->setPaper('a4')->setWarnings(false);
+		$pdf_name = 'enquiry-' . date('Y-m-d h:i:s') . '.pdf';
+		return $pdf->download($pdf_name);
 	}
 }
