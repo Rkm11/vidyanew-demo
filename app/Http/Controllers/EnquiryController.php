@@ -76,11 +76,11 @@ class EnquiryController extends Controller {
 	}
 
 	public function data(Request $r) {
-		$enq = Enquiry::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'parent_details.parent_id', 'parent_details.parent_first_name', 'parent_details.parent_mobile', 'admission_details.ad_school', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_fees', 'admission_details.ad_remaining_fees', 'enquiries.enq_id', 'enquiries.created_at', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
+		$enq = Enquiry::select(['students.stu_id', 'students.stu_uid', 'students.stu_first_name', 'students.stu_last_name', 'students.stu_mobile', 'admission_details.ad_school', 'admission_details.ad_status', 'admission_details.ad_id', 'admission_details.ad_fees', 'admission_details.ad_remaining_fees', 'enquiries.enq_id', 'enquiries.created_at', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
 			->join('admission_details', 'admission_details.ad_id', '=', 'enquiries.enq_admission')
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')
 		// ->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
-			->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
+			//->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
 			->orderBy('enquiries.created_at', 'desc')
 			->where('admission_details.ad_status', 0)
 			->get();
