@@ -32,6 +32,7 @@ class CertificationController extends Controller {
 
 		$stu = Student::select(['*', DB::raw('CONCAT(students.stu_first_name, " " , students.stu_last_name) AS stu_name')])
 			->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id')
+			->where('admission_details.ad_status', 1)
 			->get();
 		foreach ($stu as $key => $data) {
 			$subjects = $data->ad_subjects;
