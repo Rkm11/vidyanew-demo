@@ -180,7 +180,7 @@ class EnquiryController extends Controller {
 		// ->join('parent_details', 'parent_details.parent_id', '=', 'students.stu_parent')
 			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
 			->first();
-		// dd($i);
+		// dd($i->ad_subjects);
 		// return view('reports.enquiry', compact('i', 'rel'));
 		$pdf = PDF::loadView('reports.enquiry', compact('i', 'rel'))->setPaper('a4')->setWarnings(false);
 		$pdf_name = 'enquiry-' . date('Y-m-d h:i:s') . '.pdf';
