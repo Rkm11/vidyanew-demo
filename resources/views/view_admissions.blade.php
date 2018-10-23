@@ -86,10 +86,10 @@ View Admissions
 			},{
 				'targets': 4,
 				'render': function (data, type, full, meta){
-					if(full.ad_status){
-						return '<span class="btn btn-primary">Confirmed</span>';
+					if(full.in_paid_amount){
+						return '<span class="" ><h4><b><i>Paid</i></b></h4></span>';
 					}else{
-						return '<a class="btn btn-warning" href = "'+redA(full.ad_id)+'">Confirm Now</a>';
+						return '<a class="btn btn-warning" href = "'+redAFees(full.stu_id)+'">Admission Fees</a>';
 					}
 				}
 			},{
@@ -125,6 +125,10 @@ View Admissions
 		window.setTimeout(function(){
 			$('.loader').hide();
 		},2000);
+	}
+	function redAFees(id){
+		var v = '{{ url('invoice/') }}';
+		return v+'/'+id+'/edit?type=3';
 	}
 </script>
 @endpush
