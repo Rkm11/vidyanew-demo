@@ -179,6 +179,24 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div> -->
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Education Qualification
+									<span style="color:red;">*</span>:
+								</label>
+								<div class="controls">
+									<select class="form-control" name="ad[medium]">
+										<option value="-1">--Select--</option>
+										@forelse (App\Models\Medium::get() as $med)
+										<option value = "{{ $med->med_id }}" {{ ($en->ad_medium != '')?(($en->ad_medium == $med->med_id) ? 'selected' : '') : '' }}>{{ $med->med_name }}</option>
+										@empty
+										@endforelse
+
+									</select>
+								</div>
+							</div>
+						</div>
+
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="form-label">Batch Time
