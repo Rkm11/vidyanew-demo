@@ -334,10 +334,7 @@ $classDetais=Setting::first();
 							<p>3) School / College: <span>{{ $i->ad_school }}</span></p>
 						</td>
 						<td class="medium">
-							<p>Medium: <span>{{ $i->med_name }}</span></p>
-						</td>
-						<td class="standard">
-							<p>Standard: <span>{{ $i->std_name }}</span></p>
+							<p>Education Qualification: <span>{{ $i->med_name }}</span></p>
 						</td>
 					</tr>
 				</table>
@@ -348,7 +345,7 @@ $classDetais=Setting::first();
 				<table>
 					<tr>
 						<td>
-							<p>4) Subject Offered:</p>
+							<p>4) Courses Offered:</p>
 						</td>
 					</tr>
 				</table>
@@ -363,7 +360,7 @@ $classDetais=Setting::first();
 								<table style="padding: 0px!important;">
 									<tbody>
 										@php
-										$subs = App\Models\Subject::whereIn('sub_id', explode(',',$i->ad_subjects))->get();
+										$subs = \App\Models\Standard::whereIn('std_id', explode(',', $i->ad_subjects))->get();
 										$c = count($subs);
 
 										$k = 1;
@@ -371,7 +368,7 @@ $classDetais=Setting::first();
 										<tr>
 											@for ($ie = 0; $ie < 10; $ie++)
 											@if ($ie < $c)
-											<td class="sub-list-td"><p>{{ romanic_number($k++) }}. <span>{{ $subs[$ie]->sub_name }}</span></p></td>
+											<td class="sub-list-td"><p>{{ romanic_number($k++) }}. <span>{{ $subs[$ie]->std_name }}</span></p></td>
 											@else
 											<td class="sub-list-td"><p>{{ romanic_number($k++) }}. </p></td>
 											@endif
@@ -411,20 +408,6 @@ $classDetais=Setting::first();
 						</td>
 						<td class="cell">
 							<p>Cell: <span>{{ $i->stu_alt_mobile }}</span></p>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr class="details">
-			<td>
-				<table>
-					<tr>
-						<td class="pre">
-							<p>6) Previous Year Percentage: </p>
-						</td>
-						<td class="line">
-							<span>{{ $i->ad_pre_percent }} %</span>
 						</td>
 					</tr>
 				</table>
