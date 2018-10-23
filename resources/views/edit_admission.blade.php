@@ -151,7 +151,7 @@ $ID3 = 'relative';
 							<div class="col-sm-4">
 								<ul class="list-unstyled">
 									<li>
-										<input tabindex="5" type="radio" id="square-radio-1" name="stu[gender]" class="skin-square-green" required value = "1" {{ ($a->stu_gender) ? 'checked' : ''}}>
+										<input tabindex="5" type="radio" id="square-radio-1" name="stu[gender]" class="skin-square-green" required value = "1" {{ ($a->stu_gender==1) ? 'checked' : ''}}>
 										<label class="iradio-label form-label" for="square-radio-1">Male</label>
 									</li>
 								</ul>
@@ -159,7 +159,7 @@ $ID3 = 'relative';
 							<div class="col-sm-4">
 								<ul class="list-unstyled">
 									<li>
-										<input tabindex="5" type="radio" id="square-radio-1" name="stu[gender]" class="skin-square-green" value = "0" {{ ($a->stu_gender) ? '' : ''}}>
+										<input tabindex="5" type="radio" id="square-radio-1" name="stu[gender]" class="skin-square-green" value = "0" {{ ($a->stu_gender==0) ? 'checked' : ''}}>
 										<label class="iradio-label form-label" for="square-radio-1">Female</label>
 									</li>
 								</ul>
@@ -188,7 +188,7 @@ $ID3 = 'relative';
 									<select class="form-control" name="ad[medium]">
 										<option value="-1">--Select--</option>
 										@forelse (App\Models\Medium::get() as $med)
-										<option value = "{{ $med->med_id }}" {{ ($en->ad_medium != '')?(($en->ad_medium == $med->med_id) ? 'selected' : '') : '' }}>{{ $med->med_name }}</option>
+										<option value = "{{ $med->med_id }}" {{ ($a->ad_medium != '')?(($a->ad_medium == $med->med_id) ? 'selected' : '') : '' }}>{{ $med->med_name }}</option>
 										@empty
 										@endforelse
 
