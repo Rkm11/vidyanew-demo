@@ -77,7 +77,6 @@ View Enquiries
 									<th>Name</th>
 									<th>Mobile</th>
 									<th>School</th>
-									<th>Created AT</th>
 									<th>Admission</th>
 									<th>Date</th>
 									<th>Action</th>
@@ -113,21 +112,20 @@ View Enquiries
 			{data : 'stu_name' , name : 'stu_name'},
 			{data: 'stu_mobile', name: 'stu_mobile'},
 			{data: 'ad_school', name: 'ad_school'},
-			{data: 'created_at', name: 'created_at'},
 			{},
 
 			{}
 			],
 			'columnDefs': [
 			{
-				'targets': 4,
+				'targets': 3,
 				'searchable': false,
 				'orderable': false,
 				'render': function (data, type, full, meta){
 					return '<a class="btn btn-warning" href = "'+redA(full.ad_id)+'">Confirm Now</a>';
 				}
 			},{
-				'targets': 5,
+				'targets': 4,
 				'searchable': false,
 				'orderable': false,
 				'visible' : false,
@@ -135,7 +133,7 @@ View Enquiries
 					return full.created_at;
 				}
 			},{
-				'targets': 6,
+				'targets': 5,
 				'searchable': false,
 				'orderable': false,
 				'render': function (data, type, full, meta){
@@ -144,7 +142,7 @@ View Enquiries
 			}
 
 // &nbsp;&nbsp;<a class="btn btn-warning" href = "'+edit1(full.enq_id)+'">folloup</a>
-			],"order": [[ 6, "desc" ]]
+			],"order": [[ 5, "desc" ]]
 		});
 	});
 	// var v = '{{ url('admission/') }}',
