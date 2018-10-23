@@ -55,6 +55,22 @@ $ID3 = 'relative';
 								</div>
 							</div>
 						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="form-label">Education Qualification
+									<span style="color:red;">*</span>:
+								</label>
+								<div class="controls">
+									<select class="form-control" id = "medium" name="ad[medium]" required>
+										<option value="">--Select--</option>
+										@forelse (App\Models\Medium::get() as $m)
+										<option value = "{{ $m->med_id }}">{{ $m->med_name }}</option>
+										@empty
+										@endforelse
+									</select>
+								</div>
+							</div>
+						</div>
 						{{-- <div class="col-sm-4">
 							<div class="form-group">
 								<label class="form-label">ID
