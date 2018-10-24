@@ -31,10 +31,10 @@ $classDetais=Setting::first();
 
   <div class="grid-item" style="background-color: #2d3e40"><a href="{{url('/view-marksheet')}}"> Marksheet</a></div>
   <div class="grid-item" style="background-color: #78ab47"><a href="{{url('/view-attendance')}}"> Attendance</a></div>
-  <br>
-  <div class="grid-item" style="background-color: #800080"><a href="{{url('/')}}"> Noticeboard</a></div>
+  <!-- <br> -->
+  <!-- <div class="grid-item" style="background-color: #800080"><a href="{{url('/')}}"> Noticeboard</a></div> -->
   <div class="grid-item" style="background-color: #008080"><a href="{{url('/view-fees')}}"> Fees Details</a></div>
-  <br>
+  <!-- <br> -->
   <div class="grid-item" style="background-color: #E9967A"><a href="{{url('/change-password')}}"> Change Password</a></div>
   <div class="grid-item" style="background-color: #B8860B"><a href="{{url('/front-logout')}}"> Logout</a></div>
 

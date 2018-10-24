@@ -1,3 +1,6 @@
+<?php
+// dd(Auth::user());
+?>
 @php
 use App\Models\Setting;
 $classDetais=Setting::first();
@@ -57,6 +60,7 @@ $classDetais=Setting::first();
 </head>
 <body>
 <!-- HEADER MENU------------------------------------------------------ -->
+<?php if (!empty(Auth::user())) {?>
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
@@ -65,7 +69,7 @@ $classDetais=Setting::first();
     <a href="{{url('/home')}}" style="">Dashboard</a>
     <a href="{{url('/view-marksheet')}}">Marksheet</a>
   <a href="{{url('/view-attendance')}}">Attendance</a>
-  <a href="{{url('/')}}">Noticeboard</a>
+  <!-- <a href="{{url('/')}}">Noticeboard</a> -->
   <a href="{{url('/view-fees')}}">Payment</a>
   <a href="{{url('/change-password')}}">Change Password</a>
   <a href="{{url('/view-profile')}}">Profile</a>
@@ -74,14 +78,15 @@ $classDetais=Setting::first();
   </div>
 
 </div>
-
+<?php }?>
 
 <div id="mainpage">
 
 <span style="font-size:30px;cursor:pointer;color: white;margin-left: 5px;" onclick="openNav()">&#9776;</span>
+@if(!empty(Auth::user()))
  <span id="dopen"><a style="color: white;" href="{{url('/home')}}">DASHBOARD</a></span>
  <span id="dlogout"><a style="color: white;" href="{{url('/front-logout')}}">LOGOUT</a></span>
-
+@endif
 </div>
 
 <script>

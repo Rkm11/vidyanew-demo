@@ -39,6 +39,7 @@ Route::get('timetable.data', 'TimetableController@data')->name('timetable.data')
 Route::get('test/delete/{id}', 'TestController@deleteData');
 Route::get('test/edit/{id}', 'TestController@edit')->name('test/edit');
 Route::get('get-enquiry', 'TelecallingController@getFollowdata');
+Route::get('check-email-exist', 'TelecallingController@checkEmailID');
 
 Route::get('generate-att-report', 'AttendanceController@generateReport')->name('generate-att-report');
 Route::get('view-marksheet/{id}', 'MarksheetController@viewMarksheet')->name('view-marksheet');

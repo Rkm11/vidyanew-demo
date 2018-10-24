@@ -129,4 +129,13 @@ class TelecallingController extends Controller {
 		// return $pdf->download('admission.pdf');
 		// return view('view_admissions');
 	}
+
+	public function checkEmailID(Request $r) {
+		$emailId = $r->emailId;
+		$email = User::where('email', $emailId)->first();
+		if (!empty($email)) {
+			return 'existEmail';
+		}
+		return 'new';
+	}
 }

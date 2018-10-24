@@ -193,7 +193,7 @@ text-align: left;
 				'width' : '220px',
 				'render': function (data, type, full, meta){
 					rm();
-					return '<div id = "in-'+full.stu_id+'"><a class="btn btn-warning" href = "'+redA(full.stu_id)+'"> fees</a><button class = "btn btn-success" onclick = "installData('+full.stu_id+');">installment</button></div>';
+					return '<div ><a id = "in-'+full.stu_id+'"  class="btn btn-warning" href = "'+redA(full.stu_id)+'"> fees</a><button class = "btn btn-success" onclick = "installData('+full.stu_id+');">installment</button></div>';
 				}
 			},{
 				'targets':8,
@@ -320,8 +320,9 @@ text-align: left;
 	function rm(){
 
 		$.get('{{ route('data-invoice') }}', function (data) {
+			console.log(data);
 			$.each(data,function(k,v){
-				$('#in-'+v.in_student).html('-');
+				$('#in-'+v.in_student).hide();
 			})
 		});
 	}

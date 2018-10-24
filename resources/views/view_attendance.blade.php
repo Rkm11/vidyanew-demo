@@ -52,7 +52,7 @@ text-align: left;
 @section('content')
 <div class="col-lg-12">
 	<section class="box ">
-		
+
 		<div class="content-body" style="background-color:#9ddac0">
 			<input type="hidden" name="base_url" id="base_url"  value="<?php echo url('/'); ?>">
 				<div class="row">
@@ -227,8 +227,9 @@ $('#import_file').on('change', function (){
 		startDate=($('#startDate').val()!='')?$('#startDate').val():'';
 		endDate=($('#endDate').val()!='')?$('#endDate').val():'';
 		url=base_url+'/generate-att-report'+'?batch='+batch+'&subject='+subject+'&standard='+standard+'&medium='+medium+'&startDate='+startDate+'&endDate='+endDate;
-		console.log(url);
-		$("a").attr("href", url)
+		window.location.href =url;
+		// console.log(url);
+		// $("a").attr("href", url)
 				// $.ajax({
 		// url : '{!! route('generate-att-report') !!}',
 		// 		type : 'get',

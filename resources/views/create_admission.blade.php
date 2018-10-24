@@ -83,8 +83,9 @@ $ID3 = 'relative';
 								<label class="form-label">Email
 								</label>
 								<div class="controls">
-									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail"  class="form-control" name="stu[email]"  placeholder="Email Id">
+									<input type="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" title="Enter Valid Mail"  class="form-control" id="email-id" name="stu[email]"  placeholder="Email Id">
 								</div>
+								<span id="email-exist"></span>
 							</div>
 						</div>
 						<div class="col-sm-4">
@@ -566,5 +567,7 @@ $ID3 = 'relative';
 			}
 		});
 	}
+
+
 </script>
 @endpush

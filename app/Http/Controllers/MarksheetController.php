@@ -92,6 +92,7 @@ class MarksheetController extends Controller {
 		if ($r->test_id != '') {
 			$stu->where('marksheets.mark_testid', $r->test_id);
 		}
+		// $stu->groupBy('stu_id');
 		$stu->get();
 		return DataTables::of($stu)->filterColumn('stu_name', function ($query, $keyword) {
 			$query->whereRaw("CONCAT(students.stu_first_name, \" \" , students.stu_last_name) like ?", ["%{$keyword}%"]);
