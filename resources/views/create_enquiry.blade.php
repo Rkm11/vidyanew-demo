@@ -108,7 +108,7 @@ $ID2 = 'previous';
 							<div class="form-group">
 								<label class="form-label">Parent Number 1<small>(optional)</small><span style="color:red;"></span>:</label>
 								<div class="controls">
-									<input type="text" title="Enter your parent mobile number" maxlength="10"  pattern="[0-9]{10}" class="form-control" name="p[mobile]" placeholder="Parent Number" >
+									<input type="text" title="Enter your parent mobile number" maxlength="10"   pattern="^[789]\d{9}$" class="form-control" name="p[mobile]" placeholder="Parent Number" >
 								</div>
 							</div>
 						</div>
