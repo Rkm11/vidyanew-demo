@@ -100,7 +100,8 @@ class MarksheetController extends Controller {
 	}
 
 	public function dataMarksheet(Request $r) {
-		$stu = Marksheet::join('students', 'students.stu_id', '=', 'marksheets.mark_student')->join('subjects', 'subjects.sub_id', '=', 'marksheets.mark_subject')->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id');
+		$stu = Marksheet::join('students', 'students.stu_id', '=', 'marksheets.mark_student')->join('subjects', 'subjects.sub_id', '=', 'marksheets.mark_subject')->join('admission_details', 'admission_details.ad_student', '=', 'students.stu_id')
+			->where('admission_details.ad_status', 1);
 
 		if ($r->batch) {
 			if ($r->batch != '-1') {
@@ -132,7 +133,8 @@ class MarksheetController extends Controller {
 			->leftJoin('tests', 'tests.test_standard', '=', 'admission_details.ad_standard')
 			->leftJoin('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->leftJoin('marksheets', 'marksheets.mark_student', '=', 'students.stu_id')
-			->leftJoin('subjects', 'subjects.sub_id', '=', 'marksheets.mark_subject');
+			->leftJoin('subjects', 'subjects.sub_id', '=', 'marksheets.mark_subject')
+			->where('admission_details.ad_status', 1);
 		// $stu = Student::with('marksheets')->join('admission_details', 'admission_details.ad_student','=','students.stu_id');
 		if ($r->batch) {
 			if ($r->batch != '-1') {
@@ -268,7 +270,8 @@ class MarksheetController extends Controller {
 			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->leftJoin('tests', 'tests.test_standard', '=', 'admission_details.ad_standard')
 			->leftJoin('batches', 'batches.batch_id', '=', 'admission_details.ad_batch')
-			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium');
+			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+			->where('admission_details.ad_status', 1);
 
 		$subjects = Marksheet::select(['subjects.sub_name'])
 			->join('tests', 'tests.id', '=', 'marksheets.mark_testid')
@@ -366,6 +369,7 @@ class MarksheetController extends Controller {
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')->where('ad_student', $id)
 			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+			->where('admission_details.ad_status', 1)
 			->first();
 		$marks = [];
 		$arrSubjects = explode(',', $i->ad_subjects);
@@ -419,6 +423,7 @@ class MarksheetController extends Controller {
 			->join('students', 'students.stu_id', '=', 'admission_details.ad_student')->where('ad_student', $id)
 			->join('standards', 'standards.std_id', '=', 'admission_details.ad_standard')
 			->join('mediums', 'mediums.med_id', '=', 'admission_details.ad_medium')
+			->where('admission_details.ad_status', 1)
 			->first();
 		$marks = [];
 		$arrSubjects = explode(',', $i->ad_subjects);
@@ -452,6 +457,7 @@ class MarksheetController extends Controller {
 		$emailID = Auth::user()->email;
 		$studentDetails = Student::where('stu_email', $emailID)
 			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+			->where('admission_details.ad_status', 1)
 			->first();
 		$marksDetails = null;
 		if (!empty($studentDetails) && !empty($studentDetails->stu_id)) {

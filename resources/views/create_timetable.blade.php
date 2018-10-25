@@ -381,8 +381,8 @@ while ($tNow <= $tEnd) {
 			columns: [
 			{data : 'time_date' , name : 'time_date'},
 			{data : 'std_name' , name : 'std_name'},
-			{data : 'std_name' , name : 'std_name'},
 			{data : 'batch_name' , name : 'batch_name'},
+			{data : 'sub_name' , name : 'sub_name'},
 			{data: 'time_start', name: 'time_start'},
 			{data: 'time_end', name: 'time_end'}
 			],

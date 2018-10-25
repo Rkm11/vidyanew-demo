@@ -11,7 +11,6 @@ class ChangeSettingController extends Controller {
 		$this->middleware('auth');
 	}
 	public function index() {
-		dd('sss');
 		$settings = Setting::first();
 		return view('/changesetting', compact('settings'));
 	}
