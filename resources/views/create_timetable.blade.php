@@ -352,7 +352,7 @@ while ($tNow <= $tEnd) {
 	}
 </script>
 <script type="text/javascript">
-	$('#batches, #standard, #medium, #subjects, #startDate,#endDate').on({
+	$('#batches, #standards, #mediums, #subjects, #startDate,#endDate').on({
 		'change' : function(){
 			$('#timetable-table').DataTable().destroy()
 			timetableData();

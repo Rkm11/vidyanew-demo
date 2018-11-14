@@ -70,7 +70,7 @@ class TimetableController extends Controller {
 			$stu->where('timetables.time_date', '<=', date('d-m-Y', strtotime($r->endDate)))->get();
 		}
 		if ($r->startDate && empty($r->endDate)) {
-			$timetable->where('timetables.time_date', '>=', date('d-m-Y', strtotime($r->startDate)))->get();
+			$timetable->where('timetables.time_date', '=', date('d-m-Y', strtotime($r->startDate)))->get();
 		}
 		if (empty($r->startDate) && $r->endDate) {
 			$timetable->where('timetables.time_date', '<=', date('d-m-Y', strtotime($r->endDate)))->get();

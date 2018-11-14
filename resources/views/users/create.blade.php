@@ -23,7 +23,7 @@ $ID = 'users';
             <div class="row">
                 <div class="col-xs-12 form-group">
                     <label class ="control-label">Email*</label>
-                    <input type="email" name="emailId" class="form-control" placeholder="Email Id" required="">
+                    <input type="email" name="emailId" class="form-control" id="email-id" placeholder="Email Id" required="">
                     <p class="help-block"></p>
                     @if($errors->has('emailId'))
                         <p class="help-block">

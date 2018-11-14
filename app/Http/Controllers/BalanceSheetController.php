@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BalanceSheet;
 use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class BalanceSheetController extends Controller {
@@ -32,7 +33,7 @@ class BalanceSheetController extends Controller {
 
 	public function data(Request $r) {
 		$r->all();
-		$bal = BalanceSheet::orderBy('bs_created_at', 'desc');
+		$bal = BalanceSheet::select(DB::raw("*"))->orderBy('bs_created_at', 'desc');
 
 		if ($r->startDate && $r->endDate) {
 			$bal->where('bs_date', '>=', date('d-m-Y', strtotime($r->startDate)))->get();

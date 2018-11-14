@@ -30,8 +30,8 @@ Balance Sheet
 									<th>date</th>
 									<th>Particulars</th>
 									<th>Purpose</th>
-									<th>Debit</th>
-									<th>Credit</th>
+<!-- 									<th>Debit</th>
+									<th>Credit</th> -->
 									<th>Debit</th>
 									<th>Credit</th>
 								</tr>
@@ -216,7 +216,7 @@ Balance Sheet
 			{},
 			{},
 			{data: 'bs_debit', name: 'bs_debit', visible:false},
-			{data: 'bs_date', name: 'bs_date', visible:false},
+			{data: 'bs_credit', name: 'bs_credit', visible:false},
 			],
 			columnDefs: [{
 				'targets': 0,
@@ -240,10 +240,14 @@ Balance Sheet
 				'searchable': false,
 				'orderable': false,
 				'render': function (data, type, full, meta){
+					totals=0;
+					totals=full.bs_credit+totals;
+
 					return (full.bs_credit == 0) ? '-' : full.bs_credit;
 				}
 			}],
 			"footerCallback": function ( row, data, start, end, display ) {
+				console.log(data);
 				var api = this.api(),data,api2 = this.api();
             // Remove the formatting to get integer data for summation
             var intVal = function ( i ) {
