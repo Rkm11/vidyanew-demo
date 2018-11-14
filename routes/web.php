@@ -103,6 +103,7 @@ Route::get('user/delete/{id}', 'EnquiryController@deleteUser');
 // Route::get('users/create', 'UsersController@create')->name('users/create');
 //Front Routes
 Route::get('view-marksheet', 'MarksheetController@frontMarksdetails')->name('view-marksheet');
+Route::get('view-timetable', 'TimetableController@frontTimetable')->name('view-timetable');
 Route::get('ajax-marksheet', 'MarksheetController@frontAjaxMarksdetails')->name('ajax-marksheet');
 Route::get('view-attendance', 'AttendanceController@frontAttendancedetails')->name('view-attendance');
 Route::get('ajax-attendance', 'AttendanceController@frontAjaxAttendancedetails')->name('ajax-attendance');

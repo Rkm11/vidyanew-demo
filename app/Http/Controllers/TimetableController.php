@@ -7,6 +7,7 @@ use App\Models\Marksheet;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Timetable;
+use Auth;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -257,5 +258,28 @@ class TimetableController extends Controller {
 		}
 
 		return redirect()->route('test.index');
+	}
+
+	public function frontTimetable() {
+		$attendanceDetails = null;
+		$subjectDetails = [];
+		$emailID = Auth::user()->email;
+		$studentDetails = Student::where('stu_email', $emailID)
+			->join('admission_details', 'students.stu_id', '=', 'admission_details.ad_student')
+			->first();
+		$marksDetails = null;
+		if (!empty($studentDetails) && !empty($studentDetails->stu_id)) {
+			$subjectIds = explode(',', $studentDetails->ad_subjects);
+			$subjectDetails = subject::whereIn('sub_id', $subjectIds)->get();
+			$timetable = Timetable::join('batches', 'batches.batch_id', '=', 'timetables.time_batch')
+				->join('mediums', 'mediums.med_id', '=', 'timetables.time_medium')
+				->join('standards', 'standards.std_id', '=', 'timetables.time_standard')
+				->join('subjects', 'subjects.sub_id', '=', 'timetables.time_subject')
+				->where('timetables.time_medium', $studentDetails->ad_medium)
+				->where('timetables.time_batch', $studentDetails->ad_batch)
+				->where('timetables.time_standard', $studentDetails->ad_standard)
+				->get();
+		}
+		return view('front.view_timetable', compact('timetable'));
 	}
 }
